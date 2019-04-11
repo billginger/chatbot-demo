@@ -41,7 +41,7 @@ docker pull nginx
 docker run --name nginx -d --network host -v /data/gravity-prototype/nginx:/etc/nginx -v /data/gravity-prototype/logs:/logs nginx
 ```
 
-请注意：这里 nginx 容器使用了宿主网络，不需要映射端口，访问其它容器暴露的端口也会比较方便。
+> 请注意：这里 nginx 容器使用了宿主网络，不需要映射端口，访问其它容器暴露的端口也会比较方便。
 
 * 重启容器使新的配置文件生效（不建议）：
 
