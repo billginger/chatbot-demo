@@ -7,10 +7,6 @@ const accessFile = Object.assign({ filename: '/logs/gravity_facebook_access.log'
 const appFile = Object.assign({ filename: '/logs/gravity_facebook_app.log' }, logFile);
 const errFile = Object.assign({ filename: '/logs/gravity_facebook_error.log' }, logFile);
 
-console.log(accessFile);
-console.log(appFile);
-console.log(errFile);
-
 log4js.configure({
 	appenders: {
 		out: { type: 'stdout' },
