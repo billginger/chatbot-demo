@@ -5,7 +5,7 @@ log4js.configure({
 		out: { type: 'stdout' },
 		access: { type: 'file', filename: '/logs/gravity_facebook_access.log' },
 		appFile: { type: 'file', filename: '/logs/gravity_facebook_app.log' },
-		app: { type: 'logLevelFilter', appender: 'appFile', level: 'warn', maxLevel: 'warn' },
+		app: { type: 'logLevelFilter', appender: 'appFile', level: 'debug', maxLevel: 'warn' },
 		errorFile: { type: 'file', filename: '/logs/gravity_facebook_error.log' },
 		err: { type: 'logLevelFilter', appender: 'errorFile', level: 'error' }
 	},

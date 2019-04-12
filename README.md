@@ -100,3 +100,10 @@ npm i
 cd /app
 pm2 start
 ```
+
+* 在容器外，先查看程序状态，再重启程序：
+
+```
+docker exec gravity-facebook sh -c "pm2 list"
+docker exec gravity-facebook sh -c "pm2 restart all"
+```
