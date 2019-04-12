@@ -14,11 +14,20 @@ app.use('/facebook', facebook);
 app.use(handleError);
 
 if (cluster.isMaster) {
-	log.debug(numCPUs);
-	log.info('App master process listening on port 3000 with pid', process.pid);
+	log.info(`The master process is listening on port 3000 with pid ${process.pid}!`);
 	for (let i = 0; i < numCPUs; i++) {
 		cluster.fork();
 	}
+	cluster.on('exit', (worker, code, signal) => {
+		let reason = 'unknow reason';
+		if (code) {
+			reason = `code ${code}`;
+		}
+		if (signal) {
+			reason = `signal ${signal}`;
+		}
+		log.warn(`A worker process has exited with pid ${worker.process.pid} caused ${reason}!`);
+	});
 } else {
-	app.listen(3000, () => log.info('App worker process listening on port 3000 with pid', process.pid));
+	app.listen(3000, () => log.info(`A worker process is listening on port 3000 with pid ${process.pid}!`));
 }
