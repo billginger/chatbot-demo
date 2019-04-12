@@ -1,7 +1,7 @@
 const log4js = require('log4js');
 
 log4js.configure({
-	appenders: { out: { type: 'stdout' } },
+	appenders: { out: { type: 'console' } },
 	categories: { default: { appenders: ['out'], level: 'debug' } }
 });
 
