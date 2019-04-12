@@ -1,3 +1,4 @@
+const cluster = require('cluster');
 const express = require('express');
 const { log, httpLog } = require('./libs/log.js');
 const { handleError } = require('./libs/handle.js');
@@ -11,4 +12,9 @@ app.use('/facebook', facebook);
 
 app.use(handleError);
 
-app.listen(3000, () => log.info('Gravity-facebook listening on port 3000!'));
+if (cluster.isMaster) {
+	console.log('master', process.pid);
+	cluster.fork();
+} else {
+	app.listen(3000, () => log.info('Gravity-facebook listening on port 3000!'));
+}
