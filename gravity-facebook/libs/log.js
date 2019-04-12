@@ -1,8 +1,11 @@
 const log4js = require('log4js');
 
 log4js.configure({
-	appenders: { out: { type: 'console' } },
-	categories: { default: { appenders: ['out'], level: 'debug' } }
+	appenders: {
+		out: { type: 'stdout' },
+		app: { type: 'file', filename: '/logs/gravity_facebook_app.log' }
+	},
+	categories: { default: { appenders: ['out', 'app'], level: 'debug' } }
 });
 
 const log = log4js.getLogger('app');
