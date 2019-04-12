@@ -3,9 +3,9 @@ const log4js = require('log4js');
 const FILE_SIZE_10M = 10485760;
 
 const logFile = { type: 'file', maxLogSize: FILE_SIZE_10M, compress: true };
-const accessFile = Object.assign(logFile, { filename: '/logs/gravity_facebook_access.log' });
-const appFile = Object.assign(logFile, { filename: '/logs/gravity_facebook_app.log' });
-const errFile = Object.assign(logFile, { filename: '/logs/gravity_facebook_error.log' });
+const accessFile = Object.assign({ filename: '/logs/gravity_facebook_access.log' }, logFile);
+const appFile = Object.assign({ filename: '/logs/gravity_facebook_app.log' }, logFile);
+const errFile = Object.assign({ filename: '/logs/gravity_facebook_error.log' }, logFile);
 
 console.log(accessFile);
 console.log(appFile);
