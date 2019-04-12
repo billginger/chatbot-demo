@@ -2,9 +2,12 @@ const log4js = require('log4js');
 
 log4js.configure({
 	appenders: {
-		app: { type: 'file', filename: '/logs/gravity_facebook_app.log' }
+		out: { type: 'stdout' },
+		app: { type: 'file', filename: '/logs/gravity_facebook_app.log' },
+		errorFile: { type: 'file', filename: '/logs/gravity_facebook_error.log' },
+		err: { type: 'logLevelFilter', appender: 'errorFile', level: 'error' }
 	},
-	categories: { default: { appenders: ['app'], level: 'debug' } }
+	categories: { default: { appenders: ['out', 'app', 'err'], level: 'debug' } }
 });
 
 const log = log4js.getLogger('app');
