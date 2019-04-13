@@ -4,7 +4,7 @@ const { log } = require('../libs/log.js');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-	log.debug(req);
+	log.debug(req.header);
 	res.send('Hello World!');
 });
 
