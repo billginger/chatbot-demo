@@ -43,7 +43,6 @@ docker run --name nginx -d --network host -v /data/gravity-prototype/nginx:/etc/
 
 > 请注意：这里 nginx 容器使用了宿主网络，不需要映射端口，访问其它容器暴露的端口也会比较方便。
 
-&nbsp;
 #### When the configuration file is modified
 
 * 重启容器使新的配置文件生效（不建议）：
@@ -110,6 +109,23 @@ pm2 start
 docker exec gravity-facebook sh -c "pm2 list"
 docker exec gravity-facebook sh -c "pm2 restart all"
 ```
+
+## Load Balancing
+
+Nginx 配置文件中，默认为每个 Node.js 程序配置了 2 个节点，请参考以下文件：
+
+```
+/data/gravity-prototype/nginx/conf/upstream.conf
+```
+
+以 gravity-facebook 为例，按照 Nginx 的配置，应运行如下 2 个容器：
+
+```
+docker run --name gravity-facebook-a -d -p 3020:3000 -v /data/gravity-prototype/gravity-facebook:/app -v /data/gravity-prototype/logs:/logs node-pm2
+docker run --name gravity-facebook-b -d -p 3021:3000 -v /data/gravity-prototype/gravity-facebook:/app -v /data/gravity-prototype/logs:/logs node-pm2
+```
+
+假如只运行了一个容器，收到 gravity-facebook 的 http 请求时，会在 `nginx_error.log` 中产生 `connect() failed` 的日志，但请不要担心，请求仍会顺利的传递到正在运行的那一个容器。
 
 ## Multiple Processes
 
