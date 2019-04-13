@@ -5,8 +5,7 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
 	log.debug(req.headers);
-	log.debug(req.ip);
-	log.debug(req.ips);
+	log.debug(req.hostname);
 	res.send('Hello World!');
 });
 
