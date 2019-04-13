@@ -43,6 +43,9 @@ docker run --name nginx -d --network host -v /data/gravity-prototype/nginx:/etc/
 
 > 请注意：这里 nginx 容器使用了宿主网络，不需要映射端口，访问其它容器暴露的端口也会比较方便。
 
+&nbsp;
+#### When the configuration file is modified
+
 * 重启容器使新的配置文件生效（不建议）：
 
 ```
@@ -107,3 +110,36 @@ pm2 start
 docker exec gravity-facebook sh -c "pm2 list"
 docker exec gravity-facebook sh -c "pm2 restart all"
 ```
+
+## Multiple Processes
+
+本项目 Node.js 程序使用了 Cluster 来创建多进程，在多核 CPU 下，会创建 1 个主进程和 N 个工作进程（N = CPU 核心数）
+
+> 请注意：不要使用 PM2 之类的进程管理软件来实现多进程，这会导致系统资源开销过大、日志丢失等问题。
+
+## Log System
+
+本项目所有日志都会保存到 `/logs` 目录下。
+
+所有日志的打印时间都为 0 时区时间。
+
+Nginx 日志使用 Nginx 默认格式，分为：
+
+* 进站日志：nginx_access.log
+* 错误日志：nginx_error.log
+
+Node.js 日志使用自定义格式，以 gravity-facebook 为例，分为：
+
+* 进站日志：gravity_facebook_access.log
+* 应用日志：gravity_facebook_app.log
+* 错误日志：gravity_facebook_error.log
+* 所有日志：gravity_facebook_all.log
+
+其中，进站日志格式为：
+```r
+:method :url :status :content-length :response-timems
+```
+
+进站日志、应用日志、错误日志都由 Log4js 模块创建，超过 10M 会自动分割备份，最多保留 5 个备份文件。
+
+“所有日志”由 PM2 创建，不会分割，永久保留。
