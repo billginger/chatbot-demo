@@ -6,6 +6,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
 	log.debug(req.headers);
 	log.debug(req.ip);
+	log.debug(req.ips);
 	res.send('Hello World!');
 });
 
