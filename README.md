@@ -25,6 +25,12 @@ git clone https://github.com/billginger/gravity-prototype.git gravity-prototype
 /data/gravity-prototype/nginx/conf/server.conf
 ```
 
+* 可能需要将微信域名校验文件放到以下目录：
+
+```
+/data/gravity-prototype/gravity-portal-frontend/www
+```
+
 ### Use Docker
 
 #### Run Nginx
@@ -38,7 +44,7 @@ docker pull nginx
 * 以挂载本地目录和配置文件的方式运行容器：
 
 ```
-docker run --name nginx -d --network host -v /data/gravity-prototype/nginx:/etc/nginx -v /data/gravity-prototype/logs:/logs nginx
+docker run --name nginx -d --network host -v /data/gravity-prototype/gravity-portal-frontend/www:/www -v /data/gravity-prototype/nginx:/etc/nginx -v /data/gravity-prototype/logs:/logs nginx
 ```
 
 > 请注意：这里 nginx 容器使用了宿主网络，不需要映射端口，访问其它容器暴露的端口也会比较方便。
@@ -158,4 +164,4 @@ Node.js 日志使用自定义格式，以 gravity-facebook 为例，分为：
 
 进站日志、应用日志、错误日志都由 Log4js 模块创建，超过 10M 会自动分割备份，最多保留 5 个备份文件。
 
-“所有日志”由 PM2 创建，不会分割，永久保留。
+“所有日志”由 PM2 创建，包含“进站日志”、“应用日志”、“错误日志”，不会分割，永久保留。
