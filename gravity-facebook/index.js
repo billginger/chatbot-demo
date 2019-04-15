@@ -8,6 +8,8 @@ const facebook = require('./routes/facebook.js');
 const app = express();
 
 app.use(httpLog);
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.use('/facebook', facebook);
 
