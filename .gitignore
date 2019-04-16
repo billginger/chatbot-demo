@@ -1,3 +1,4 @@
 node_modules
-*/www/*.txt
+gravity-facebook/config.js
+gravity-portal-frontend/www/*.txt
 nginx/cert

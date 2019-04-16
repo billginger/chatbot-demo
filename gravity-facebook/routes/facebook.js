@@ -1,4 +1,5 @@
 const express = require('express');
+const config = require('../config.js');
 const { log } = require('../libs/log.js');
 
 const router = express.Router();
@@ -8,12 +9,12 @@ router.get('/', (req, res) => {
 });
 
 router.get('/webhook', (req, res) => {
-	const VERIFY_TOKEN = 'abc';
+	const verify_token = config.verify_token;
 	const mode = req.query['hub.mode'];
 	const token = req.query['hub.verify_token'];
 	const challenge = req.query['hub.challenge'];
 	if (mode && token) {
-		if (mode === 'subscribe' && token === VERIFY_TOKEN) {
+		if (mode === 'subscribe' && token === verify_token) {
 			log.info('WEBHOOK_VERIFIED');
 			res.send(challenge);
 		} else {
