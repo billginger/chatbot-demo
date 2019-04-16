@@ -28,11 +28,43 @@ const handleMessage = (id, message) => {
 		response = {
 			text: `You sent the message: "${message.text}". Now send me an image!`
 		};
+	} else if (message.attachments) {
+		const url = message.attachments[0].payload.url;
+		response = {
+			attachment: {
+				type: 'template',
+				payload: {
+					template_type: 'generic',
+					elements: [{
+						title: 'Is this the right picture?',
+						subtitle: 'Tap a button to answer.',
+						image_url: url,
+						buttons: [{
+							type: 'postback',
+							title: 'Yes!',
+							payload: 'yes'
+						}, {
+							type: 'postback',
+							title: 'No!',
+							payload: 'no'
+						}]
+					}]
+				}
+			}
+		};
 	}
 	sendMessage(id, response);
 };
 
 const handlePostback = (id, postback) => {
+	let response;
+	let payload = postback.payload;
+	if (payload == 'yes') {
+		response = { text: 'Thanks!' };
+	} else if (payload == 'no') {
+		response = { text: 'Oops, try sending another image.' }
+	}
+	sendMessage(id, response);
 };
 
 exports.verify = (req, res) => {
