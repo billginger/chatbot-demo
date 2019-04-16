@@ -26,7 +26,7 @@ const handleMessage = (id, message) => {
 	let response;
 	if (message.text) {
 		if (message.nlp) {
-			log.debug(message.nlp);
+			//nlp
 		}
 		response = {
 			text: `You sent the message: "${message.text}". Now send me an image!`
@@ -83,12 +83,11 @@ exports.verify = (req, res) => {
 
 exports.handle = (req, res) => {
 	const body = req.body;
-	log.debug(body);
+	log.debug(JSON.stringify(body));
 	if (body.object != 'page') {
 		return res.sendStatus(404);
 	}
 	body.entry.forEach(entry => {
-		log.debug(entry.messaging);
 		const event = entry.messaging[0];
 		const id = event.sender.id;
 		if (event.message) {
