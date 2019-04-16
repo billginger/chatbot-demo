@@ -25,6 +25,9 @@ const sendMessage = (id, message) => {
 const handleMessage = (id, message) => {
 	let response;
 	if (message.text) {
+		if (message.nlp) {
+			log.debug(message.nlp);
+		}
 		response = {
 			text: `You sent the message: "${message.text}". Now send me an image!`
 		};
