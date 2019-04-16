@@ -14,6 +14,7 @@ const options = {
 
 const sendMessage = (id, message) => {
 	const postData = { recipient: { id }, message };
+	log.debug(postData);
 	httpsRequest(options, postData, (err, data) => {
 		if (err) {
 			return log.error(err);
