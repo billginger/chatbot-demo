@@ -80,6 +80,7 @@ exports.verify = (req, res) => {
 
 exports.handle = (req, res) => {
 	const body = req.body;
+	log.debug(body);
 	if (body.object != 'page') {
 		return res.sendStatus(404);
 	}

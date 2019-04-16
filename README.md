@@ -25,6 +25,12 @@ git clone https://github.com/billginger/gravity-prototype.git gravity-prototype
 /data/gravity-prototype/nginx/conf/server.conf
 ```
 
+* 根据以下文件创建 `config.js`：
+
+```
+/data/gravity-prototype/gravity-facebook/config.example.js
+```
+
 * 可能需要将微信域名校验文件放到以下目录：
 
 ```
