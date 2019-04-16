@@ -85,6 +85,7 @@ exports.handle = (req, res) => {
 		return res.sendStatus(404);
 	}
 	body.entry.forEach(entry => {
+		log.debug(entry.messaging);
 		const event = entry.messaging[0];
 		const id = event.sender.id;
 		if (event.message) {
