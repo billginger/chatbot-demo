@@ -3,8 +3,7 @@ module.exports = {
 	encode: text => {
 		const blockSize = 32;
 		const amountToPad = blockSize - (text.length % blockSize);
-		let result = new Buffer(amountToPad);
-		result.fill(amountToPad);
+		const result = Buffer.alloc(amountToPad, amountToPad);
 		return Buffer.concat([text, result]);
 	},
 	decode: text => {

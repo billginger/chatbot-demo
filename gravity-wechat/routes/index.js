@@ -1,8 +1,8 @@
 const express = require('express');
-const { decryptMsg } = require('../controllers/auth.js');
+const { handleAuth } = require('../controllers/auth.js');
 
 const router = express.Router();
 
-router.post('/wechat/auth', decryptMsg);
+router.post('/wechat/auth', handleAuth);
 
 module.exports = router;

@@ -8,7 +8,7 @@ const appid = config.appid;
 const verification_token = config.verification_token;
 const encoding_key = config.encoding_key;
 
-exports.decryptMsg = (req, res, next) => {
+exports.handleAuth = (req, res, next) => {
 	let data = '';
 	req.setEncoding('utf8');
 	req.on('data', d => {
@@ -32,7 +32,7 @@ exports.decryptMsg = (req, res, next) => {
 			return res.sendStatus(403);
 		}
 		res.send('success');
-		// Message decryption
+		// Message Decryption
 		const xml = new msgCrypto(appid, encoding_key).decryptMsg(encrypt);
 		log.debug(xml);
 	});
