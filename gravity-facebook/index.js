@@ -2,17 +2,15 @@ const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
 const express = require('express');
 const { log, httpLog } = require('./libs/log.js');
-const { handleError } = require('./libs/handle.js');
-const facebook = require('./routes/facebook.js');
+const handleError = require('./libs/handleError.js');
+const router = require('./routes/index.js');
 
 const app = express();
 
 app.use(httpLog);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-app.use('/facebook', facebook);
-
+app.use(router);
 app.use(handleError);
 
 if (cluster.isMaster) {
