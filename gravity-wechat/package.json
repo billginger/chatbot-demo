@@ -1,0 +1,15 @@
+{
+	"name": "gravity-wechat",
+	"version": "0.0.1",
+	"description": "a microservice in gravity-prototype that handle wechat messages",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Bill",
+	"license": "MIT",
+	"dependencies": {
+		"express": "^4.16.4",
+		"log4js": "^4.1.0"
+	}
+}
