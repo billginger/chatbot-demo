@@ -25,9 +25,10 @@ git clone https://github.com/billginger/gravity-prototype.git gravity-prototype
 /data/gravity-prototype/nginx/conf/server.conf
 ```
 
-* 根据以下文件创建 `config.js`：
+* 根据以下文件在相同目录下创建 `config.js`：
 
 ```
+/data/gravity-prototype/gravity-wechat/config.example.js
 /data/gravity-prototype/gravity-facebook/config.example.js
 ```
 
