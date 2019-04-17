@@ -1,8 +1,8 @@
 const crypto = require('crypto');
 const config = require('../config.js');
-const httpsRequest = require('../libs/httpsRequest.js');
 const xmlPick = require('../libs/xmlPick.js');
 const { log } = require('../libs/log.js');
+const msgCrypto = require('../libs/msgCrypto');
 
 const appid = config.appid;
 const verification_token = config.verification_token;
