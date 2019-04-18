@@ -5,6 +5,10 @@ const { log } = require('../libs/log.js');
 const access_token = config.access_token;
 const verify_token = config.verify_token;
 
+if (!access_token || !verify_token) {
+	throw 'Please check config.js!';
+}
+
 const options = {
 	hostname: 'graph.facebook.com',
 	path: '/v2.6/me/messages?access_token=' + access_token,

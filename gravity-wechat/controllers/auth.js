@@ -8,6 +8,10 @@ const appid = config.appid;
 const verification_token = config.verification_token;
 const encoding_key = config.encoding_key;
 
+if (!appid || !verification_token || !encoding_key) {
+	throw 'Please check config.js!';
+}
+
 exports.handleAuth = (req, res, next) => {
 	let data = '';
 	req.setEncoding('utf8');

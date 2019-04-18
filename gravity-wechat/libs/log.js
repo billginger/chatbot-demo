@@ -7,6 +7,10 @@ const log_file_app = config.log_file_app;
 const log_file_error = config.log_file_error;
 const log_file_size_max = config.log_file_size_max;
 
+if (!log_file_access || !log_file_access_format || !log_file_app || !log_file_error || !log_file_size_max) {
+	throw 'Please check config.js!';
+}
+
 const logFile = { type: 'file', maxLogSize: log_file_size_max, compress: true };
 const accessFile = Object.assign({ filename: log_file_access}, logFile);
 const appFile = Object.assign({ filename: log_file_app }, logFile);
