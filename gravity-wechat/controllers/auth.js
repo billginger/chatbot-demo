@@ -18,7 +18,8 @@ const options = {
 	hostname: 'api.weixin.qq.com',
 	path: '/cgi-bin/component/api_component_token',
 	method: 'POST',
-	headers: { 'Content-Type': 'application/json' }
+	headers: { 'Content-Type': 'application/json' },
+	rejectUnauthorized: false
 };
 
 const getComponentAccessToken = xml => {
