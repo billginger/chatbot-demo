@@ -14,12 +14,11 @@ if (!component_appid || !component_appsecret || !verification_token || !encoding
 	throw 'Please check config.js!';
 }
 
-const options = {
+let options = {
 	hostname: 'api.weixin.qq.com',
 	path: '/cgi-bin/component/api_component_token',
 	method: 'POST',
-	headers: { 'Content-Type': 'application/json' },
-	rejectUnauthorized: false
+	headers: { 'Content-Type': 'application/json' }
 };
 
 const getComponentAccessToken = xml => {
@@ -28,6 +27,8 @@ const getComponentAccessToken = xml => {
 		return log.error(`No ComponentVerifyTicket in:\n${xml}`);
 	}
 	const postData = JSON.stringify({ component_appid, component_appsecret, component_verify_ticket });
+	options.headers['Content-Length'] = Buffer.byteLength(postData);
+	log.debug(options);
 	log.debug(postData);
 	httpsRequest(options, postData, (err, data) => {
 		if (err) {
@@ -35,6 +36,7 @@ const getComponentAccessToken = xml => {
 		}
 		log.info(data);
 	});
+	log.debug('---');
 };
 
 const updateAuthorizer = xml => {
