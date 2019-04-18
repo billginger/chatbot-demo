@@ -12,7 +12,7 @@ if (!appid || !verification_token || !encoding_key) {
 	throw 'Please check config.js!';
 }
 
-exports.handleAuth = (req, res, next) => {
+exports.handleAuth = (req, res) => {
 	let data = '';
 	req.setEncoding('utf8');
 	req.on('data', d => {

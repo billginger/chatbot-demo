@@ -2,25 +2,25 @@ const crypto = require('crypto');
 const pkcs7Encoder = require('./pkcs7Encoder');
 
 module.exports = class msgCrypto {
-	constructor(appid, encodingKey) {
-		if (!appid || !encodingKey) {
-			throw new Error('please check arguments');
+	constructor(appid, encoding_key) {
+		if (!appid || !encoding_key) {
+			throw 'Please check arguments!';
 		}
-		const AESKey = Buffer.from(encodingKey + '=', 'base64');
+		const AESKey = Buffer.from(encoding_key + '=', 'base64');
 		if (AESKey.length != 32) {
-			throw new Error('encodingKey invalid');
+			throw 'encoding_key invalid!';
 		}
 		this.appid = appid;
 		this.AESKey = AESKey;
 		this.iv = AESKey.slice(0, 16);
 	}
 	encryptMsg(text) {
-		const randomString = crypto.pseudoRandomBytes(16);
+		const randomBytes = crypto.pseudoRandomBytes(16);
 		const msg = Buffer.from(text);
 		const id = Buffer.from(this.appid);
 		let msgLength = Buffer.alloc(4);
 		msgLength.writeUInt32BE(msg.length, 0);
-		const bufMsg = Buffer.concat([randomString, msgLength, msg, id]);
+		const bufMsg = Buffer.concat([randomBytes, msgLength, msg, id]);
 		const encoded = pkcs7Encoder.encode(bufMsg);
 		let cipher = crypto.createCipheriv('aes-256-cbc', this.AESKey, this.iv);
 		cipher.setAutoPadding(false);
@@ -37,7 +37,7 @@ module.exports = class msgCrypto {
 			const length = content.slice(0, 4).readUInt32BE(0);
 			return content.slice(4, length + 4).toString();
 		} catch (err) {
-			throw new Error(err);
+			throw err;
 		}
 	}
 };
