@@ -27,6 +27,7 @@ const getComponentAccessToken = xml => {
 		return log.error(`No ComponentVerifyTicket in:\n${xml}`);
 	}
 	const postData = JSON.stringify({ component_appid, component_appsecret, component_verify_ticket });
+	log.debug(postData);
 	httpsRequest(options, postData, (err, data) => {
 		if (err) {
 			return log.error(err);
@@ -34,6 +35,10 @@ const getComponentAccessToken = xml => {
 		log.info(data);
 	});
 };
+
+const updateAuthorizer = xml => {
+
+}
 
 exports.handleAuth = (req, res) => {
 	let data = '';
