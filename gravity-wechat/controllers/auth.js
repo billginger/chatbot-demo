@@ -14,7 +14,7 @@ if (!component_appid || !component_appsecret || !verification_token || !encoding
 	throw 'Please check config.js!';
 }
 
-let options = {
+const options = {
 	hostname: 'api.weixin.qq.com',
 	path: '/cgi-bin/component/api_component_token',
 	method: 'POST',
@@ -22,21 +22,18 @@ let options = {
 };
 
 const getComponentAccessToken = xml => {
+	// Need to determine if the previous token is about to expire
 	const component_verify_ticket = xmlPick(xml, 'ComponentVerifyTicket');
 	if (!component_verify_ticket) {
 		return log.error(`No ComponentVerifyTicket in:\n${xml}`);
 	}
 	const postData = JSON.stringify({ component_appid, component_appsecret, component_verify_ticket });
-	options.headers['Content-Length'] = Buffer.byteLength(postData);
-	log.debug(options);
-	log.debug(postData);
 	httpsRequest(options, postData, (err, data) => {
 		if (err) {
 			return log.error(err);
 		}
 		log.info(data);
 	});
-	log.debug('---');
 };
 
 const updateAuthorizer = xml => {
