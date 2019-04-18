@@ -5,7 +5,8 @@ module.exports = {
 	log_file_app: '/logs/gravity_wechat_app.log',
 	log_file_error: '/logs/gravity_wechat_error.log',
 	log_file_size_max: 10485760,
-	appid: '<APPID>',
+	component_appid: '<COMPONENT_APPID>',
+	component_appsecret: '<COMPONENT_APPSECRET>',
 	verification_token: '<VERIFICATION_TOKEN>',
 	encoding_key: '<ENCODING_KEY>'
 }

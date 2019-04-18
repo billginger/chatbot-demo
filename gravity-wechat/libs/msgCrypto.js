@@ -2,25 +2,25 @@ const crypto = require('crypto');
 const pkcs7Encoder = require('./pkcs7Encoder');
 
 module.exports = class msgCrypto {
-	constructor(appid, encoding_key) {
-		if (!appid || !encoding_key) {
+	constructor(component_appid, encoding_key) {
+		if (!component_appid || !encoding_key) {
 			throw 'Please check arguments!';
 		}
 		const AESKey = Buffer.from(encoding_key + '=', 'base64');
 		if (AESKey.length != 32) {
 			throw 'encoding_key invalid!';
 		}
-		this.appid = appid;
+		this.appid = component_appid;
 		this.AESKey = AESKey;
 		this.iv = AESKey.slice(0, 16);
 	}
 	encryptMsg(text) {
 		const randomBytes = crypto.pseudoRandomBytes(16);
 		const msg = Buffer.from(text);
-		const id = Buffer.from(this.appid);
+		const appid = Buffer.from(this.appid);
 		let msgLength = Buffer.alloc(4);
 		msgLength.writeUInt32BE(msg.length, 0);
-		const bufMsg = Buffer.concat([randomBytes, msgLength, msg, id]);
+		const bufMsg = Buffer.concat([randomBytes, msgLength, msg, appid]);
 		const encoded = pkcs7Encoder.encode(bufMsg);
 		let cipher = crypto.createCipheriv('aes-256-cbc', this.AESKey, this.iv);
 		cipher.setAutoPadding(false);
