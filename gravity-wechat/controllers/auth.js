@@ -37,11 +37,11 @@ const getComponentAccessToken = xml => {
 			if (err) return log.error(err);
 			if (!data.component_access_token) return log.error(`No component_access_token in:\n${data}`);
 			// Save new component_access_token
-			const update = {
+			doc = {
 				verifyTicket: component_verify_ticket,
 				accessToken: data.component_access_token
 			};
-			Component.findOneAndUpdate({}, update, { upsert: true }, err => {
+			Component.update({}, doc, { upsert: true }, err => {
 				if (err) return log.error(err);
 				log.info(`component_access_token has updated!`);
 			});
