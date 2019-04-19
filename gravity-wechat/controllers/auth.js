@@ -4,6 +4,7 @@ const xmlPick = require('../libs/xmlPick.js');
 const { log } = require('../libs/log.js');
 const msgCrypto = require('../libs/msgCrypto');
 const httpsRequest = require('../libs/httpsRequest.js');
+const Component = require('../models/component.js');
 
 const component_appid = config.component_appid;
 const component_appsecret = config.component_appsecret;
@@ -22,18 +23,22 @@ const options = {
 };
 
 const getComponentAccessToken = xml => {
-	// Need to determine if the previous token is about to expire
 	log.debug(xml);
 	const component_verify_ticket = xmlPick(xml, 'ComponentVerifyTicket');
 	if (!component_verify_ticket) {
 		return log.error(`No ComponentVerifyTicket in:\n${xml}`);
 	}
 	const postData = JSON.stringify({ component_appid, component_appsecret, component_verify_ticket });
-	httpsRequest(options, postData, (err, data) => {
-		if (err) {
-			return log.error(err);
-		}
-		log.info(data);
+	const anHourAgo = new Date() - 3600;
+	log.debug(anHourAgo);
+	Component.findOne({}, (err, doc) => {
+		if (err) return log.error(err);
+		if (doc.updatedAt > anHourAgo) return;
+		log.debug('come in!');
+		httpsRequest(options, postData, (err, data) => {
+			if (err) return log.error(err);
+			log.info(data);
+		});
 	});
 };
 

@@ -4,6 +4,7 @@ const express = require('express');
 const { log, httpLog } = require('./libs/log.js');
 const handleError = require('./libs/handleError.js');
 const router = require('./routes/index.js');
+require('./libs/db.js');
 
 const app = express();
 
