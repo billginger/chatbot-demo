@@ -23,6 +23,7 @@ const options = {
 
 const getComponentAccessToken = xml => {
 	// Need to determine if the previous token is about to expire
+	log.debug(xml);
 	const component_verify_ticket = xmlPick(xml, 'ComponentVerifyTicket');
 	if (!component_verify_ticket) {
 		return log.error(`No ComponentVerifyTicket in:\n${xml}`);
