@@ -90,7 +90,25 @@ docker pull mongo
 * 以挂载本地目录的方式运行容器：
 
 ```
-docker run --name mongo -d -p 27521:27017 -v /data/gravity-prototype/db:/data/db mongo
+docker run --name mongo -d -p 27017:27017 -v /data/gravity-prototype/db:/data/db mongo --auth
+```
+
+> 请注意：这里 mongo 容器使用了 --auth 这个参数来启动，以启用 MongoDB 的鉴权模式。
+
+* 进入容器创建用户：
+
+```
+docker exec -it mongo bash
+mongo
+use admin
+db.createUser({user:'root',pwd:'<yourpassword>',roles:[{role:'root',db:'admin'}]})
+exit
+```
+
+* 在 `config.js` 配置 db_url，以 gravity-facebook 为例：
+
+```
+mongodb://root:<yourpassword>@<yourdomain>:27017/gravity-facebook
 ```
 
 #### Run App
