@@ -9,17 +9,9 @@ module.exports = (options, postData, callback) => {
 		});
 		res.on('end', () => {
 			try {
-				const json = JSON.parse(data);
-				console.log('data:');
-				console.log(data);
+				data = JSON.parse(data);
 				console.log(typeof data);
-				console.log('json:');
-				console.log(json);
-				console.log(typeof json);
-				callback(0, json);
-			} catch(err) {
-				console.log('data:');
-				console.log(data);
+			} finally {
 				console.log(typeof data);
 				callback(0, data);
 			}
