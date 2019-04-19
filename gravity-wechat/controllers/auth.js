@@ -33,7 +33,7 @@ const getComponentAccessToken = xml => {
 	log.debug(anHourAgo);
 	Component.findOne({}, (err, doc) => {
 		if (err) return log.error(err);
-		if (doc.updatedAt > anHourAgo) return;
+		if (doc.updatedAt && doc.updatedAt > anHourAgo) return;
 		log.debug('come in!');
 		httpsRequest(options, postData, (err, data) => {
 			if (err) return log.error(err);
