@@ -101,14 +101,14 @@ docker run --name mongo -d -p 27017:27017 -v /data/gravity-prototype/db:/data/db
 docker exec -it mongo bash
 mongo
 use admin
-db.createUser({user:'root',pwd:'<yourpassword>',roles:[{role:'root',db:'admin'}]})
+db.createUser({user:'<username>',pwd:'<password>',roles:[{role:'root',db:'admin'}]})
 exit
 ```
 
 * 在 `config.js` 配置 db_url，以 gravity-facebook 为例：
 
 ```
-mongodb://root:<yourpassword>@<yourdomain>:27017/gravity-facebook
+mongodb://<username>:<password>@<host>:<port>/gravity-facebook?authSource=admin
 ```
 
 #### Run App
