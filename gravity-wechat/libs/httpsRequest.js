@@ -10,9 +10,7 @@ module.exports = (options, postData, callback) => {
 		res.on('end', () => {
 			try {
 				data = JSON.parse(data);
-				console.log(typeof data);
 			} finally {
-				console.log(typeof data);
 				callback(0, data);
 			}
 		});
