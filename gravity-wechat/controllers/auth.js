@@ -23,27 +23,32 @@ const options = {
 };
 
 const getComponentAccessToken = xml => {
-	log.debug(xml);
 	const component_verify_ticket = xmlPick(xml, 'ComponentVerifyTicket');
 	if (!component_verify_ticket) {
 		return log.error(`No ComponentVerifyTicket in:\n${xml}`);
 	}
 	const postData = JSON.stringify({ component_appid, component_appsecret, component_verify_ticket });
 	const anHourAgo = new Date() - 3600000;
-	log.debug(anHourAgo);
 	Component.findOne({}, (err, doc) => {
 		if (err) return log.error(err);
 		if (doc && doc.updatedAt > anHourAgo) return;
-		log.debug('come in!');
+		// Request new component_access_token
 		httpsRequest(options, postData, (err, data) => {
 			if (err) return log.error(err);
-			log.info(data);
+			if (!data.component_access_token) return log.error(`No component_access_token in:\n${data}`);
+			// Save new component_access_token
+			doc.verifyTicket = component_verify_ticket;
+			doc.accessToken = data.component_access_token;
+			doc.save(err => {
+				if (err) return log.error(err);
+				log.info(`component_access_token has updated!`);
+			});
 		});
 	});
 };
 
 const updateAuthorizer = xml => {
-
+	log.debug(`will update Authorizer`);
 }
 
 exports.handleAuth = (req, res) => {
@@ -83,6 +88,8 @@ exports.handleAuth = (req, res) => {
 			case 'unauthorized':
 				updateAuthorizer(xml);
 				break;
+			default:
+				log.warn(`Unknow InfoType in:\n${xml}`);
 		}
 	});
 };
