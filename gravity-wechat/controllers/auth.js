@@ -29,7 +29,7 @@ const getComponentAccessToken = xml => {
 		return log.error(`No ComponentVerifyTicket in:\n${xml}`);
 	}
 	const postData = JSON.stringify({ component_appid, component_appsecret, component_verify_ticket });
-	const anHourAgo = new Date() - 3600;
+	const anHourAgo = new Date() - 3600000;
 	log.debug(anHourAgo);
 	Component.findOne({}, (err, doc) => {
 		if (err) return log.error(err);

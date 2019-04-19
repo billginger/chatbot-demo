@@ -90,7 +90,7 @@ docker pull mongo
 * 以挂载本地目录的方式运行容器：
 
 ```
-docker run --name mongo -d -p 27017:27017 -v /data/gravity-prototype/db:/data/db mongo
+docker run --name mongo -d -p 27521:27017 -v /data/gravity-prototype/db:/data/db mongo
 ```
 
 #### Run App
