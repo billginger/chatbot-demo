@@ -8,7 +8,12 @@ module.exports = (options, postData, callback) => {
 			data += d;
 		});
 		res.on('end', () => {
-			callback(0, data);
+			try {
+				const json = JSON.parse(data);
+				callback(0, json);
+			} catch(err) {
+				callback(0, data);
+			}
 		});
 	});
 	req.on('error', e => {
