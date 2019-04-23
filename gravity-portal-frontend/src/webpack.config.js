@@ -16,7 +16,10 @@ module.exports = {
 			use: {
 				loader: 'babel-loader',
 				options: {
-					presets: ['@babel/preset-react']
+					presets: [
+						['@babel/preset-env', { targets: { chrome: 58 } }],
+						'@babel/preset-react'
+					]
 				}
 			}
 		}, {
