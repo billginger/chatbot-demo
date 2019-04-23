@@ -7,7 +7,8 @@ module.exports = {
 	},
 	output: {
 		filename: '[name].js?[contenthash]',
-		path: __dirname + '/../www'
+		path: __dirname + '/../www',
+		publicPath: '/'
 	},
 	module: {
 		rules: [{
@@ -38,5 +39,8 @@ module.exports = {
 			template: './index.html',
 			filename: '../www/index.html'
 		})
-	]
+	],
+	devServer: {
+		historyApiFallback: true
+	}
 };
