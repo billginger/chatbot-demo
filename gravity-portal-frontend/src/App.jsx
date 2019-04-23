@@ -1,18 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
-
-const test = () => {
-	if (['a', 'b', 'c'].includes('a')) {
-		return 'es7';
-	} else {
-		return 'es5';
-	}
-};
+import { Provider } from 'react-redux';
+import { store } from './redux';
 
 const App = () => (
-	<div>
-		<p>Hello {test()}!</p>
-	</div>
+	<Provider store={store}>
+		<p>Weclome to Gravity Portal!</p>
+	</Provider>
 );
 
 render(<App />, document.getElementById('root'));
