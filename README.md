@@ -28,6 +28,7 @@ git clone https://github.com/billginger/gravity-prototype.git gravity-prototype
 * 根据以下文件在相同目录下创建 `config.js`：
 
 ```
+/data/gravity-prototype/gravity-portal-backend/config.example.js
 /data/gravity-prototype/gravity-wechat/config.example.js
 /data/gravity-prototype/gravity-facebook/config.example.js
 ```
@@ -35,7 +36,7 @@ git clone https://github.com/billginger/gravity-prototype.git gravity-prototype
 * 可能需要将微信域名校验文件放到以下目录：
 
 ```
-/data/gravity-prototype/gravity-portal-frontend/www
+/data/gravity-prototype/nginx/www
 ```
 
 ### Use Docker
@@ -51,7 +52,7 @@ docker pull nginx
 * 以挂载本地目录和配置文件的方式运行容器：
 
 ```
-docker run --name nginx -d --network host -v /data/gravity-prototype/gravity-portal-frontend/www:/www -v /data/gravity-prototype/nginx:/etc/nginx -v /data/gravity-prototype/logs:/logs nginx
+docker run --name nginx -d --network host -v /data/gravity-prototype/nginx:/etc/nginx -v /data/gravity-prototype/logs:/logs nginx
 ```
 
 > 请注意：这里 nginx 容器使用了宿主网络，不需要映射端口，访问其它容器暴露的端口也会比较方便。
@@ -123,7 +124,7 @@ docker build -t node-pm2 .
 * 以挂载本地目录的方式运行容器：
 
 ```
-docker run --name gravity-portal-backend -d -p 3000:3000 -v /data/gravity-prototype/gravity-portal-backend:/app -v /data/gravity-prototype/logs:/logs node-pm2
+docker run --name gravity-portal -d -p 3000:3000 -v /data/gravity-prototype/gravity-portal-backend:/app -v /data/gravity-prototype/logs:/logs node-pm2
 docker run --name gravity-wechat -d -p 3010:3000 -v /data/gravity-prototype/gravity-wechat:/app -v /data/gravity-prototype/logs:/logs node-pm2
 docker run --name gravity-facebook -d -p 3020:3000 -v /data/gravity-prototype/gravity-facebook:/app -v /data/gravity-prototype/logs:/logs node-pm2
 ```
