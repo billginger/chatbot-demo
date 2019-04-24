@@ -29,6 +29,9 @@ function xmlDoc() {
 	xmlhttp.open('GET', url, 1);
 	xmlhttp.send();
 }
+document.body.onbeforeunload = function(event) {
+	return 'STOP!';
+}
 </script>
 </head>
 
