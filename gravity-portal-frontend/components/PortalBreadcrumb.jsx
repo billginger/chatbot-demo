@@ -6,7 +6,10 @@ import routes from '../routes';
 
 const PortalBreadcrumb = ({ intl, location }) => {
 	const i18n = intl.messages;
-	const pathSnippets = location.pathname.split('/').filter(i => i);
+	let pathSnippets = [];
+	if (routes[location.pathname]) {
+		pathSnippets = location.pathname.split('/').filter(i => i);
+	}
 	const breadcrumbItems = pathSnippets.map((_, index) => {
 		const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
 		return (
