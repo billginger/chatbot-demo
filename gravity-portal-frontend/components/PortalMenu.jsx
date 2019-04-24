@@ -13,7 +13,7 @@ const PortalMenu = ({ intl, location }) => {
 				{ action: i18n.userLogout, target: '' }
 			),
 			onOk() {
-				window.location.href = '/logout';
+				window.location.href = '/api/user/logout';
 			}
 		});
 	};

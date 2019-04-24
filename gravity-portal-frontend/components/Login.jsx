@@ -23,7 +23,7 @@ class Login extends React.Component {
 				this.setState({
 					buttonLoading: true
 				});
-				fetch('/login', {
+				fetch('/api/user/login', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify(values)
