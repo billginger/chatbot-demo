@@ -1,13 +1,14 @@
 const { log } = require('./log.js');
 
-const handleSuccess = (req, res, logMsg, data) => {
-	log.info(`[success]`, logMsg, `[${req.ip}]`);
+const handleSuccess = (req, res, logText, data) => {
+	log.info(`[success]`, logText, `[${req.ip}]`);
 	res.send(data);
 };
 
-const handleFail = (req, res, logMsg, failMsg) => {
-	log.warn(`[fail]`, logMsg, `[${req.ip}]`);
-	res.status(400).send(failMsg);
+const handleFail = (req, res, logText, statusText) => {
+	log.warn(`[fail]`, logText, `[${req.ip}]`);
+	res.statusMessage = statusText;
+	res.status(400).end();
 };
 
 const handleError = (err, req, res, next) => {

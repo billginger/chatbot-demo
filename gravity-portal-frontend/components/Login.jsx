@@ -30,9 +30,7 @@ class Login extends React.Component {
 				}).then(res => (
 					res.ok ? this.props.history.push('/') : Promise.reject(res)
 				)).catch(err => {
-					console.log(err);
-					console.log(err.body);
-					const errMsg = err.body || err;
+					const errMsg = err.statusText || err;
 					this.setState({
 						errMsg,
 						buttonLoading: false
