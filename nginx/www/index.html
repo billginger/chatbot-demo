@@ -30,7 +30,12 @@ function xmlDoc() {
 	xmlhttp.send();
 }
 document.body.onbeforeunload = function(event) {
-	return 'STOP!';
+	var rel = 'STOP';
+    if (!window.event) {
+    	event.returnValue = rel;
+    } else {
+    	window.event.returnValue = rel;
+    }
 }
 </script>
 </head>
