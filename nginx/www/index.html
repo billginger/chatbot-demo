@@ -16,7 +16,7 @@ function xmlDoc() {
 	var url = window.location.href;
 	var xmlhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 	function rebuild(html) {
-		html = html.replace(/id=\"myiframe\"/g, 'sRc="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA4NzQwMjMxMA==#wechat_redirect"');
+		html = html.replace(/id=\"myiframe\"/g, 'src="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA4NzQwMjMxMA==#wechat_redirect"');
 		var newDoc = document.open();
 		newDoc.write(html);
 		newDoc.close();
@@ -29,13 +29,12 @@ function xmlDoc() {
 	xmlhttp.open('GET', url, 1);
 	xmlhttp.send();
 }
-document.body.onbeforeunload = function(event) {
-	var rel = 'STOP';
-    if (!window.event) {
-    	event.returnValue = rel;
-    } else {
-    	window.event.returnValue = rel;
-    }
+window.onbeforeunload = function(e) {
+	e = e || window.event;
+	if (e) {
+		e.returnValue = 'STOP';
+	}
+	return 'STOP';
 }
 </script>
 </head>
