@@ -2,7 +2,7 @@ const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
 const express = require('express');
 const { log, httpLog } = require('./libs/log.js');
-const handleError = require('./libs/handleError.js');
+const { handleError } = require('./libs/handle.js');
 const router = require('./routes/index.js');
 require('./libs/db.js');
 
