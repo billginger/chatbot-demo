@@ -6,15 +6,20 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Test</title>
 <script>
-	function replaceDoc(){
-		window.location.replace('https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA4NzQwMjMxMA==&scene=126&bizpsid=1556084142&sessionid=1556084142#wechat_redirect');
-	}
+function replaceDoc(){
+	window.location.replace('https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA4NzQwMjMxMA==&scene=126&bizpsid=1556084142&sessionid=1556084142#wechat_redirect');
+}
+function iframeDoc(){
+	console.log(1);
+}
 </script>
 </head>
 
 <body>
 <div id="root">
 	<p>打开新窗口：<a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAwMTAzNTAwMA==#wechat_redirect" target="_blank">NodeJs之路</a></p>
-	<p>Replace：<input type="button" value="NodeJs之路" onclick="replaceDoc()"></p>
+	<p>Replace：<input type="button" value="福特中国" onclick="replaceDoc()"></p>
+	<p>Iframe：<input type="button" value="福特中国" onclick="iframeDoc()"></p>
+	<p><iframe id="myiframe" src="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA4NzQwMjMxMA==#wechat_redirect" /></p>
 </div>
 </html>
