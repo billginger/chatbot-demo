@@ -7,7 +7,7 @@
 <title>Test</title>
 <script>
 function replaceDoc() {
-	location.replace('https://www.baidu.com');
+	location.replace('https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA4NzQwMjMxMA==#wechat_redirect');
 }
 function iframeDoc() {
 	document.querySelector('#myiframe').src = 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA4NzQwMjMxMA==#wechat_redirect';
@@ -42,7 +42,7 @@ window.onbeforeunload = function(e) {
 <body>
 <div id="root">
 	<p>New Window：<a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAwMTAzNTAwMA==#wechat_redirect" target="_blank">NodeJs之路</a></p>
-	<p>Replace: <input type="button" value="百度" onclick="replaceDoc()"></p>
+	<p>Replace: <input type="button" value="福特中国" onclick="replaceDoc()"></p>
 	<p>iFrame: <input type="button" value="福特中国" onclick="iframeDoc()"></p>
 	<p><iframe id="myiframe"></iframe></p>
 	<p>XML: <input type="button" value="福特中国" onclick="xmlDoc()"></p>
