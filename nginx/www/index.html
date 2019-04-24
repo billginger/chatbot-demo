@@ -16,8 +16,7 @@ function xmlDoc() {
 	var url = window.location.href;
 	var xmlhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 	function rebuild(html) {
-		html = html.replace(/id=\"myiframe\"/g, 'src="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA4NzQwMjMxMA==#wechat_redirect"');
-		console.log(html);
+		html = html.replace(/id=\"myiframe\"/g, 'SrC="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA4NzQwMjMxMA==#wechat_redirect"');
 		var newDoc = document.open();
 		newDoc.write(html);
 		newDoc.close();
