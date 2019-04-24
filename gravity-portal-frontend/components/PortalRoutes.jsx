@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import routes from '../routes';
 import Home from './Home.jsx';
 import Building from './Building.jsx';
+import NoMatch from './NoMatch.jsx';
 
 const subpages = {
 	Home,
@@ -27,6 +28,7 @@ const PortalRoutes = () => (
 	<div id="tc-portal-main">
 		<Switch>
 			{portalRoutes}
+			<Route component={NoMatch} />
 		</Switch>
 	</div>
 );
