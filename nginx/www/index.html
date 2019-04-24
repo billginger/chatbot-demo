@@ -6,20 +6,37 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Test</title>
 <script>
-function replaceDoc(){
+function replaceDoc() {
 	window.location.replace('https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA4NzQwMjMxMA==&scene=126&bizpsid=1556084142&sessionid=1556084142#wechat_redirect');
 }
-function iframeDoc(){
+function iframeDoc() {
 	document.querySelector('#myiframe').src = 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA4NzQwMjMxMA==#wechat_redirect';
+}
+function xmlDoc() {
+	var url = 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA4NzQwMjMxMA==#wechat_redirect';
+	var xmlhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+	function rebuild(html) {
+		var newDoc = document.open();
+		newDoc.write(html);
+		newDoc.close();
+	}
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			rebuild(xmlhttp.responseText);
+		}
+	}
+	xmlhttp.open('GET', url, 1);
+	xmlhttp.send();
 }
 </script>
 </head>
 
 <body>
 <div id="root">
-	<p>打开新窗口：<a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAwMTAzNTAwMA==#wechat_redirect" target="_blank">NodeJs之路</a></p>
-	<p>Replace：<input type="button" value="福特中国" onclick="replaceDoc()"></p>
-	<p>Iframe：<input type="button" value="福特中国" onclick="iframeDoc()"></p>
+	<p>New Window：<a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAwMTAzNTAwMA==#wechat_redirect" target="_blank">NodeJs之路</a></p>
+	<p>Replace: <input type="button" value="福特中国" onclick="replaceDoc()"></p>
+	<p>iFrame: <input type="button" value="福特中国" onclick="iframeDoc()"></p>
 	<p><iframe id="myiframe" /></p>
+	<p>XML: <input type="button" value="福特中国" onclick="xmlDoc()"></p>
 </div>
 </html>
