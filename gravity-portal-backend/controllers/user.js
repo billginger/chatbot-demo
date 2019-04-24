@@ -1,4 +1,4 @@
-const { handleFail } = require('./libs/handle.js');
+const { handleSuccess, handleFail } = require('../libs/handle.js');
 const { getPassword, getToken } = require('../libs/crypto.js');
 const User = require('../models/user.js');
 
