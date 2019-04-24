@@ -7,7 +7,7 @@ module.exports = {
 	},
 	output: {
 		filename: '[name].js?[contenthash]',
-		path: __dirname + '/../www',
+		path: __dirname + '/../nginx/www',
 		publicPath: '/'
 	},
 	module: {
@@ -37,7 +37,7 @@ module.exports = {
 		}),
 		new HtmlWebpackPlugin({
 			template: './index.html',
-			filename: '../www/index.html'
+			filename: 'index.html'
 		})
 	],
 	devServer: {
