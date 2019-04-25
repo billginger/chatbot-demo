@@ -2,11 +2,13 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import routes from '../routes';
 import Home from './Home.jsx';
+import BrandAdd from './BrandAdd.jsx';
 import Building from './Building.jsx';
 import NoMatch from './NoMatch.jsx';
 
 const subpages = {
 	Home,
+	BrandAdd,
 	Building
 }
 
