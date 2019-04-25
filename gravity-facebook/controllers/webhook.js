@@ -19,9 +19,7 @@ const options = {
 const sendMessage = (id, message) => {
 	const postData = JSON.stringify({ recipient: { id }, message });
 	httpsRequest(options, postData, (err, data) => {
-		if (err) {
-			return log.error(err);
-		}
+		if (err) return log.error(err);
 		log.info(data);
 	});
 };
