@@ -7,15 +7,15 @@ class PortalMenu extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			profile: {}
+			data: {}
 		}
 	}
 	componentDidMount() {
 		fetch('/api/user/profile').then(res => (
 			res.ok ? res.json() : Promise.reject(res)
-		)).then(profile => {
+		)).then(data => {
 			this.setState({
-				profile
+				data
 			});
 		}).catch(err => {
 			const i18n = this.props.intl.messages;
@@ -25,7 +25,7 @@ class PortalMenu extends React.Component {
 	}
 	render() {
 		const { intl, location } = this.props;
-		const { profile } = this.state;
+		const { data } = this.state;
 		const i18n = intl.messages;
 		const confirmLogout = () => {
 			Modal.confirm({
@@ -39,7 +39,7 @@ class PortalMenu extends React.Component {
 				}
 			});
 		};
-		if (!profile.name) {
+		if (!data) {
 			return '';
 		}
 		return (
@@ -54,7 +54,7 @@ class PortalMenu extends React.Component {
 						<Icon type="book" />{i18n.brandAdd}
 					</Link>
 				</Menu.Item>
-				<Menu.SubMenu title={<div><Icon type="user" />{profile.name}</div>}>
+				<Menu.SubMenu title={<div><Icon type="user" />{data.name}</div>}>
 					<Menu.Item onClick={confirmLogout}>
 						{i18n.userLogout}
 					</Menu.Item>
