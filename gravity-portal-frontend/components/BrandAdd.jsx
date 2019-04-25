@@ -14,8 +14,8 @@ class BrandAdd extends React.Component {
 		const { errMsg } = this.state;
 		// Form
 		const { getFieldDecorator, validateFieldsAndScroll } = this.props.form;
-		const formItemLayout = { labelCol: { span: 8 }, wrapperCol: { span: 16 } };
-		const tailFormItemLayout = { wrapperCol: { offset: 8, span: 16 } };
+		const formItemLayout = { labelCol: { span: 4 }, wrapperCol: { span: 16 } };
+		const tailFormItemLayout = { wrapperCol: { offset: 4, span: 16 } };
 		const handleSubmit = e => {
 			e.preventDefault();
 		};
@@ -32,7 +32,7 @@ class BrandAdd extends React.Component {
 					)}
 				</Form.Item>
 				<Form.Item {...tailFormItemLayout}>
-					<Button type="primary" htmlType="submit">Register</Button>
+					<Button type="primary" htmlType="submit">{i18n.actionSubmit}</Button>
 				</Form.Item>
 			</Form>
 		);

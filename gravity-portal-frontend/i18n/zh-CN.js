@@ -12,6 +12,7 @@ const zh_CN = {
 	labelCreatedAt: '创建日期',
 	labelUpdatedAt: '更新日期',
 	actionAdd: '新建',
+	actionSubmit: '提交',
 	loginTitle: '登录 Gravity Prototype',
 	loginUsername: '用户名',
 	loginPassword: '密码',

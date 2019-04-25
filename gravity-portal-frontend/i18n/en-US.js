@@ -12,6 +12,7 @@ const en_US = {
 	labelCreatedAt: 'Created Date',
 	labelUpdatedAt: 'Updated Date',
 	actionAdd: 'Add',
+	actionSubmit: 'Submit',
 	loginTitle: 'Login to Gravity Prototype',
 	loginUsername: 'Username',
 	loginPassword: 'Password',
