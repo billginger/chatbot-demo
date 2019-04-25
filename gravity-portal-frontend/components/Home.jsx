@@ -1,6 +1,8 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
+import { Typography, Icon } from 'antd';
+const { Text } = Typography;
 
 class Home extends React.Component {
 	constructor(props) {
