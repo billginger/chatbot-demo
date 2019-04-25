@@ -13,11 +13,10 @@ exports.userLogin = (req, res, next) => {
 		if (err) return next(err);
 		if (!doc) return handleFail(req, res, `[login] [name:${un}] [no found]`, 'msgLoginFailed');
 		if (doc.isLocked) return handleFail(req, res, `[login] [name:${doc.name}] [locked]`, 'msgUserLocked');
-		console.log(doc._id);
-		console.log(typeof doc._id);
-		res.cookie('uid', doc._id, cookieOptions);
+		const id = doc._id.toString();
+		res.cookie('uid', id, cookieOptions);
 		res.cookie('token', token, cookieOptions);
-		handleSuccess(req, res, `[login] [id:${doc._id}] [name:${doc.name}]`, 'ok');
+		handleSuccess(req, res, `[login] [id:${id}] [name:${doc.name}]`, 'ok');
 	});
 };
 
