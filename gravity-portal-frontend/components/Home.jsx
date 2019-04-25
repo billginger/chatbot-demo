@@ -13,7 +13,7 @@ class Home extends React.Component {
 		}
 	}
 	componentDidMount() {
-		fetch('/api/home').then(res => (
+		fetch('/api/system/home').then(res => (
 			res.ok ? res.json() : Promise.reject(res)
 		)).then(data => {
 			this.setState({
