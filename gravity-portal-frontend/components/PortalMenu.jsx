@@ -42,7 +42,7 @@ class PortalMenu extends React.Component {
 			});
 		};
 		if (!profile.name) {
-			return;
+			return '';
 		}
 		return (
 			<Menu id="tc-portal-menu" theme="dark" mode="horizontal" selectedKeys={[location.pathname]}>
