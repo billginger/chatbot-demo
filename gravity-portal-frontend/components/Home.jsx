@@ -34,7 +34,7 @@ class Home extends React.Component {
 			return (
 				<div>
 					<Text type="warning">{warnMessage}</Text>
-					<Button size="small" href="/login">{i18n.loginButton}</Button>
+					<Button type="primary" size="small" href="/login">{i18n.loginButton}</Button>
 				</div>
 			);
 		}
