@@ -1,3 +1,4 @@
+const { log } = require('../libs/log.js');
 const { handleSuccess, handleFail } = require('../libs/handle.js');
 const { getPassword, getToken } = require('../libs/crypto.js');
 const User = require('../models/user.js');
@@ -21,5 +22,19 @@ exports.userLogin = (req, res, next) => {
 };
 
 exports.userLogout = (req, res) => {
-	res.send('Logging out...');
+	const _id = req.cookies.uid;
+	const token = req.cookies.token;
+	res.clearCookie('uid');
+	res.clearCookie('token');
+	res.redirect('/login');
+	if (_id && token) {
+		const newToken = getToken();
+		User.findOneAndUpdate({ _id, token, isLocked: false, isDeleted: false }, { token: newToken }, (err, doc) => {
+			if (err) return log.error(err);
+			if (doc) {
+				const id = doc._id.toString();
+				handleSuccess(req, res, `[logout] [id:${id}] [name:${doc.name}]`);
+			}
+		});
+	}
 };

@@ -3,7 +3,7 @@ const { log } = require('./log.js');
 const handleSuccess = (req, res, logText, data) => {
 	const ip = req.headers['x-forwarded-for'] || req.ip;
 	log.info(`[success]`, logText, `[${ip}]`);
-	res.send(data);
+	data && res.send(data);
 };
 
 const handleFail = (req, res, logText, statusText) => {
