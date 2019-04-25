@@ -25,12 +25,12 @@ exports.userCheck = (req, res, next) => {
 	const _id = req.cookies.uid;
 	const token = req.cookies.token;
 	if (!_id || !token) {
-		return res.status(403).send('msgNeedLogin');
+		return handleFail(req, res, `[check] [no cookie]`, 'msgNeedLogin');
 	}
 	User.findOne({ _id, token, isDeleted: false }, '-password -token -isDeleted', (err, doc) => {
 		if (err) return next(err);
-		if (!doc) return res.status(403).send('msgLoginExpired');
-		if (doc.isLocked) return res.status(403).send('msgUserLocked');
+		if (!doc) return handleFail(req, res, `[check] [id:${_id}] [no found]`, 'msgLoginExpired');
+		if (doc.isLocked) return handleFail(req, res, `[check] [id:${_id}] [locked]`, 'msgUserLocked');
 		req.profile = doc;
 		next();
 	});
