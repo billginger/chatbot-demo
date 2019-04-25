@@ -1,7 +1,6 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
-import { Link } from 'react-router-dom';
-import { Typography, Icon } from 'antd';
+import { Typography, Icon, Button } from 'antd';
 const { Text } = Typography;
 
 class Home extends React.Component {
@@ -9,7 +8,7 @@ class Home extends React.Component {
 		super(props);
 		this.state = {
 			errMsg: '',
-			data: {}
+			data: ''
 		}
 	}
 	componentDidMount() {
@@ -35,7 +34,7 @@ class Home extends React.Component {
 			return (
 				<div>
 					<Text type="warning">{warnMessage}</Text>
-					<Link to="/login">{i18n.loginButton}</Link>
+					<Button size="small" href="/login">{i18n.loginButton}</Button>
 				</div>
 			);
 		}
