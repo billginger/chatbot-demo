@@ -1,12 +1,14 @@
 const { log } = require('./log.js');
 
 const handleSuccess = (req, res, logText, data) => {
-	log.info(`[success]`, logText, `[${req.ip}]`);
+	const ip = req.headers['x-forwarded-for'] || req.ip;
+	log.info(`[success]`, logText, `[${ip}]`);
 	res.send(data);
 };
 
 const handleFail = (req, res, logText, statusText) => {
-	log.warn(`[fail]`, logText, `[${req.ip}]`);
+	const ip = req.headers['x-forwarded-for'] || req.ip;
+	log.warn(`[fail]`, logText, `[${ip}]`);
 	res.statusMessage = statusText;
 	res.status(400).end();
 };
