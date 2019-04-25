@@ -21,6 +21,25 @@ exports.userLogin = (req, res, next) => {
 	});
 };
 
+exports.userCheck = (req, res, next) => {
+	const _id = req.cookies.uid;
+	const token = req.cookies.token;
+	if (!_id || !token) {
+		return res.status(403).send('msgNeedLogin');
+	}
+	User.findOne({ _id, token, isDeleted: false }, '-password -token -isDeleted', (err, doc) => {
+		if (err) return next(err);
+		if (!doc) return res.status(403).send('msgLoginExpired');
+		if (doc.isLocked) return res.status(403).send('msgUserLocked');
+		req.profile = doc;
+		next();
+	});
+};
+
+exports.userProfile = (req, res) => {
+	res.send(req.profile);
+};
+
 exports.userLogout = (req, res) => {
 	const _id = req.cookies.uid;
 	const token = req.cookies.token;
