@@ -13,6 +13,7 @@ class BrandAdd extends React.Component {
 		const i18n = this.props.intl.messages;
 		const { errMsg } = this.state;
 		// Form
+		const { getFieldDecorator, validateFieldsAndScroll } = this.props.form;
 		const formItemLayout = { labelCol: { span: 8 }, wrapperCol: { span: 16 } };
 		const tailFormItemLayout = { wrapperCol: { offset: 8, span: 16 } };
 		const handleSubmit = e => {
