@@ -7,7 +7,6 @@ class PortalMenu extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			errMsg: '',
 			profile: {}
 		}
 	}
@@ -19,15 +18,14 @@ class PortalMenu extends React.Component {
 				profile
 			});
 		}).catch(err => {
+			const i18n = this.props.intl.messages;
 			const errMsg = err.statusText || err;
-			this.setState({
-				errMsg
-			});
+			message.warning(i18n[errMsg] || i18n.msgError);
 		});
 	}
 	render() {
 		const { intl, location } = this.props;
-		const { errMsg, profile } = this.state;
+		const { profile } = this.state;
 		const i18n = intl.messages;
 		const confirmLogout = () => {
 			Modal.confirm({
@@ -41,9 +39,6 @@ class PortalMenu extends React.Component {
 				}
 			});
 		};
-		if (errMsg) {
-			message.warning(i18n[errMsg] || i18n.msgError);
-		}
 		if (!profile.name) {
 			return '';
 		}
