@@ -1,6 +1,7 @@
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const { log, httpLog } = require('./libs/log.js');
 const { handleError } = require('./libs/handle.js');
 const router = require('./routes/index.js');
@@ -11,6 +12,7 @@ const app = express();
 app.use(httpLog);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 app.use(router);
 app.use(handleError);
 
