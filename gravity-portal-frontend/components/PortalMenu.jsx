@@ -1,7 +1,7 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import { withRouter, Link } from 'react-router-dom';
-import { Menu, Icon, Modal } from 'antd';
+import { Menu, Icon, Modal, message } from 'antd';
 
 class PortalMenu extends React.Component {
 	constructor(props) {
@@ -27,7 +27,7 @@ class PortalMenu extends React.Component {
 	}
 	render() {
 		const { intl, location } = this.props;
-		const { profile } = this.state;
+		const { errMsg, profile } = this.state;
 		const i18n = intl.messages;
 		const confirmLogout = () => {
 			Modal.confirm({
@@ -41,6 +41,9 @@ class PortalMenu extends React.Component {
 				}
 			});
 		};
+		if (errMsg) {
+			message.warning(i18n[errMsg] || i18n.msgError);
+		}
 		if (!profile.name) {
 			return '';
 		}
