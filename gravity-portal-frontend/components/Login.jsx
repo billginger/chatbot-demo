@@ -43,7 +43,7 @@ class Login extends React.Component {
 				errMsg: ''
 			});
 		};
-		const loginAlert = (
+		const formAlert = (
 			alertMessage && <Alert className="tc-login-alert" message={alertMessage} type="error" />
 		);
 		return (
@@ -81,7 +81,7 @@ class Login extends React.Component {
 								<Checkbox onChange={handleInputChange}>{i18n.loginRememberMe}</Checkbox>
 							)}
 							<a id="tc-login-forgot">{i18n.loginForgotPassword}</a>
-							{loginAlert}
+							{formAlert}
 							<Button type="primary" htmlType="submit" block loading={buttonLoading}>
 								{i18n.loginButton}
 							</Button>
