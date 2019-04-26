@@ -9578,6 +9578,9 @@ div.ant-typography-edit-content {
   overflow: hidden;
 }
 
+.tc-form-alert {
+  margin: 0 0 10px;
+}
 #tc-login {
   overflow: hidden;
 }
@@ -9597,9 +9600,6 @@ div.ant-typography-edit-content {
 }
 .tc-login-icon {
   color: rgba(0, 0, 0, 0.25);
-}
-.tc-login-alert {
-  margin: 0 0 10px;
 }
 #tc-login-forgot {
   float: right;
@@ -9638,9 +9638,6 @@ div.ant-typography-edit-content {
   display: block;
   margin: 50px auto;
   font-size: 32px;
-}
-#tc-portal-list-table {
-  margin: 15px 0 0;
 }
 #tc-portal-footer {
   text-align: center;

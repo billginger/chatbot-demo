@@ -48,7 +48,7 @@ class BrandAdd extends React.Component {
 			});
 		};
 		const formAlert = (
-			alertMessage && <Alert className="tc-login-alert" message={alertMessage} type="error" />
+			alertMessage && <Alert className="tc-form-alert" message={alertMessage} type="error" />
 		);
 		return (
 			<Form {...formItemLayout} onSubmit={handleSubmit} style={{ marginTop: 40 }}>
