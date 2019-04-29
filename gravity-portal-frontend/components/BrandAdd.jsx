@@ -30,6 +30,12 @@ class BrandAdd extends React.Component {
 		// Form
 		const formItemLayout = { labelCol: { span: 4 }, wrapperCol: { span: 16 } };
 		const tailFormItemLayout = { wrapperCol: { offset: 4, span: 16 } };
+		const handleError = errMsg => {
+			this.setState({
+				errMsg,
+				buttonLoading: false
+			});
+		};
 		const handleSubmit = e => {
 			e.preventDefault();
 			validateFieldsAndScroll((err, values) => {
@@ -46,16 +52,19 @@ class BrandAdd extends React.Component {
 				)).then(data => {
 					this.props.history.push(`/brand/${data._id}`);
 				}).catch(err => {
-					console.log('---');
-					console.log(err);
-					console.log('---');
-					console.log(JSON.stringify(err));
-					console.log('---');
-					const errMsg = err.statusText || err;
-					this.setState({
-						errMsg,
-						buttonLoading: false
-					});
+					if (err.headers) {
+						const contentType = err.headers.get('content-type');
+						if (contentType.includes('application/json')) {
+							return err.json().then(errMsg => {
+								handleError(errMsg);
+							});
+						} else {
+							return err.text().then(errMsg => {
+								handleError(errMsg);
+							});
+						}
+					}
+					handleError(err);
 				});
 			});
 		};
