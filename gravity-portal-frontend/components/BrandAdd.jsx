@@ -15,7 +15,7 @@ class BrandAdd extends React.Component {
 		const { getFieldDecorator, validateFieldsAndScroll } = this.props.form;
 		const { errMsg, buttonLoading } = this.state;
 		let alertMessage;
-		if (errMsg instanceof Object && errMsg.id && errMsg.key && errMsg.value) {
+		if (errMsg instanceof Object) {
 			alertMessage = this.props.intl.formatMessage(
 				{ id: errMsg.id },
 				{ key: i18n[errMsg.key], value: errMsg.value }
@@ -24,7 +24,7 @@ class BrandAdd extends React.Component {
 			alertMessage = i18n[errMsg] || i18n.msgError;
 		}
 		console.log('errMsg:');
-		console.log(errMsg);
+		console.log(JSON.stringify(errMsg));
 		console.log('alertMessage:');
 		console.log(alertMessage);
 		// Form
