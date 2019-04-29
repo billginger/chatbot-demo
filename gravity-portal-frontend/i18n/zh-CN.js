@@ -6,6 +6,7 @@ const zh_CN = {
 	msgNeedLogin: '请先登录！',
 	msgLoginExpired: '您的登录信息已失效！请重新登录！',
 	msgNotFound: '没有找到相关记录！',
+	msgExist: '{key} {value} 已存在！',
 	modalConfirmTitle: '请确认',
 	modalConfirmBody: '确定要{action}{target}？',
 	labelAdd: '新建',

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
-const userSchema = new mongoose.Schema({
+const brandSchema = new mongoose.Schema({
 	name: String,
 	wechat: String,
 	facebook: String,
@@ -11,4 +11,4 @@ const userSchema = new mongoose.Schema({
 	timestamps: true
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Brand', brandSchema);
