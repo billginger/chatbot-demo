@@ -7,8 +7,8 @@ exports.brandAdd = (req, res) => {
 	Brand.count({ name: nameAnyCase }, (err, count) => {
 		if (err) return next(err);
 		if (count) {
-			const logText = `[brand] [add] [name:${name}] [exist]`;
-			return handleFail(req, res, logText, { id: 'msgExist', key: 'labelName', value: name });
+			const statusText = JSON.stringify({ id: 'msgExist', key: 'labelName', value: name });
+			return handleFail(req, res, `[brand] [add] [name:${name}] [exist]`, statusText);
 		}
 		const createdBy = req.profile._id;
 		Brand.create({ name, createdBy }, (err, doc) => {

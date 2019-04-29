@@ -15,10 +15,11 @@ class BrandAdd extends React.Component {
 		const { getFieldDecorator, validateFieldsAndScroll } = this.props.form;
 		const { errMsg, buttonLoading } = this.state;
 		let alertMessage;
-		if (errMsg instanceof Object) {
+		if (errMsg.indexOf('{') == 0) {
+			const err = JSON.parse(errMsg);
 			alertMessage = this.props.intl.formatMessage(
-				{ id: errMsg.id },
-				{ key: i18n[errMsg.key], value: errMsg.value }
+				{ id: err.id },
+				{ key: i18n[err.key], value: err.value }
 			);
 		} else if (errMsg.length) {
 			alertMessage = i18n[errMsg] || i18n.msgError;
@@ -30,12 +31,6 @@ class BrandAdd extends React.Component {
 		// Form
 		const formItemLayout = { labelCol: { span: 4 }, wrapperCol: { span: 16 } };
 		const tailFormItemLayout = { wrapperCol: { offset: 4, span: 16 } };
-		const handleError = errMsg => {
-			this.setState({
-				errMsg,
-				buttonLoading: false
-			});
-		};
 		const handleSubmit = e => {
 			e.preventDefault();
 			validateFieldsAndScroll((err, values) => {
@@ -52,19 +47,11 @@ class BrandAdd extends React.Component {
 				)).then(data => {
 					this.props.history.push(`/brand/${data._id}`);
 				}).catch(err => {
-					if (err.headers) {
-						const contentType = err.headers.get('content-type');
-						if (contentType.includes('application/json')) {
-							return err.json().then(errMsg => {
-								handleError(errMsg);
-							});
-						} else {
-							return err.text().then(errMsg => {
-								handleError(errMsg);
-							});
-						}
-					}
-					handleError(err);
+					const errMsg = err.statusText || err;
+					this.setState({
+						errMsg,
+						buttonLoading: false
+					});
 				});
 			});
 		};
