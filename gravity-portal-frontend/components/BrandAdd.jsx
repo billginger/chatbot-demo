@@ -46,6 +46,11 @@ class BrandAdd extends React.Component {
 				)).then(data => {
 					this.props.history.push(`/brand/${data._id}`);
 				}).catch(err => {
+					console.log('---');
+					console.log(res);
+					console.log('---');
+					console.log(JSON.stringify(res));
+					console.log('---');
 					const errMsg = err.statusText || err;
 					this.setState({
 						errMsg,
