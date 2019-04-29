@@ -14,7 +14,15 @@ class BrandAdd extends React.Component {
 		const i18n = this.props.intl.messages;
 		const { getFieldDecorator, validateFieldsAndScroll } = this.props.form;
 		const { errMsg, buttonLoading } = this.state;
-		const alertMessage = errMsg && (i18n[errMsg] || i18n.msgError);
+		let alertMessage;
+		if (errMsg instanceof Object && errMsg.id && errMsg.key && errMsg.value) {
+			alertMessage = this.props.intl.formatMessage(
+				{ id: errMsg.id },
+				{ key: i18n[errMsg.key], value: errMsg.value }
+			);
+		} else if (errMsg.length) {
+			alertMessage = i18n[errMsg] || i18n.msgError;
+		}
 		// Form
 		const formItemLayout = { labelCol: { span: 4 }, wrapperCol: { span: 16 } };
 		const tailFormItemLayout = { wrapperCol: { offset: 4, span: 16 } };
