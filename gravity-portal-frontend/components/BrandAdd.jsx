@@ -23,6 +23,10 @@ class BrandAdd extends React.Component {
 		} else if (errMsg.length) {
 			alertMessage = i18n[errMsg] || i18n.msgError;
 		}
+		console.log('errMsg:');
+		console.log(errMsg);
+		console.log('alertMessage:');
+		console.log(alertMessage);
 		// Form
 		const formItemLayout = { labelCol: { span: 4 }, wrapperCol: { span: 16 } };
 		const tailFormItemLayout = { wrapperCol: { offset: 4, span: 16 } };
