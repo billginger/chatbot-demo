@@ -44,9 +44,7 @@ class BrandDetail extends React.Component {
 		}
 		// Display Data
 		return (
-			<PageHeader title={data.name}>
-				<p>hi~</p>
-			</PageHeader>
+			<PageHeader onBack={() => window.history.back()} title={data.name} />
 		);
 	}
 }
