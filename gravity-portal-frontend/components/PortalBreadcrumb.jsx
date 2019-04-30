@@ -6,19 +6,14 @@ import routes from '../routes';
 
 const PortalBreadcrumb = ({ intl, location }) => {
 	const i18n = intl.messages;
-	let pathSnippets = [];
-	if (routes[location.pathname]) {
-		pathSnippets = location.pathname.split('/').filter(i => i);
-		console.log(pathSnippets);
-	}
-	console.log('---');
+	const pathSnippets = location.pathname.split('/').filter(i => i);
 	const breadcrumbItems = pathSnippets.map((_, index) => {
 		const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
-		console.log(url);
+		const text = routes[url] ? i18n[routes[url].i18n] : i18n.labelDetail;
 		return (
 			<Breadcrumb.Item key={url}>
 				<Link to={url}>
-					{i18n[routes[url].i18n]}
+					{text}
 				</Link>
 			</Breadcrumb.Item>
 		);
