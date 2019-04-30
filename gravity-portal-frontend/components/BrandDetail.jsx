@@ -1,6 +1,6 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
-import { Typography, Icon, PageHeader } from 'antd';
+import { Typography, Icon } from 'antd';
 const { Text } = Typography;
 
 class BrandDetail extends React.Component {
@@ -44,7 +44,12 @@ class BrandDetail extends React.Component {
 		}
 		// Display Data
 		return (
-			<PageHeader onBack={() => window.history.back()} title={data.name} />
+			<div>
+				<h1>{data.name}</h1>
+				<div>微信公众号：未绑定</div>
+				<div>Facebook：未绑定</div>
+				<div>{data.createdBy} 创建于 {data.createdAt}</div>
+			</div>
 		);
 	}
 }
