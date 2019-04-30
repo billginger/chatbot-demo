@@ -1,5 +1,6 @@
 const { handleSuccess, handleFail } = require('../libs/handle.js');
 const Brand = require('../models/brand.js');
+const User = require('../models/user.js');
 
 exports.brandAdd = (req, res) => {
 	const name = req.body.name && req.body.name.trim();
@@ -11,19 +12,24 @@ exports.brandAdd = (req, res) => {
 			return handleFail(req, res, `[brand] [add] [name:${name}] [exist]`, statusText);
 		}
 		const createdBy = req.profile._id;
-		Brand.create({ name, createdBy }, (err, doc) => {
+		Brand.create({ name, createdBy }, (err, brand) => {
 			if (err) return next(err);
-			const id = doc._id.toString();
-			handleSuccess(req, res, `[brand] [add] [id:${id}] [name:${doc.name}]`, doc);
+			const id = brand._id.toString();
+			handleSuccess(req, res, `[brand] [add] [id:${id}] [name:${name}]`, brand);
 		});
 	});
 };
 
 exports.brandDetail = (req, res) => {
 	const _id = req.params.id;
-	Brand.findOne({ _id, isDeleted: false }, (err, doc) => {
+	Brand.findOne({ _id, isDeleted: false }, (err, brand) => {
 		if (err) return next(err);
-		if (!doc) return handleFail(req, res, `[brand] [detail] [id:${_id}] [not found]`, 'msgNotFound');
-		handleSuccess(req, res, `[brand] [detail] [id:${_id}] [name:${doc.name}]`, doc);
+		if (!brand) return handleFail(req, res, `[brand] [detail] [id:${_id}] [not found]`, 'msgNotFound');
+		User.findById(brand.createdBy, (err, user) => {
+			if (user) {
+				brand.createdBy = user.name;
+			}
+			handleSuccess(req, res, `[brand] [detail] [id:${_id}] [name:${brand.name}]`, brand);
+		});
 	});
 };

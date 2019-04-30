@@ -1,6 +1,8 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
+import { Link } from 'react-router-dom';
 import { Typography, Icon } from 'antd';
+import { getLocalDate } from '../utils/date.js';
 const { Text } = Typography;
 
 class BrandDetail extends React.Component {
@@ -42,13 +44,23 @@ class BrandDetail extends React.Component {
 				<Icon type="loading" />
 			);
 		}
+		// Handle Delete
+		const handleDelete = e => {
+			console.log(e);
+		};
 		// Display Data
 		return (
 			<div>
-				<h1>{data.name}</h1>
-				<div>微信公众号：未绑定</div>
-				<div>Facebook：未绑定</div>
-				<div>{data.createdBy} 创建于 {data.createdAt}</div>
+				<div>
+					<h1>{data.name}</h1>
+					<Link to={`/brand/edit/${data._id}`}>{i18n.actionEdit}</Link>
+					<a onClick={handleDelete}>{i18n.actionDelete}</a>
+				</div>
+				<div>
+					<p>{i18n.brandWechatAccount}: {i18n.brandUnbound}</p>
+					<p>Facebook: {i18n.brandUnbound}</p>
+					<p>{data.createdBy} {i18n.brandCreatedAt} {getLocalDate(data.createdAt)}</p>
+				</div>
 			</div>
 		);
 	}

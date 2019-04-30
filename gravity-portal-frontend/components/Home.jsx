@@ -1,6 +1,6 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
-import { Typography, Icon, Button } from 'antd';
+import { Typography, Icon } from 'antd';
 const { Text } = Typography;
 
 class Home extends React.Component {
