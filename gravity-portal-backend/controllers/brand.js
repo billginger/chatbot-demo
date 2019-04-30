@@ -18,3 +18,12 @@ exports.brandAdd = (req, res) => {
 		});
 	});
 };
+
+exports.brandDetail = (req, res) => {
+	const _id = req.params.id;
+	Brand.findOne({ _id, isDeleted: false }, (err, doc) => {
+		if (err) return next(err);
+		if (!doc) return handleFail(req, res, `[brand] [detail] [id:${_id}] [not found]`, 'msgNotFound');
+		handleSuccess(req, res, `[brand] [detail] [id:${_id}] [name:${doc.name}]`, doc);
+	});
+};

@@ -14,7 +14,7 @@ class BrandAdd extends React.Component {
 		const i18n = this.props.intl.messages;
 		const { getFieldDecorator, validateFieldsAndScroll } = this.props.form;
 		const { errMsg, buttonLoading } = this.state;
-		// Alert Message
+		// Handle Error
 		let alertMessage;
 		if (errMsg) {
 			if (errMsg.indexOf('{') == 0) {

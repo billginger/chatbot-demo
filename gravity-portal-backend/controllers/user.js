@@ -12,7 +12,7 @@ exports.userLogin = (req, res, next) => {
 	const cookieOptions = { httpOnly: true, secure: true };
 	User.findOneAndUpdate({ name, password, isDeleted: false }, { token }, (err, doc) => {
 		if (err) return next(err);
-		if (!doc) return handleFail(req, res, `[login] [name:${un}] [no found]`, 'msgLoginFailed');
+		if (!doc) return handleFail(req, res, `[login] [name:${un}] [not found]`, 'msgLoginFailed');
 		if (doc.isLocked) return handleFail(req, res, `[login] [name:${doc.name}] [locked]`, 'msgUserLocked');
 		const id = doc._id.toString();
 		res.cookie('uid', id, cookieOptions);
@@ -29,7 +29,7 @@ exports.userCheck = (req, res, next) => {
 	}
 	User.findOne({ _id, token, isDeleted: false }, '-password -token -isDeleted', (err, doc) => {
 		if (err) return next(err);
-		if (!doc) return handleFail(req, res, `[check] [id:${_id}] [no found]`, 'msgLoginExpired');
+		if (!doc) return handleFail(req, res, `[check] [id:${_id}] [not found]`, 'msgLoginExpired');
 		if (doc.isLocked) return handleFail(req, res, `[check] [id:${_id}] [locked]`, 'msgUserLocked');
 		req.profile = doc;
 		next();
