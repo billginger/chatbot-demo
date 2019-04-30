@@ -2,7 +2,7 @@ import React from 'react';
 import { injectIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Typography, Icon } from 'antd';
-import { getLocalDate } from '../utils/date.js';
+import { withTimeZone, getLocalDate } from '../utils/date.js';
 const { Text } = Typography;
 
 class BrandDetail extends React.Component {
@@ -48,6 +48,10 @@ class BrandDetail extends React.Component {
 		const handleDelete = e => {
 			console.log(e);
 		};
+		// Handle Delete
+		const handleBind = e => {
+			console.log(e);
+		};
 		// Display Data
 		return (
 			<div>
@@ -57,9 +61,16 @@ class BrandDetail extends React.Component {
 					<a onClick={handleDelete}>{i18n.actionDelete}</a>
 				</div>
 				<div>
-					<p>{i18n.brandWechatAccount}: {i18n.brandUnbound}</p>
-					<p>Facebook: {i18n.brandUnbound}</p>
-					<p>{data.createdBy} {i18n.brandCreatedAt} {getLocalDate(data.createdAt)}</p>
+					<p>
+						{i18n.brandWechatAccount}: {i18n.brandUnbound}
+						<a onClick={handleBind}>{i18n.actionBind}</a>
+					</p>
+					<p>
+						Facebook: {i18n.brandUnbound}
+						<a onClick={handleBind}>{i18n.actionBind}</a>
+					</p>
+					<p>{i18n.labelCreatedBy}: {data.createdBy}</p>
+					<p>{withTimeZone(i18n.labelCreatedAt)}: {getLocalDate(data.createdAt)}</p>
 				</div>
 			</div>
 		);

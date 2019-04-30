@@ -9578,9 +9578,6 @@ div.ant-typography-edit-content {
   overflow: hidden;
 }
 
-.tc-form-alert {
-  margin: 0 0 10px;
-}
 #tc-login {
   overflow: hidden;
 }
@@ -9641,5 +9638,18 @@ div.ant-typography-edit-content {
 }
 #tc-portal-footer {
   text-align: center;
+}
+#tc-page-header {
+  margin: 0 0 20px;
+  border-bottom: 1px solid #ccc;
+}
+#tc-page-header h1 {
+  margin: 0;
+}
+#tc-page-header a {
+  margin: 0 20px 0 0;
+}
+.tc-form-alert {
+  margin: 0 0 10px;
 }
 
