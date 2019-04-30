@@ -62,36 +62,36 @@ class BrandDetail extends React.Component {
 				</div>
 				<div id="tc-page-main">
 					<Row>
-						<Col span={4}>
+						<Col span={6}>
 							{i18n.brandWechatAccount}
 						</Col>
-						<Col span={20}>
+						<Col span={18}>
 							{i18n.brandUnbound}
 							<a onClick={handleBind}>{i18n.actionBind}</a>
 						</Col>
 					</Row>
 					<Row>
-						<Col span={4}>
+						<Col span={6}>
 							Facebook
 						</Col>
-						<Col span={20}>
+						<Col span={18}>
 							{i18n.brandUnbound}
 							<a onClick={handleBind}>{i18n.actionBind}</a>
 						</Col>
 					</Row>
 					<Row>
-						<Col span={4}>
+						<Col span={6}>
 							{i18n.labelCreatedBy}
 						</Col>
-						<Col span={20}>
+						<Col span={18}>
 							{data.createdBy}
 						</Col>
 					</Row>
 					<Row>
-						<Col span={4}>
+						<Col span={6}>
 							{withTimeZone(i18n.labelCreatedAt)}
 						</Col>
-						<Col span={20}>
+						<Col span={18}>
 							{getLocalDate(data.createdAt)}
 						</Col>
 					</Row>

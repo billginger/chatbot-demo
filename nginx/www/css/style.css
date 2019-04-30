@@ -9650,12 +9650,12 @@ div.ant-typography-edit-content {
 #tc-page-header a {
   margin: 0 10px 0 0;
 }
-#tc-page-main .ant-col-4 {
+#tc-page-main .ant-col-6 {
   padding: 5px;
   font-weight: bold;
   text-align: right;
 }
-#tc-page-main .ant-col-20 {
+#tc-page-main .ant-col-18 {
   padding: 5px 5px 5px 15px;
 }
 #tc-page-main a {
