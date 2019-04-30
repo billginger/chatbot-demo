@@ -9641,6 +9641,7 @@ div.ant-typography-edit-content {
 }
 #tc-page-header {
   margin: 0 0 20px;
+  padding: 0 5px 5px 5px;
   border-bottom: 1px solid #ddd;
 }
 #tc-page-header h1 {
@@ -9650,6 +9651,7 @@ div.ant-typography-edit-content {
   margin: 0 10px 0 0;
 }
 #tc-page-main .ant-col-4 {
+  padding: 0 20px 0 0;
   font-weight: bold;
   text-align: right;
 }
