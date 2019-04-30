@@ -1,6 +1,6 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
-import { Typography, Icon, Button } from 'antd';
+import { Typography, Icon, PageHeader } from 'antd';
 const { Text } = Typography;
 
 class BrandDetail extends React.Component {
@@ -44,7 +44,9 @@ class BrandDetail extends React.Component {
 		}
 		// Display Data
 		return (
-			<p>{data.name}</p>
+			<PageHeader title={data.name}>
+				<p>hi~</p>
+			</PageHeader>
 		);
 	}
 }
