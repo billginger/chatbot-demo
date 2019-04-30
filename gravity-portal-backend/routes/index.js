@@ -10,6 +10,6 @@ router.get('/api/user/profile', userCheck, userProfile);
 router.get('/api/user/logout', userLogout);
 router.get('/api/system/home', userCheck, systemHome);
 router.post('/api/brand/add', userCheck, brandAdd);
-router.post('/api/brand/:id', userCheck, brandDetail);
+router.get('/api/brand/:id', userCheck, brandDetail);
 
 module.exports = router;
