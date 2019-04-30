@@ -1,7 +1,7 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Typography, Icon } from 'antd';
+import { Typography, Icon, Row, Col } from 'antd';
 import { withTimeZone, getLocalDate } from '../utils/date.js';
 const { Text } = Typography;
 
@@ -55,22 +55,46 @@ class BrandDetail extends React.Component {
 		// Display Data
 		return (
 			<div>
-				<div>
+				<div id="tc-page-header">
 					<h1>{data.name}</h1>
 					<Link to={`/brand/edit/${data._id}`}>{i18n.actionEdit}</Link>
 					<a onClick={handleDelete}>{i18n.actionDelete}</a>
 				</div>
-				<div>
-					<p>
-						{i18n.brandWechatAccount}: {i18n.brandUnbound}
-						<a onClick={handleBind}>{i18n.actionBind}</a>
-					</p>
-					<p>
-						Facebook: {i18n.brandUnbound}
-						<a onClick={handleBind}>{i18n.actionBind}</a>
-					</p>
-					<p>{i18n.labelCreatedBy}: {data.createdBy}</p>
-					<p>{withTimeZone(i18n.labelCreatedAt)}: {getLocalDate(data.createdAt)}</p>
+				<div id="tc-page-main">
+					<Row>
+						<Col span={4}>
+							<b>{i18n.brandWechatAccount}</b>
+						</Col>
+						<Col span={20}>
+							{i18n.brandUnbound}
+							<a onClick={handleBind}>{i18n.actionBind}</a>
+						</Col>
+					</Row>
+					<Row>
+						<Col span={4}>
+							<b>Facebook</b>
+						</Col>
+						<Col span={20}>
+							{i18n.brandUnbound}
+							<a onClick={handleBind}>{i18n.actionBind}</a>
+						</Col>
+					</Row>
+					<Row>
+						<Col span={4}>
+							<b>{i18n.labelCreatedBy}</b>
+						</Col>
+						<Col span={20}>
+							{data.createdBy}
+						</Col>
+					</Row>
+					<Row>
+						<Col span={4}>
+							<b>{withTimeZone(i18n.labelCreatedAt)}</b>
+						</Col>
+						<Col span={20}>
+							{getLocalDate(data.createdAt)}
+						</Col>
+					</Row>
 				</div>
 			</div>
 		);
