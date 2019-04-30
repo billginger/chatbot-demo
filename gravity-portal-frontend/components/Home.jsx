@@ -15,14 +15,10 @@ class Home extends React.Component {
 		fetch('/api/system/home').then(res => (
 			res.ok ? res.json() : Promise.reject(res)
 		)).then(data => {
-			this.setState({
-				data
-			});
+			this.setState({ data });
 		}).catch(err => {
 			const errMsg = err.statusText || err;
-			this.setState({
-				errMsg
-			});
+			this.setState({ errMsg });
 		});
 	}
 	render() {

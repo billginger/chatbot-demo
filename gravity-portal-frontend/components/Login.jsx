@@ -20,9 +20,7 @@ class Login extends React.Component {
 			e.preventDefault();
 			validateFieldsAndScroll((err, values) => {
 				if (err) return;
-				this.setState({
-					buttonLoading: true
-				});
+				this.setState({ buttonLoading: true });
 				fetch('/api/user/login', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
@@ -39,9 +37,7 @@ class Login extends React.Component {
 			});
 		};
 		const handleInputChange = () => {
-			this.setState({
-				errMsg: ''
-			});
+			this.setState({ errMsg: '' });
 		};
 		const formAlert = (
 			alertMessage && <Alert className="tc-form-alert" message={alertMessage} type="error" />

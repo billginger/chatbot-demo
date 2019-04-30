@@ -34,9 +34,7 @@ class BrandAdd extends React.Component {
 			e.preventDefault();
 			validateFieldsAndScroll((err, values) => {
 				if (err) return;
-				this.setState({
-					buttonLoading: true
-				});
+				this.setState({ buttonLoading: true });
 				fetch('/api/brand/add', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
@@ -55,9 +53,7 @@ class BrandAdd extends React.Component {
 			});
 		};
 		const handleInputChange = () => {
-			this.setState({
-				errMsg: ''
-			});
+			this.setState({ errMsg: '' });
 		};
 		const formAlert = (
 			alertMessage && <Alert className="tc-form-alert" message={alertMessage} type="error" />

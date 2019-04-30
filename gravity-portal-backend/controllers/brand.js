@@ -2,6 +2,14 @@ const { handleSuccess, handleFail } = require('../libs/handle.js');
 const Brand = require('../models/brand.js');
 const User = require('../models/user.js');
 
+exports.brandList = (req, res) => {
+	Brand.find({ isDeleted: false }, null, { sort: '-_id' }, (err, brands) => {
+		if (err) return next(err);
+		if (!brands) return handleFail(req, res, `[brand] [list] [not found]`, 'msgNotFound');
+		handleSuccess(req, res, `[brand] [list]`, brands);
+	});
+};
+
 exports.brandAdd = (req, res) => {
 	const name = req.body.name && req.body.name.trim();
 	const nameAnyCase = new RegExp(`^${name}$`, 'i');
