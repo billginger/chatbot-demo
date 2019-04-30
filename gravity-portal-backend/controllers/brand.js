@@ -26,11 +26,11 @@ exports.brandDetail = (req, res) => {
 		if (err) return next(err);
 		if (!brand) return handleFail(req, res, `[brand] [detail] [id:${_id}] [not found]`, 'msgNotFound');
 		User.findById(brand.createdBy, (err, user) => {
-			console.log(user);
 			if (user) {
+				console.log(brand);
 				brand.createdBy = user.name;
+				console.log(brand);
 			}
-			console.log(brand);
 			handleSuccess(req, res, `[brand] [detail] [id:${_id}] [name:${brand.name}]`, brand);
 		});
 	});
