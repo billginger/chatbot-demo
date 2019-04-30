@@ -14,7 +14,9 @@ class BrandAdd extends React.Component {
 		const i18n = this.props.intl.messages;
 		const { getFieldDecorator, validateFieldsAndScroll } = this.props.form;
 		const { errMsg, buttonLoading } = this.state;
-		// Handle Error
+		const formItemLayout = { labelCol: { span: 4 }, wrapperCol: { span: 16 } };
+		const tailFormItemLayout = { wrapperCol: { offset: 4, span: 16 } };
+		// Error
 		let alertMessage;
 		if (errMsg) {
 			if (errMsg.indexOf('{') == 0) {
@@ -27,9 +29,10 @@ class BrandAdd extends React.Component {
 				alertMessage = i18n[errMsg] || i18n.msgError;
 			}
 		}
-		// Form
-		const formItemLayout = { labelCol: { span: 4 }, wrapperCol: { span: 16 } };
-		const tailFormItemLayout = { wrapperCol: { offset: 4, span: 16 } };
+		const formAlert = (
+			alertMessage && <Alert className="tc-form-alert" message={alertMessage} type="error" />
+		);
+		// Handle
 		const handleSubmit = e => {
 			e.preventDefault();
 			validateFieldsAndScroll((err, values) => {
@@ -55,9 +58,7 @@ class BrandAdd extends React.Component {
 		const handleInputChange = () => {
 			this.setState({ errMsg: '' });
 		};
-		const formAlert = (
-			alertMessage && <Alert className="tc-form-alert" message={alertMessage} type="error" />
-		);
+		// Page
 		return (
 			<Form {...formItemLayout} onSubmit={handleSubmit} style={{ marginTop: 40 }}>
 				<Form.Item label={i18n.labelName}>

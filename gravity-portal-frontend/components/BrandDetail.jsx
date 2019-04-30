@@ -27,7 +27,7 @@ class BrandDetail extends React.Component {
 	render() {
 		const i18n = this.props.intl.messages;
 		const { errMsg, data } = this.state;
-		// Handle Error
+		// Error
 		if (errMsg) {
 			const warnMessage = i18n[errMsg] || i18n.msgError;
 			return (
@@ -40,15 +40,14 @@ class BrandDetail extends React.Component {
 				<Icon type="loading" />
 			);
 		}
-		// Handle Delete
+		// Handle
 		const handleDelete = e => {
 			console.log(e);
 		};
-		// Handle Delete
 		const handleBind = e => {
 			console.log(e);
 		};
-		// Display Data
+		// Page
 		return (
 			<div>
 				<div id="tc-page-header">

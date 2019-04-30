@@ -31,7 +31,31 @@ class PortalMenu extends React.Component {
 		const { intl, location } = this.props;
 		const { user, brands } = this.state;
 		const i18n = intl.messages;
-		const confirmLogout = () => {
+		// Hold
+		if (!user) {
+			return '';
+		}
+		// Brand Menu
+		let brandMenu = (
+			<Menu.Item key="/brand/add">
+				<Link to="/brand/add">
+					<Icon type="book" />{i18n.brandAdd}
+				</Link>
+			</Menu.Item>
+		);
+		if (brands.length) {
+			brandMenu = (
+				<Menu.SubMenu title={<div><Icon type="book" />{i18n.brand}</div>}>
+					{brands.map(item => (
+						<Menu.Item key={`/brand/${item._id}`}>
+							{item.name}
+						</Menu.Item>
+					))}
+				</Menu.SubMenu>
+			);
+		}
+		// Handle
+		const handleLogout = () => {
 			Modal.confirm({
 				title: i18n.modalConfirmTitle,
 				content: intl.formatMessage(
@@ -43,38 +67,17 @@ class PortalMenu extends React.Component {
 				}
 			});
 		};
-		if (!user) {
-			return '';
-		}
-		// Brand Menu
-		let brandMenu = (
-			<Menu.Item>
-				<Link to="/brand/add">
-					<Icon type="book" />{i18n.brandAdd}
-				</Link>
-			</Menu.Item>
-		);
-		if (brands.length) {
-			brandMenu = (
-				<Menu.SubMenu title={<div><Icon type="book" />{i18n.brand}</div>}>
-					{brands.map(item => (
-						<Menu.Item key={item._id}>
-							{item.name}
-						</Menu.Item>
-					))}
-				</Menu.SubMenu>
-			);
-		}
+		// Page
 		return (
 			<Menu id="tc-portal-menu" theme="dark" mode="horizontal" selectedKeys={[location.pathname]}>
-				<Menu.Item>
+				<Menu.Item key="/">
 					<Link to="/">
 						<Icon type="home" />{i18n.home}
 					</Link>
 				</Menu.Item>
 				{brandMenu}
 				<Menu.SubMenu title={<div><Icon type="user" />{user.name}</div>}>
-					<Menu.Item onClick={confirmLogout}>
+					<Menu.Item onClick={handleLogout}>
 						{i18n.userLogout}
 					</Menu.Item>
 				</Menu.SubMenu>

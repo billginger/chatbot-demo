@@ -15,7 +15,12 @@ class Login extends React.Component {
 		const i18n = this.props.intl.messages;
 		const { getFieldDecorator, validateFieldsAndScroll } = this.props.form;
 		const { errMsg, buttonLoading } = this.state;
+		// Error
 		const alertMessage = errMsg && (i18n[errMsg] || i18n.msgError);
+		const formAlert = (
+			alertMessage && <Alert className="tc-form-alert" message={alertMessage} type="error" />
+		);
+		// Handle
 		const handleSubmit = e => {
 			e.preventDefault();
 			validateFieldsAndScroll((err, values) => {
@@ -39,9 +44,7 @@ class Login extends React.Component {
 		const handleInputChange = () => {
 			this.setState({ errMsg: '' });
 		};
-		const formAlert = (
-			alertMessage && <Alert className="tc-form-alert" message={alertMessage} type="error" />
-		);
+		// Page
 		return (
 			<div id="tc-login">
 				<LanguageMenu id="tc-login-language" />

@@ -24,7 +24,7 @@ class Home extends React.Component {
 	render() {
 		const i18n = this.props.intl.messages;
 		const { errMsg, data } = this.state;
-		// Handle Error
+		// Error
 		if (errMsg) {
 			const warnMessage = i18n[errMsg] || i18n.msgError;
 			return (
@@ -37,7 +37,7 @@ class Home extends React.Component {
 				<Icon type="loading" />
 			);
 		}
-		// Display Data
+		// Page
 		return (
 			<p>Weclome to Gravity Prototype!</p>
 		);
