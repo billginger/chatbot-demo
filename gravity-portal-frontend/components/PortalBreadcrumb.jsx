@@ -9,9 +9,12 @@ const PortalBreadcrumb = ({ intl, location }) => {
 	let pathSnippets = [];
 	if (routes[location.pathname]) {
 		pathSnippets = location.pathname.split('/').filter(i => i);
+		console.log(pathSnippets);
 	}
+	console.log('---');
 	const breadcrumbItems = pathSnippets.map((_, index) => {
 		const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
+		console.log(url);
 		return (
 			<Breadcrumb.Item key={url}>
 				<Link to={url}>

@@ -32,10 +32,7 @@ class Home extends React.Component {
 		if (errMsg) {
 			const warnMessage = i18n[errMsg] || i18n.msgError;
 			return (
-				<div>
-					<Text type="warning">{warnMessage}</Text>
-					<Button type="primary" size="small" href="/login">{i18n.loginButton}</Button>
-				</div>
+				<Text type="warning">{warnMessage}</Text>
 			);
 		}
 		// Loading
