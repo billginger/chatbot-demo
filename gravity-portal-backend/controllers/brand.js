@@ -27,9 +27,7 @@ exports.brandDetail = (req, res) => {
 		if (!brand) return handleFail(req, res, `[brand] [detail] [id:${_id}] [not found]`, 'msgNotFound');
 		User.findById(brand.createdBy, (err, user) => {
 			if (user) {
-				console.log(brand);
-				brand = Object.assign({ createdBy: user.name }, brand);
-				console.log(brand);
+				brand = { ...brand._doc, createdBy: user.name };
 			}
 			handleSuccess(req, res, `[brand] [detail] [id:${_id}] [name:${brand.name}]`, brand);
 		});
