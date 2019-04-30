@@ -63,7 +63,7 @@ class BrandDetail extends React.Component {
 				<div id="tc-page-main">
 					<Row>
 						<Col span={4}>
-							<b>{i18n.brandWechatAccount}</b>
+							{i18n.brandWechatAccount}
 						</Col>
 						<Col span={20}>
 							{i18n.brandUnbound}
@@ -72,7 +72,7 @@ class BrandDetail extends React.Component {
 					</Row>
 					<Row>
 						<Col span={4}>
-							<b>Facebook</b>
+							Facebook
 						</Col>
 						<Col span={20}>
 							{i18n.brandUnbound}
@@ -81,7 +81,7 @@ class BrandDetail extends React.Component {
 					</Row>
 					<Row>
 						<Col span={4}>
-							<b>{i18n.labelCreatedBy}</b>
+							{i18n.labelCreatedBy}
 						</Col>
 						<Col span={20}>
 							{data.createdBy}
@@ -89,7 +89,7 @@ class BrandDetail extends React.Component {
 					</Row>
 					<Row>
 						<Col span={4}>
-							<b>{withTimeZone(i18n.labelCreatedAt)}</b>
+							{withTimeZone(i18n.labelCreatedAt)}
 						</Col>
 						<Col span={20}>
 							{getLocalDate(data.createdAt)}
