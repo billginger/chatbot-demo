@@ -6392,7 +6392,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getLocalDate\", function() { return getLocalDate; });\nconst getLocalDate = date => {\n  date = new Date(date);\n\n  if (date == 'Invalid Date') {\n    return date;\n  }\n\n  return new Date(date - date.getTimezoneOffset() * 60000).toJSON().slice(0, 19).replace('T', ' ');\n};\n\n\n\n//# sourceURL=webpack:///./utils/date.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getLocalDate\", function() { return getLocalDate; });\nconst getLocalDate = date => {\n  date = new Date(date);\n\n  if (date == 'Invalid Date') {\n    return date;\n  }\n\n  date = new Date(date - date.getTimezoneOffset() * 60000).toJSON().slice(0, 19).replace('T', ' ');\n  return date + ' GMT+' + -(new Date().getTimezoneOffset() / 60);\n};\n\n\n\n//# sourceURL=webpack:///./utils/date.js?");
 
 /***/ }),
 
