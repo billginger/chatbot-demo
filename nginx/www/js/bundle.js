@@ -6081,7 +6081,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6356,7 +6356,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nconst routes = {\n  '/': {\n    i18n: 'home',\n    component: 'Home'\n  },\n  '/brand': {\n    i18n: 'brand',\n    component: 'Building'\n  },\n  '/brand/add': {\n    i18n: 'labelAdd',\n    component: 'BrandAdd'\n  },\n  '/brand/:id': {\n    i18n: 'labelDetail',\n    component: 'Building'\n  },\n  '/system': {\n    i18n: 'system',\n    to: '/system/user'\n  },\n  '/system/user': {\n    i18n: 'systemUser',\n    component: 'Building'\n  },\n  '/system/setting': {\n    i18n: 'systemSetting',\n    component: 'Building'\n  }\n};\n/* harmony default export */ __webpack_exports__[\"default\"] = (routes);\n\n//# sourceURL=webpack:///./routes/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nconst routes = {\n  '/': {\n    i18n: 'home',\n    component: 'Home'\n  },\n  '/brand': {\n    i18n: 'brand',\n    component: 'Building'\n  },\n  '/brand/add': {\n    i18n: 'labelAdd',\n    component: 'BrandAdd'\n  },\n  '/brand/:id': {\n    i18n: 'labelDetail',\n    component: 'BrandDetail'\n  },\n  '/system': {\n    i18n: 'system',\n    to: '/system/user'\n  },\n  '/system/user': {\n    i18n: 'systemUser',\n    component: 'Building'\n  },\n  '/system/setting': {\n    i18n: 'systemSetting',\n    component: 'Building'\n  }\n};\n/* harmony default export */ __webpack_exports__[\"default\"] = (routes);\n\n//# sourceURL=webpack:///./routes/index.js?");
 
 /***/ }),
 
