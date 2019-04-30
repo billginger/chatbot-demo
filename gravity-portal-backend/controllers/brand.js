@@ -28,7 +28,7 @@ exports.brandDetail = (req, res) => {
 		User.findById(brand.createdBy, (err, user) => {
 			if (user) {
 				console.log(brand);
-				brand = Objcet.assign({ createdBy: user.name }, brand);
+				brand = Object.assign({ createdBy: user.name }, brand);
 				console.log(brand);
 			}
 			handleSuccess(req, res, `[brand] [detail] [id:${_id}] [name:${brand.name}]`, brand);
