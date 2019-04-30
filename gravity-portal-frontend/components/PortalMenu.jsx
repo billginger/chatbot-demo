@@ -48,7 +48,7 @@ class PortalMenu extends React.Component {
 		}
 		// Brand Menu
 		let brandMenu = (
-			<Menu.Item key="/brand/add">
+			<Menu.Item>
 				<Link to="/brand/add">
 					<Icon type="book" />{i18n.brandAdd}
 				</Link>
@@ -72,11 +72,7 @@ class PortalMenu extends React.Component {
 						<Icon type="home" />{i18n.home}
 					</Link>
 				</Menu.Item>
-				<Menu.Item>
-					<Link to="/brand/add">
-						<Icon type="book" />{i18n.brandAdd}
-					</Link>
-				</Menu.Item>
+				{brandMenu}
 				<Menu.SubMenu title={<div><Icon type="user" />{user.name}</div>}>
 					<Menu.Item onClick={confirmLogout}>
 						{i18n.userLogout}
