@@ -52,4 +52,4 @@ class BrandDetail extends React.Component {
 	}
 }
 
-export default injectIntl(Form.create()(BrandDetail));
+export default injectIntl(BrandDetail);
