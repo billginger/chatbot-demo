@@ -31,13 +31,13 @@ class PortalMenu extends React.Component {
 		const { intl, location } = this.props;
 		const { user, brands } = this.state;
 		const i18n = intl.messages;
-		// Login Menu
+		// Need Login
 		if (!user) {
 			return (
 				<Menu id="tc-portal-menu" theme="dark" mode="horizontal">
 					<Menu.Item>
 						<Link to="/login">
-							<Icon type="login" />{i18n.loginButton}
+							<Icon type="user" />{i18n.loginButton}
 						</Link>
 					</Menu.Item>
 				</Menu>
