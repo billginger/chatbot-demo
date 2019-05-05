@@ -16,7 +16,14 @@ const LanguageMenu = ({ id, theme, lang, setLang }) => {
 		setLang(e.key);
 	};
 	return (
-		<Menu id={id} theme={theme} mode="horizontal" selectedKeys={[lang]} onClick={changeLanguage}>
+		<Menu
+			id={id}
+			theme={theme}
+			mode="horizontal"
+			subMenuCloseDelay="0"
+			selectedKeys={[lang]}
+			onClick={changeLanguage}
+		>
 			<Menu.SubMenu title={<Icon type="global" />}>
 				{menuItem}
 			</Menu.SubMenu>

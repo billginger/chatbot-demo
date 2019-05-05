@@ -69,7 +69,13 @@ class PortalMenu extends React.Component {
 		};
 		// Page
 		return (
-			<Menu id="tc-portal-menu" theme="dark" mode="horizontal" selectedKeys={[location.pathname]}>
+			<Menu
+				id="tc-portal-menu"
+				theme="dark"
+				mode="horizontal"
+				subMenuCloseDelay="0"
+				selectedKeys={[location.pathname]}
+			>
 				<Menu.Item key="/">
 					<Link to="/">
 						<Icon type="home" />{i18n.home}
