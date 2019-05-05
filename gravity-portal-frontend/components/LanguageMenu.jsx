@@ -20,7 +20,7 @@ const LanguageMenu = ({ id, theme, lang, setLang }) => {
 			id={id}
 			theme={theme}
 			mode="horizontal"
-			subMenuCloseDelay="0"
+			subMenuCloseDelay={0}
 			selectedKeys={[lang]}
 			onClick={changeLanguage}
 		>

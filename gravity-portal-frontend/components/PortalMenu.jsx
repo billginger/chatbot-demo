@@ -73,7 +73,7 @@ class PortalMenu extends React.Component {
 				id="tc-portal-menu"
 				theme="dark"
 				mode="horizontal"
-				subMenuCloseDelay="0"
+				subMenuCloseDelay={0}
 				selectedKeys={[location.pathname]}
 			>
 				<Menu.Item key="/">
