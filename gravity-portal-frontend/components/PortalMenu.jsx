@@ -72,7 +72,7 @@ class PortalMenu extends React.Component {
 		let brandMenu = (
 			<Menu.Item key="/brand/add">
 				<Link to="/brand/add">
-					<Icon type="book" />{i18n.brandAdd}
+					<Icon type="shop" />{i18n.brandAdd}
 				</Link>
 			</Menu.Item>
 		);
@@ -87,7 +87,7 @@ class PortalMenu extends React.Component {
 		}
 		if (brands.length) {
 			brandMenu = (
-				<Menu.SubMenu title={<div><Icon type="book" />{brandMenuTitle}</div>}>
+				<Menu.SubMenu title={<div><Icon type="shop" />{brandMenuTitle}</div>}>
 					{brands.map(item => (
 						<Menu.Item key={item._id} onClick={selectBrand}>
 							{item.name}
