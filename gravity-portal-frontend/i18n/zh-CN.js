@@ -37,7 +37,8 @@ const zh_CN = {
 	systemUserEmail: '电子邮箱',
 	systemUserGroup: '用户组',
 	systemSetting: '设置',
-	userLogout: '退出登录'
+	userLogout: '退出登录',
+	dashboard: '概览'
 };
 
 export default zh_CN;

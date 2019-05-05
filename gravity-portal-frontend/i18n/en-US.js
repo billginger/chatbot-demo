@@ -37,7 +37,8 @@ const en_US = {
 	systemUserEmail: 'Email',
 	systemUserGroup: 'User Group',
 	systemSetting: 'Setting',
-	userLogout: 'Logout'
+	userLogout: 'Logout',
+	dashboard: 'Dashboard'
 };
 
 export default en_US;

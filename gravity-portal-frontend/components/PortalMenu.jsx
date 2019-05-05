@@ -50,12 +50,18 @@ class PortalMenu extends React.Component {
 			return '';
 		}
 		// Select Brand
+		const updateUser = brand => {
+			user.brand = brand;
+			this.setState({ user }, () => {
+				this.props.history.push('/dashboard/redirect');
+			});
+		};
 		const selectBrand = e => {
 			const id = e.key;
 			fetch(`/api/user/brand/${id}`, {
 				method: 'PUT'
 			}).then(res => (
-				res.ok ? this.props.history.push('/dashboard') : Promise.reject(res)
+				res.ok ? updateUser(id) : Promise.reject(res)
 			)).catch(err => {
 				let warnMsg = err.statusText || err;
 				warnMsg = i18n[warnMsg] || i18n.msgError;
