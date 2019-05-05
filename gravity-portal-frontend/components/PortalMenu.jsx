@@ -31,9 +31,17 @@ class PortalMenu extends React.Component {
 		const { intl, location } = this.props;
 		const { user, brands } = this.state;
 		const i18n = intl.messages;
-		// Hold
+		// Login Menu
 		if (!user) {
-			return '';
+			return (
+				<Menu id="tc-portal-menu" theme="dark" mode="horizontal">
+					<Menu.Item>
+						<Link to="/login">
+							<Icon type="login" />{i18n.loginButton}
+						</Link>
+					</Menu.Item>
+				</Menu>
+			);
 		}
 		// Brand Menu
 		let brandMenu = (
@@ -67,7 +75,7 @@ class PortalMenu extends React.Component {
 				}
 			});
 		};
-		// Page
+		// Portal Menu
 		return (
 			<Menu id="tc-portal-menu" theme="dark" mode="horizontal" selectedKeys={[location.pathname]}>
 				<Menu.Item key="/">
