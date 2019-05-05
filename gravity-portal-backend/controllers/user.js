@@ -10,14 +10,14 @@ exports.userLogin = (req, res, next) => {
 	const password = getPassword(pw);
 	const token = getToken();
 	const cookieOptions = { httpOnly: true, secure: true };
-	User.findOneAndUpdate({ name, password, isDeleted: false }, { token }, (err, doc) => {
+	User.findOneAndUpdate({ name, password, isDeleted: false }, { token }, (err, user) => {
 		if (err) return next(err);
-		if (!doc) return handleFail(req, res, `[login] [name:${un}] [not found]`, 'msgLoginFailed');
-		if (doc.isLocked) return handleFail(req, res, `[login] [name:${doc.name}] [locked]`, 'msgUserLocked');
-		const id = doc._id.toString();
+		if (!user) return handleFail(req, res, `[login] [name:${un}] [not found]`, 'msgLoginFailed');
+		if (user.isLocked) return handleFail(req, res, `[login] [name:${user.name}] [locked]`, 'msgUserLocked');
+		const id = user._id.toString();
 		res.cookie('uid', id, cookieOptions);
 		res.cookie('token', token, cookieOptions);
-		handleSuccess(req, res, `[login] [id:${id}] [name:${doc.name}]`, 'ok');
+		handleSuccess(req, res, `[login] [id:${id}] [name:${user.name}]`, 'ok');
 	});
 };
 
@@ -27,11 +27,11 @@ exports.userCheck = (req, res, next) => {
 	if (!_id || !token) {
 		return handleFail(req, res, `[check] [no cookie]`, 'msgNeedLogin');
 	}
-	User.findOne({ _id, token, isDeleted: false }, '-password -token -isDeleted', (err, doc) => {
+	User.findOne({ _id, token, isDeleted: false }, '-password -token -isDeleted', (err, user) => {
 		if (err) return next(err);
-		if (!doc) return handleFail(req, res, `[check] [id:${_id}] [not found]`, 'msgLoginExpired');
-		if (doc.isLocked) return handleFail(req, res, `[check] [id:${_id}] [locked]`, 'msgUserLocked');
-		req.profile = doc;
+		if (!user) return handleFail(req, res, `[check] [id:${_id}] [not found]`, 'msgLoginExpired');
+		if (user.isLocked) return handleFail(req, res, `[check] [id:${_id}] [locked]`, 'msgUserLocked');
+		req.profile = user;
 		next();
 	});
 };
@@ -48,12 +48,21 @@ exports.userLogout = (req, res) => {
 	res.redirect('/login');
 	if (_id && token) {
 		const newToken = getToken();
-		User.findOneAndUpdate({ _id, token, isLocked: false, isDeleted: false }, { token: newToken }, (err, doc) => {
+		User.findOneAndUpdate({ _id, token, isLocked: false, isDeleted: false }, { token: newToken }, (err, user) => {
 			if (err) return log.error(err);
-			if (doc) {
-				const id = doc._id.toString();
-				handleSuccess(req, res, `[logout] [id:${id}] [name:${doc.name}]`);
+			if (user) {
+				const id = user._id.toString();
+				handleSuccess(req, res, `[logout] [id:${id}] [name:${user.name}]`);
 			}
 		});
 	}
+};
+
+exports.userBrand = (req, res) => {
+	const _id = req.profile._id;
+	const brand = req.params.id;
+	User.findOneAndUpdate({ _id }, { brand }, (err, user) => {
+		if (err) return next(err);
+		handleSuccess(req, res, `[brand] [select] [user:${_id}] [brand:${brand}]`, 'ok');
+	});
 };

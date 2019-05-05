@@ -43,6 +43,18 @@ class PortalMenu extends React.Component {
 				</Menu>
 			);
 		}
+		// Select Brand
+		const selectBrand = e => {
+			const id = e.key;
+			fetch(`/api/user/brand/${id}`, {
+				method: 'PUT'
+			}).then(res => (
+				res.ok ? this.props.history.push('/dashboard') : Promise.reject(res)
+			)).catch(err => {
+				const errMsg = err.statusText || err;
+				message.warning(i18n[errMsg] || i18n.msgError);
+			});
+		};
 		// Brand Menu
 		let brandMenu = (
 			<Menu.Item key="/brand/add">
@@ -55,7 +67,7 @@ class PortalMenu extends React.Component {
 			brandMenu = (
 				<Menu.SubMenu title={<div><Icon type="book" />{i18n.brandSelect}</div>}>
 					{brands.map(item => (
-						<Menu.Item key={`/brand/${item._id}`}>
+						<Menu.Item key={item._id} onClick={selectBrand}>
 							{item.name}
 						</Menu.Item>
 					))}
