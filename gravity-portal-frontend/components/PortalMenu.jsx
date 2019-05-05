@@ -7,6 +7,7 @@ class PortalMenu extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			errMsg: '',
 			user: '',
 			brands: []
 		}
@@ -17,9 +18,8 @@ class PortalMenu extends React.Component {
 		)).then(user => {
 			this.setState({ user });
 		}).catch(err => {
-			const i18n = this.props.intl.messages;
 			const errMsg = err.statusText || err;
-			message.warning(i18n[errMsg] || i18n.msgError);
+			this.setState({ errMsg });
 		});
 		fetch('/api/brand').then(res => (
 			res.ok ? res.json() : Promise.reject(res)
@@ -29,10 +29,12 @@ class PortalMenu extends React.Component {
 	}
 	render() {
 		const { intl, location } = this.props;
-		const { user, brands } = this.state;
+		const { errMsg, user, brands } = this.state;
 		const i18n = intl.messages;
-		// Need Login
-		if (!user) {
+		// Error
+		if (errMsg) {
+			const warnMessage = i18n[errMsg] || i18n.msgError;
+			message.warning(warnMessage);
 			return (
 				<Menu id="tc-portal-menu" theme="dark" mode="horizontal">
 					<Menu.Item>
@@ -43,6 +45,10 @@ class PortalMenu extends React.Component {
 				</Menu>
 			);
 		}
+		// Hold
+		if (!user || !brands) {
+			return '';
+		}
 		// Select Brand
 		const selectBrand = e => {
 			const id = e.key;
@@ -51,8 +57,9 @@ class PortalMenu extends React.Component {
 			}).then(res => (
 				res.ok ? this.props.history.push('/dashboard') : Promise.reject(res)
 			)).catch(err => {
-				const errMsg = err.statusText || err;
-				message.warning(i18n[errMsg] || i18n.msgError);
+				let warnMsg = err.statusText || err;
+				warnMsg = i18n[warnMsg] || i18n.msgError;
+				message.warning(warnMsg);
 			});
 		};
 		// Brand Menu
@@ -63,9 +70,18 @@ class PortalMenu extends React.Component {
 				</Link>
 			</Menu.Item>
 		);
+		let brandMenuTitle = i18n.brandSelect;
+		if (user.brand) {
+			const brand = brands.find(item => (
+				item._id == user.brand
+			));
+			if (brand && brand.name) {
+				brandMenuTitle = brand.name;
+			}
+		}
 		if (brands.length) {
 			brandMenu = (
-				<Menu.SubMenu title={<div><Icon type="book" />{i18n.brandSelect}</div>}>
+				<Menu.SubMenu title={<div><Icon type="book" />{brandMenuTitle}</div>}>
 					{brands.map(item => (
 						<Menu.Item key={item._id} onClick={selectBrand}>
 							{item.name}
