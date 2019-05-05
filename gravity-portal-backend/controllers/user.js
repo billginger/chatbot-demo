@@ -13,11 +13,14 @@ exports.userLogin = (req, res, next) => {
 	User.findOneAndUpdate({ name, password, isDeleted: false }, { token }, (err, user) => {
 		if (err) return next(err);
 		if (!user) return handleFail(req, res, `[login] [name:${un}] [not found]`, 'msgLoginFailed');
-		if (user.isLocked) return handleFail(req, res, `[login] [name:${user.name}] [locked]`, 'msgUserLocked');
 		const id = user._id.toString();
+		const userName = user.name;
+		if (user.isLocked) {
+			return handleFail(req, res, `[login] [id:${id}] [name:${userName}] [locked]`, 'msgUserLocked');
+		}
 		res.cookie('uid', id, cookieOptions);
 		res.cookie('token', token, cookieOptions);
-		handleSuccess(req, res, `[login] [id:${id}] [name:${user.name}]`, 'ok');
+		handleSuccess(req, res, `[login] [id:${id}] [name:${userName}]`, 'ok');
 	});
 };
 
@@ -30,14 +33,18 @@ exports.userCheck = (req, res, next) => {
 	User.findOne({ _id, token, isDeleted: false }, '-password -token -isDeleted', (err, user) => {
 		if (err) return next(err);
 		if (!user) return handleFail(req, res, `[check] [id:${_id}] [not found]`, 'msgLoginExpired');
-		if (user.isLocked) return handleFail(req, res, `[check] [id:${_id}] [locked]`, 'msgUserLocked');
+		const name = user.name;
+		if (user.isLocked) return handleFail(req, res, `[check] [id:${_id}] [name:${name}] [locked]`, 'msgUserLocked');
 		req.profile = user;
 		next();
 	});
 };
 
 exports.userProfile = (req, res) => {
-	res.send(req.profile);
+	const data = req.profile;
+	const id = data._id;
+	const name = data.name;
+	handleSuccess(req, res, `[profile] [id:${id}] [name:${name}]`, data);
 };
 
 exports.userLogout = (req, res) => {
@@ -59,10 +66,10 @@ exports.userLogout = (req, res) => {
 };
 
 exports.userBrand = (req, res) => {
-	const _id = req.profile._id;
+	const id = req.profile._id;
 	const brand = req.params.id;
-	User.findOneAndUpdate({ _id }, { brand }, (err, user) => {
+	User.findByIdAndUpdate(id, { brand }, (err, user) => {
 		if (err) return next(err);
-		handleSuccess(req, res, `[brand] [select] [user:${_id}] [brand:${brand}]`, 'ok');
+		handleSuccess(req, res, `[brand] [select] [user:${id}] [brand:${brand}]`, 'ok');
 	});
 };
