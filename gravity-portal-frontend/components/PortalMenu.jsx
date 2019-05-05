@@ -25,7 +25,7 @@ class PortalMenu extends React.Component {
 			res.ok ? res.json() : Promise.reject(res)
 		)).then(brands => {
 			this.setState({ brands });
-		});
+		}).catch(err => {});
 	}
 	render() {
 		const { intl, location } = this.props;
