@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { Layout } from 'antd';
 import routes from '../routes';
 import Home from './Home.jsx';
 import BrandAdd from './BrandAdd.jsx';
