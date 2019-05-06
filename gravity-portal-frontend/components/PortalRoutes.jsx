@@ -29,12 +29,12 @@ for (let key in routes) {
 }
 
 const PortalRoutes = () => (
-	<div id="tc-portal-main">
+	<Layout>
 		<Switch>
 			{portalRoutes}
 			<Route component={NoMatch} />
 		</Switch>
-	</div>
+	</Layout>
 );
 
 export default PortalRoutes;

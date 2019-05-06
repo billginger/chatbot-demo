@@ -1,6 +1,8 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
-import { Typography, Icon } from 'antd';
+import { Link } from 'react-router-dom';
+import { Layout, Breadcrumb, Typography, Icon } from 'antd';
+const { Content } = Layout;
 const { Text } = Typography;
 
 class Home extends React.Component {
@@ -39,7 +41,16 @@ class Home extends React.Component {
 		}
 		// Page
 		return (
-			<p>Weclome to Gravity Prototype!</p>
+			<Content id="tc-portal-content">
+				<Breadcrumb className="tc-portal-breadcrumb">
+					<Breadcrumb.Item key="home">
+						<Link to="/">test</Link>
+					</Breadcrumb.Item>
+				</Breadcrumb>
+				<div id="tc-portal-main">
+					<p>Weclome to Gravity Prototype!</p>
+				</div>
+			</Content>
 		);
 	}
 }
