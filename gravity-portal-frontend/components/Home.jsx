@@ -1,8 +1,8 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Layout, Breadcrumb, Typography, Icon } from 'antd';
-const { Content } = Layout;
+import { Breadcrumb, Typography, Icon } from 'antd';
+import PortalContent from './PortalContent.jsx';
 const { Text } = Typography;
 
 class Home extends React.Component {
@@ -26,31 +26,35 @@ class Home extends React.Component {
 	render() {
 		const i18n = this.props.intl.messages;
 		const { errMsg, data } = this.state;
+		// Breadcrumb
+		const breadcrumb = (
+			<Breadcrumb.Item><Link to="/">{i18n.home}</Link></Breadcrumb.Item>
+		);
 		// Error
 		if (errMsg) {
 			const warnMessage = i18n[errMsg] || i18n.msgError;
-			return (
+			const warnText = (
 				<Text type="warning">{warnMessage}</Text>
+			);
+			return (
+				<PortalContent breadcrumb={breadcrumb} content={warnText} />
 			);
 		}
 		// Loading
 		if (!data) {
-			return (
+			const loading = (
 				<Icon type="loading" />
+			);
+			return (
+				<PortalContent breadcrumb={breadcrumb} content={loading} />
 			);
 		}
 		// Page
+		const content = (
+			<p>Weclome to Gravity Prototype!</p>
+		);
 		return (
-			<Content id="tc-portal-content">
-				<Breadcrumb className="tc-portal-breadcrumb">
-					<Breadcrumb.Item key="home">
-						<Link to="/">test</Link>
-					</Breadcrumb.Item>
-				</Breadcrumb>
-				<div id="tc-portal-main">
-					<p>Weclome to Gravity Prototype!</p>
-				</div>
-			</Content>
+			<PortalContent breadcrumb={breadcrumb} content={content} />
 		);
 	}
 }

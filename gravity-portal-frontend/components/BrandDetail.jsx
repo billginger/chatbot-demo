@@ -1,8 +1,9 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Typography, Icon, Row, Col } from 'antd';
+import { Breadcrumb, Typography, Icon, Row, Col } from 'antd';
 import { withTimeZone, getLocalDate } from '../utils/date.js';
+import PortalContent from './PortalContent.jsx';
 const { Text } = Typography;
 
 class BrandDetail extends React.Component {
@@ -27,17 +28,31 @@ class BrandDetail extends React.Component {
 	render() {
 		const i18n = this.props.intl.messages;
 		const { errMsg, data } = this.state;
+		// Breadcrumb
+		const breadcrumb = (
+			<React.Fragment>
+				<Breadcrumb.Item>{i18n.system}</Breadcrumb.Item>
+				<Breadcrumb.Item><Link to="/brand">{i18n.brand}</Link></Breadcrumb.Item>
+				<Breadcrumb.Item>{i18n.labelDetail}</Breadcrumb.Item>
+			</React.Fragment>
+		);
 		// Error
 		if (errMsg) {
 			const warnMessage = i18n[errMsg] || i18n.msgError;
-			return (
+			const warnText = (
 				<Text type="warning">{warnMessage}</Text>
+			);
+			return (
+				<PortalContent breadcrumb={breadcrumb} content={warnText} />
 			);
 		}
 		// Loading
 		if (!data) {
-			return (
+			const loading = (
 				<Icon type="loading" />
+			);
+			return (
+				<PortalContent breadcrumb={breadcrumb} content={loading} />
 			);
 		}
 		// Handle
@@ -48,8 +63,8 @@ class BrandDetail extends React.Component {
 			console.log(e);
 		};
 		// Page
-		return (
-			<div>
+		const content = (
+			<React.Fragment>
 				<div id="tc-page-header">
 					<h1>{data.name}</h1>
 					<Link to={`/brand/edit/${data._id}`}>{i18n.actionEdit}</Link>
@@ -91,7 +106,10 @@ class BrandDetail extends React.Component {
 						</Col>
 					</Row>
 				</div>
-			</div>
+			</React.Fragment>
+		);
+		return (
+			<PortalContent breadcrumb={breadcrumb} content={content} />
 		);
 	}
 }

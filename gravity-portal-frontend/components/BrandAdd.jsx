@@ -1,6 +1,8 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
-import { Form, Input, Button, Alert } from 'antd';
+import { Link } from 'react-router-dom';
+import { Breadcrumb, Form, Input, Button, Alert } from 'antd';
+import PortalContent from './PortalContent.jsx';
 
 class BrandAdd extends React.Component {
 	constructor(props) {
@@ -16,6 +18,14 @@ class BrandAdd extends React.Component {
 		const { errMsg, buttonLoading } = this.state;
 		const formItemLayout = { labelCol: { span: 4 }, wrapperCol: { span: 16 } };
 		const tailFormItemLayout = { wrapperCol: { offset: 4, span: 16 } };
+		// Breadcrumb
+		const breadcrumb = (
+			<React.Fragment>
+				<Breadcrumb.Item>{i18n.system}</Breadcrumb.Item>
+				<Breadcrumb.Item><Link to="/brand">{i18n.brand}</Link></Breadcrumb.Item>
+				<Breadcrumb.Item>{i18n.labelAdd}</Breadcrumb.Item>
+			</React.Fragment>
+		);
 		// Error
 		let alertMessage;
 		if (errMsg) {
@@ -59,7 +69,7 @@ class BrandAdd extends React.Component {
 			this.setState({ errMsg: '' });
 		};
 		// Page
-		return (
+		const content = (
 			<Form {...formItemLayout} onSubmit={handleSubmit} style={{ marginTop: 40 }}>
 				<Form.Item label={i18n.labelName}>
 					{getFieldDecorator('name', {
@@ -75,6 +85,9 @@ class BrandAdd extends React.Component {
 					</Button>
 				</Form.Item>
 			</Form>
+		);
+		return (
+			<PortalContent breadcrumb={breadcrumb} content={content} />
 		);
 	}
 }
