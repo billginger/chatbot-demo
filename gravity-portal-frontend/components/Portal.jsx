@@ -2,8 +2,8 @@ import React from 'react';
 import { Layout } from 'antd';
 import LanguageMenu from './LanguageMenu.jsx';
 import PortalMenu from './PortalMenu.jsx';
-import PortalBody from './PortalBody.jsx';
-const { Header, Content, Footer } = Layout;
+import PortalRoutes from './PortalRoutes.jsx';
+const { Header, Footer } = Layout;
 
 const Portal = () => (
 	<Layout>
@@ -12,7 +12,7 @@ const Portal = () => (
 			<LanguageMenu id="tc-portal-language" theme="dark" />
 			<PortalMenu />
 		</Header>
-		<PortalBody />
+		<PortalRoutes />
 		<Footer id="tc-portal-footer">
 			Gravity Prototype © 2019 Created by Bill
 		</Footer>
