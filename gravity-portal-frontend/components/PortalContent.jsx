@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout, Breadcrumb } from 'antd';
 const { Content } = Layout;
 
-const PortalContent = (breadcrumb, content) => (
+const PortalContent = ({breadcrumb, content}) => (
 	<Content id="tc-portal-content">
 		<Breadcrumb className="tc-portal-breadcrumb">
 			{breadcrumb}
