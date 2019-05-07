@@ -3,7 +3,7 @@ import { injectIntl } from 'react-intl';
 import { withRouter, Link } from 'react-router-dom';
 import { Menu, Icon, Modal, message } from 'antd';
 
-class PortalMenu extends React.Component {
+class PortalHeaderMenu extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -128,4 +128,4 @@ class PortalMenu extends React.Component {
 	}
 }
 
-export default injectIntl(withRouter(PortalMenu));
+export default injectIntl(withRouter(PortalHeaderMenu));

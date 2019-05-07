@@ -1,16 +1,19 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Layout } from 'antd';
+import PortalSiderMenu from './PortalSiderMenu.jsx';
 import NoMatch from './NoMatch.jsx';
 const { Sider } = Layout;
 
-const PortalRoutes = () => (
+const PortalColumn = () => (
 	<Layout>
-		<Sider>Sider</Sider>
+		<Sider>
+			<PortalSiderMenu />
+		</Sider>
 		<Switch>
 			<Route component={NoMatch} />
 		</Switch>
 	</Layout>
 );
 
-export default PortalRoutes;
+export default PortalColumn;

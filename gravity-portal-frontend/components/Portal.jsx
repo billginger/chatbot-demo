@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout } from 'antd';
 import LanguageMenu from './LanguageMenu.jsx';
-import PortalMenu from './PortalMenu.jsx';
+import PortalHeaderMenu from './PortalHeaderMenu.jsx';
 import PortalBody from './PortalBody.jsx';
 const { Header, Footer } = Layout;
 
@@ -10,7 +10,7 @@ const Portal = () => (
 		<Header>
 			<h1 id="tc-portal-title">Gravity Prototype</h1>
 			<LanguageMenu id="tc-portal-language" theme="dark" />
-			<PortalMenu />
+			<PortalHeaderMenu />
 		</Header>
 		<PortalBody />
 		<Footer id="tc-portal-footer">
