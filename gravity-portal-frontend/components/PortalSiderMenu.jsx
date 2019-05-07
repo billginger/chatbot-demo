@@ -1,7 +1,9 @@
 import React from 'react';
-import { Menu } from 'antd';
+import { injectIntl } from 'react-intl';
+import { withRouter, Link } from 'react-router-dom';
+import { Menu, Icon } from 'antd';
 
-const PortalColumn = ({ intl, location }) => {
+const PortalSiderMenu = ({ intl, location }) => {
 	const i18n = intl.messages;
 	return (
 		<Menu selectedKeys={[location.pathname]}>
@@ -14,4 +16,4 @@ const PortalColumn = ({ intl, location }) => {
 	);
 };
 
-export default PortalColumn;
+export default injectIntl(withRouter(PortalSiderMenu));
