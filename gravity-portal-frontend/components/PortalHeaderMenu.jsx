@@ -85,9 +85,14 @@ class PortalHeaderMenu extends React.Component {
 				brandMenuTitle = brand.name;
 			}
 		}
+		brandMenuTitle = (
+			<React.Fragment>
+				<Icon type="shop" />{brandMenuTitle}
+			</React.Fragment>
+		);
 		if (brands.length) {
 			brandMenu = (
-				<Menu.SubMenu title={<div><Icon type="shop" />{brandMenuTitle}</div>}>
+				<Menu.SubMenu title={brandMenuTitle}>
 					{brands.map(item => (
 						<Menu.Item key={item._id} onClick={selectBrand}>
 							{item.name}
@@ -110,6 +115,11 @@ class PortalHeaderMenu extends React.Component {
 			});
 		};
 		// Portal Menu
+		const userMenuTitle = (
+			<React.Fragment>
+				<Icon type="user" />{user.name}
+			</React.Fragment>
+		);
 		return (
 			<Menu id="tc-portal-menu" theme="dark" mode="horizontal" selectedKeys={[location.pathname]}>
 				<Menu.Item key="/">
@@ -118,7 +128,7 @@ class PortalHeaderMenu extends React.Component {
 					</Link>
 				</Menu.Item>
 				{brandMenu}
-				<Menu.SubMenu title={<div><Icon type="user" />{user.name}</div>}>
+				<Menu.SubMenu title={userMenuTitle}>
 					<Menu.Item onClick={handleLogout}>
 						{i18n.userLogout}
 					</Menu.Item>

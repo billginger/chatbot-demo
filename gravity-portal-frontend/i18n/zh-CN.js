@@ -32,13 +32,18 @@ const zh_CN = {
 	brandWechatAccount: '微信公众号',
 	brandUnbound: '未绑定',
 	system: '系统管理',
-	systemUser: '用户',
-	systemUserFullName: '姓名',
-	systemUserEmail: '电子邮箱',
-	systemUserGroup: '用户组',
-	systemSetting: '设置',
+	user: '用户',
+	userFullName: '姓名',
+	userEmail: '电子邮箱',
+	userGroup: '用户组',
 	userLogout: '退出登录',
-	dashboard: '概览'
+	setting: '设置',
+	dashboard: '概览',
+	botChat: '智能客服',
+	botChatConfig: '配置',
+	botChatRule: '规则',
+	botChatTrain: '训练',
+	botChatManual: '人工介入'
 };
 
 export default zh_CN;

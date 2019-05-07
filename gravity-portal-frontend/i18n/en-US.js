@@ -32,13 +32,18 @@ const en_US = {
 	brandWechatAccount: 'WeChat Official Account',
 	brandUnbound: 'Unbound',
 	system: 'System',
-	systemUser: 'Users',
-	systemUserFullName: 'Full Name',
-	systemUserEmail: 'Email',
-	systemUserGroup: 'User Group',
-	systemSetting: 'Setting',
+	user: 'Users',
+	userFullName: 'Full Name',
+	userEmail: 'Email',
+	userGroup: 'User Group',
 	userLogout: 'Logout',
-	dashboard: 'Dashboard'
+	setting: 'Setting',
+	dashboard: 'Dashboard',
+	botChat: 'Bot Chat',
+	botChatConfig: 'Config',
+	botChatRule: 'Rule',
+	botChatTrain: 'Train',
+	botChatManual: 'Manual'
 };
 
 export default en_US;
