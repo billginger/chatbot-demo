@@ -7,7 +7,7 @@ const { Sider } = Layout;
 
 const PortalColumn = () => (
 	<Layout>
-		<Sider>
+		<Sider width={300}>
 			<PortalSiderMenu />
 		</Sider>
 		<Switch>
