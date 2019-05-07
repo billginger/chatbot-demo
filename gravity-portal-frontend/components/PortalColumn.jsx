@@ -7,7 +7,7 @@ import NoMatch from './NoMatch.jsx';
 const { Sider } = Layout;
 
 const PortalColumn = () => (
-	<Layout>
+	<Layout id="tc-portal-column">
 		<Sider width={240}>
 			<PortalSiderMenu />
 		</Sider>
