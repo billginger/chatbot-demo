@@ -13,9 +13,6 @@ const Portal = () => (
 			<PortalHeaderMenu />
 		</Header>
 		<PortalBody />
-		<Footer id="tc-portal-footer">
-			Gravity Prototype © 2019 Created by Bill
-		</Footer>
 	</Layout>
 );
 
