@@ -1,7 +1,7 @@
 const express = require('express');
 const { userLogin, userCheck, userProfile, userLogout, userBrand } = require('../controllers/user.js');
 const { systemHome, systemDashboard } = require('../controllers/system.js');
-const { brandList, brandAdd, brandDetail } = require('../controllers/brand.js');
+const { brandList, brandAdd, brandDetail, brandWechatBind } = require('../controllers/brand.js');
 
 const router = express.Router();
 
@@ -14,5 +14,6 @@ router.get('/api/system/dashboard', userCheck, systemDashboard);
 router.get('/api/brand', userCheck, brandList);
 router.post('/api/brand/add', userCheck, brandAdd);
 router.get('/api/brand/:id', userCheck, brandDetail);
+router.get('/api/brand/wechat/bind/:id', userCheck, brandWechatBind);
 
 module.exports = router;
