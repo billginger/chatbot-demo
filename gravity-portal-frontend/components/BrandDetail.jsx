@@ -59,10 +59,33 @@ class BrandDetail extends React.Component {
 		const handleDelete = e => {
 			console.log(e);
 		};
-		const handleBind = e => {
-			console.log(e);
-		};
 		// Page
+		const wechatInfo = (
+			!data.wechat ?
+				<React.Fragment>
+					{i18n.brandUnbound}
+					<Link to={`/brand/wechat/bind/${data._id}`}>{i18n.actionBind}</Link>
+				</React.Fragment>
+			:
+				<React.Fragment>
+					{data.wechat}
+					<Link to={`/brand/wechat/${data._id}`}>{i18n.actionView}</Link>
+					<Link to={`/brand/wechat/unbind/${data._id}`}>{i18n.actionUnbind}</Link>
+				</React.Fragment>
+		);
+		const facebookInfo = (
+			!data.facebook ?
+				<React.Fragment>
+					{i18n.brandUnbound}
+					<Link to={`/brand/facebook/bind/${data._id}`}>{i18n.actionBind}</Link>
+				</React.Fragment>
+			:
+				<React.Fragment>
+					{data.facebook}
+					<Link to={`/brand/facebook/${data._id}`}>{i18n.actionView}</Link>
+					<Link to={`/brand/facebook/unbind/${data._id}`}>{i18n.actionUnbind}</Link>
+				</React.Fragment>
+		);
 		const content = (
 			<React.Fragment>
 				<div id="tc-page-header">
@@ -76,8 +99,7 @@ class BrandDetail extends React.Component {
 							{i18n.brandWechatAccount}
 						</Col>
 						<Col span={18}>
-							{i18n.brandUnbound}
-							<a onClick={handleBind}>{i18n.actionBind}</a>
+							{wechatInfo}
 						</Col>
 					</Row>
 					<Row>
@@ -85,8 +107,7 @@ class BrandDetail extends React.Component {
 							Facebook
 						</Col>
 						<Col span={18}>
-							{i18n.brandUnbound}
-							<a onClick={handleBind}>{i18n.actionBind}</a>
+							{facebookInfo}
 						</Col>
 					</Row>
 					<Row>
