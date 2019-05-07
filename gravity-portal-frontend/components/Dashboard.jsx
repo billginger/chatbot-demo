@@ -4,7 +4,7 @@ import { Breadcrumb, Typography, Icon } from 'antd';
 import PortalContent from './PortalContent.jsx';
 const { Text } = Typography;
 
-class Home extends React.Component {
+class Dashboard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -13,7 +13,7 @@ class Home extends React.Component {
 		}
 	}
 	componentDidMount() {
-		fetch('/api/system/home').then(res => (
+		fetch(`/api/system/dashboard`).then(res => (
 			res.ok ? res.json() : Promise.reject(res)
 		)).then(data => {
 			this.setState({ data });
@@ -27,7 +27,7 @@ class Home extends React.Component {
 		const { errMsg, data } = this.state;
 		// Breadcrumb
 		const breadcrumb = (
-			<Breadcrumb.Item>{i18n.home}</Breadcrumb.Item>
+			<Breadcrumb.Item>{i18n.dashboard}</Breadcrumb.Item>
 		);
 		// Error
 		if (errMsg) {
@@ -58,4 +58,4 @@ class Home extends React.Component {
 	}
 }
 
-export default injectIntl(Home);
+export default injectIntl(Dashboard);

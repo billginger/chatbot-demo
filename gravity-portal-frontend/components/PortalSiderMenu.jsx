@@ -11,7 +11,7 @@ const PortalSiderMenu = ({ intl, location }) => {
 		</React.Fragment>
 	);
 	return (
-		<Menu theme="dark" mode="inline" selectedKeys={[location.pathname]}>
+		<Menu theme="dark" selectedKeys={[location.pathname]}>
 			<Menu.Item key="/dashboard">
 				<Link to="/dashboard">
 					<Icon type="dashboard" />{i18n.dashboard}
