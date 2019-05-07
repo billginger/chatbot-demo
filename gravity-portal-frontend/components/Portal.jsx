@@ -3,7 +3,7 @@ import { Layout } from 'antd';
 import LanguageMenu from './LanguageMenu.jsx';
 import PortalHeaderMenu from './PortalHeaderMenu.jsx';
 import PortalBody from './PortalBody.jsx';
-const { Header, Footer } = Layout;
+const { Header } = Layout;
 
 const Portal = () => (
 	<Layout>

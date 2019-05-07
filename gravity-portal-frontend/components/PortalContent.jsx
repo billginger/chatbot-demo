@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout, Breadcrumb } from 'antd';
-const { Content } = Layout;
+const { Content, Footer } = Layout;
 
 const PortalContent = ({ breadcrumb, content }) => (
 	<React.Fragment>
