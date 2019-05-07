@@ -16,4 +16,4 @@ const PortalSiderMenu = ({ intl, location }) => {
 	);
 };
 
-export default injectIntl(PortalSiderMenu);
+export default injectIntl(withRouter(PortalSiderMenu));
