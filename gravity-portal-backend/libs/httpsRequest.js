@@ -1,6 +1,7 @@
 const https = require('https');
 
 module.exports = (options, postData, callback) => {
+	console.log(postData);
 	options.headers['Content-Length'] = postData ? Buffer.byteLength(postData) : 0;
 	const req = https.request(options, res => {
 		let data = '';
