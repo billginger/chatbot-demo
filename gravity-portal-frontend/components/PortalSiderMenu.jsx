@@ -6,7 +6,7 @@ import { Menu, Icon } from 'antd';
 const PortalSiderMenu = ({ intl, location }) => {
 	const i18n = intl.messages;
 	return (
-		<Menu selectedKeys={[location.pathname]}>
+		<Menu theme="dark" selectedKeys={[location.pathname]}>
 			<Menu.Item key="/dashboard">
 				<Link to="/dashboard">
 					<Icon type="dashboard" />{i18n.dashboard}
@@ -16,4 +16,4 @@ const PortalSiderMenu = ({ intl, location }) => {
 	);
 };
 
-export default injectIntl(withRouter(PortalSiderMenu));
+export default injectIntl(PortalSiderMenu);
