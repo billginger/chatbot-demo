@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { Layout } from 'antd';
 import PortalSiderMenu from './PortalSiderMenu.jsx';
 import Dashboard from './Dashboard.jsx';
@@ -12,6 +12,7 @@ const PortalColumn = () => (
 			<PortalSiderMenu />
 		</Sider>
 		<Switch>
+			<Redirect exact from="/dashboard/redirect" to="/dashboard" />
 			<Route exact path="/dashboard" component={Dashboard} />
 			<Route component={NoMatch} />
 		</Switch>
