@@ -50,7 +50,7 @@ exports.brandWechatBind = (req, res) => {
 		path: `/wechat/bind/${id}`,
 		method: 'PUT'
 	};
-	const postData = '';
+	const postData = 0;
 	httpsRequest(options, postData, (err, data) => {
 		if (err) return next(err);
 		handleSuccess(req, res, `[brand] [wechat] [bind] [brand:${id}]`, data);
