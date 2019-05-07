@@ -7,15 +7,13 @@ import Building from './Building.jsx';
 import PortalColumn from './PortalColumn.jsx';
 
 const PortalRoutes = () => (
-	<React.Fragment>
-		<Switch>
-			<Route exact path="/" component={Home} />
-			<Route exact path="/brand" component={Building} />
-			<Route exact path="/brand/add" component={BrandAdd} />
-			<Route exact path="/brand/:id" component={BrandDetail} />
-			<Route component={PortalColumn} />
-		</Switch>
-	</React.Fragment>
+	<Switch>
+		<Route exact path="/" component={Home} />
+		<Route exact path="/brand" component={Building} />
+		<Route exact path="/brand/add" component={BrandAdd} />
+		<Route exact path="/brand/:id" component={BrandDetail} />
+		<Route component={PortalColumn} />
+	</Switch>
 );
 
 export default PortalRoutes;

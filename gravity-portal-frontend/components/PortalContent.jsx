@@ -3,7 +3,7 @@ import { Layout, Breadcrumb } from 'antd';
 const { Content, Footer } = Layout;
 
 const PortalContent = ({ breadcrumb, content }) => (
-	<React.Fragment>
+	<Layout>
 		<Content id="tc-portal-content">
 			<Breadcrumb className="tc-portal-breadcrumb">
 				{breadcrumb}
@@ -15,7 +15,7 @@ const PortalContent = ({ breadcrumb, content }) => (
 		<Footer id="tc-portal-footer">
 			Gravity Prototype © 2019 Created by Bill
 		</Footer>
-	</React.Fragment>
+	</Layout>
 );
 
 export default PortalContent;
