@@ -39,11 +39,11 @@ const zh_CN = {
 	userLogout: '退出登录',
 	setting: '设置',
 	dashboard: '概览',
-	botChat: '智能客服',
-	botChatConfig: '配置',
-	botChatRule: '规则',
-	botChatTrain: '训练',
-	botChatManual: '人工介入'
+	chatBot: '智能客服',
+	chatBotConfig: '基本配置',
+	chatBotRule: '响应规则',
+	chatBotTrain: '训练学习',
+	chatBotManual: '人工介入'
 };
 
 export default zh_CN;

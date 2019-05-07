@@ -13,7 +13,7 @@ class Dashboard extends React.Component {
 		}
 	}
 	componentDidMount() {
-		fetch(`/api/system/dashboard`).then(res => (
+		fetch('/api/system/dashboard').then(res => (
 			res.ok ? res.json() : Promise.reject(res)
 		)).then(data => {
 			this.setState({ data });

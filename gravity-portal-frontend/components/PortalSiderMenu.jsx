@@ -5,9 +5,9 @@ import { Menu, Icon } from 'antd';
 
 const PortalSiderMenu = ({ intl, location }) => {
 	const i18n = intl.messages;
-	const botChatMenuTitle = (
+	const chatBotMenuTitle = (
 		<React.Fragment>
-			<Icon type="robot" />{i18n.botChat}
+			<Icon type="robot" />{i18n.chatBot}
 		</React.Fragment>
 	);
 	return (
@@ -17,18 +17,18 @@ const PortalSiderMenu = ({ intl, location }) => {
 					<Icon type="dashboard" />{i18n.dashboard}
 				</Link>
 			</Menu.Item>
-			<Menu.SubMenu title={botChatMenuTitle}>
-				<Menu.Item key="/bot/config">
-					<Link to="/bot/config">{i18n.botChatConfig}</Link>
+			<Menu.SubMenu title={chatBotMenuTitle}>
+				<Menu.Item key="/chat/config">
+					<Link to="/chat/config">{i18n.chatBotConfig}</Link>
 				</Menu.Item>
-				<Menu.Item key="/bot/rule">
-					<Link to="/bot/rule">{i18n.botChatRule}</Link>
+				<Menu.Item key="/chat/rule">
+					<Link to="/chat/rule">{i18n.chatBotRule}</Link>
 				</Menu.Item>
-				<Menu.Item key="/bot/train">
-					<Link to="/bot/train">{i18n.botChatTrain}</Link>
+				<Menu.Item key="/chat/train">
+					<Link to="/chat/train">{i18n.chatBotTrain}</Link>
 				</Menu.Item>
-				<Menu.Item key="/bot/manual">
-					<Link to="/bot/manual">{i18n.botChatManual}</Link>
+				<Menu.Item key="/chat/manual">
+					<Link to="/chat/manual">{i18n.chatBotManual}</Link>
 				</Menu.Item>
 			</Menu.SubMenu>
 		</Menu>

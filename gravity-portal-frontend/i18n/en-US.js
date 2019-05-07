@@ -39,11 +39,11 @@ const en_US = {
 	userLogout: 'Logout',
 	setting: 'Setting',
 	dashboard: 'Dashboard',
-	botChat: 'Bot Chat',
-	botChatConfig: 'Config',
-	botChatRule: 'Rule',
-	botChatTrain: 'Train',
-	botChatManual: 'Manual'
+	chatBot: 'Bot Chat',
+	chatBotConfig: 'Config',
+	chatBotRule: 'Rule',
+	chatBotTrain: 'Train',
+	chatBotManual: 'Manual'
 };
 
 export default en_US;
