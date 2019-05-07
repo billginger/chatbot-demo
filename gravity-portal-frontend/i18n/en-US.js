@@ -18,9 +18,6 @@ const en_US = {
 	actionSubmit: 'Submit',
 	actionEdit: 'Edit',
 	actionDelete: 'Delete',
-	actionView: 'View',
-	actionBind: 'Bind',
-	actionUnbind: 'Unbind',
 	loginTitle: 'Login to Gravity Prototype',
 	loginUsername: 'Username',
 	loginPassword: 'Password',
@@ -33,6 +30,10 @@ const en_US = {
 	brandSelect: 'Select Brand',
 	brandWechatAccount: 'WeChat Official Account',
 	brandUnbound: 'Unbound',
+	brandBind: 'Bind',
+	brandUnbind: 'Unbind',
+	brandView: 'View',
+	brandWechatRedirecting: 'Redirecting to the WeChat official account authorization page, please wait...',
 	system: 'System',
 	user: 'Users',
 	userFullName: 'Full Name',
@@ -41,11 +42,11 @@ const en_US = {
 	userLogout: 'Logout',
 	setting: 'Setting',
 	dashboard: 'Dashboard',
-	chatBot: 'Bot Chat',
-	chatBotConfig: 'Config',
-	chatBotRule: 'Rule',
-	chatBotTrain: 'Train',
-	chatBotManual: 'Manual'
+	chatbot: 'Bot Chat',
+	chatbotConfig: 'Config',
+	chatbotRule: 'Rule',
+	chatbotTrain: 'Train',
+	chatbotManual: 'Manual'
 };
 
 export default en_US;

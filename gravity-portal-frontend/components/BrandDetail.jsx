@@ -64,26 +64,26 @@ class BrandDetail extends React.Component {
 			!data.wechat ?
 				<React.Fragment>
 					{i18n.brandUnbound}
-					<Link to={`/brand/wechat/bind/${data._id}`}>{i18n.actionBind}</Link>
+					<Link to={`/brand/wechat/bind/${data._id}`}>{i18n.brandBind}</Link>
 				</React.Fragment>
 			:
 				<React.Fragment>
 					{data.wechat}
-					<Link to={`/brand/wechat/${data._id}`}>{i18n.actionView}</Link>
-					<Link to={`/brand/wechat/unbind/${data._id}`}>{i18n.actionUnbind}</Link>
+					<Link to={`/brand/wechat/${data._id}`}>{i18n.brandView}</Link>
+					<Link to={`/brand/wechat/unbind/${data._id}`}>{i18n.brandUnbind}</Link>
 				</React.Fragment>
 		);
 		const facebookInfo = (
 			!data.facebook ?
 				<React.Fragment>
 					{i18n.brandUnbound}
-					<Link to={`/brand/facebook/bind/${data._id}`}>{i18n.actionBind}</Link>
+					<Link to={`/brand/facebook/bind/${data._id}`}>{i18n.brandBind}</Link>
 				</React.Fragment>
 			:
 				<React.Fragment>
 					{data.facebook}
-					<Link to={`/brand/facebook/${data._id}`}>{i18n.actionView}</Link>
-					<Link to={`/brand/facebook/unbind/${data._id}`}>{i18n.actionUnbind}</Link>
+					<Link to={`/brand/facebook/${data._id}`}>{i18n.brandView}</Link>
+					<Link to={`/brand/facebook/unbind/${data._id}`}>{i18n.brandUnbind}</Link>
 				</React.Fragment>
 		);
 		const content = (

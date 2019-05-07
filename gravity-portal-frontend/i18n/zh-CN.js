@@ -18,9 +18,6 @@ const zh_CN = {
 	actionSubmit: '提交',
 	actionEdit: '编辑',
 	actionDelete: '删除',
-	actionView: '查看',
-	actionBind: '绑定',
-	actionUnbind: '解绑',
 	loginTitle: '登录 Gravity Prototype',
 	loginUsername: '用户名',
 	loginPassword: '密码',
@@ -33,6 +30,10 @@ const zh_CN = {
 	brandSelect: '选择品牌',
 	brandWechatAccount: '微信公众号',
 	brandUnbound: '未绑定',
+	brandBind: '绑定',
+	brandUnbind: '解绑',
+	brandView: '查看',
+	brandWechatRedirecting: '即将跳转到微信公众号授权页面，请稍候……',
 	system: '系统管理',
 	user: '用户',
 	userFullName: '姓名',
@@ -41,11 +42,11 @@ const zh_CN = {
 	userLogout: '退出登录',
 	setting: '设置',
 	dashboard: '概览',
-	chatBot: '智能客服',
-	chatBotConfig: '基本配置',
-	chatBotRule: '响应规则',
-	chatBotTrain: '训练学习',
-	chatBotManual: '人工介入'
+	chatbot: '智能客服',
+	chatbotConfig: '基本配置',
+	chatbotRule: '响应规则',
+	chatbotTrain: '训练学习',
+	chatbotManual: '人工介入'
 };
 
 export default zh_CN;
