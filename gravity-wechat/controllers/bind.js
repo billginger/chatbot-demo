@@ -25,10 +25,13 @@ exports.handleBind = (req, res, next) => {
 		httpsRequest(options, postData, (err, data) => {
 			if (err) return next(err);
 			if (!data.pre_auth_code) return send(`No pre_auth_code in:\n${data}`);
-			const url = 'https://mp.weixin.qq.com/cgi-bin/componentloginpage?component_appid=' + component_appid
-				+ '&pre_auth_code=' + data.pre_auth_code + '&redirect_uri=https://gravity.nodejs.top/wechat/bound/'
-				+ id;
+			const url = `https://mp.weixin.qq.com/cgi-bin/componentloginpage?component_appid=${component_appid}&
+				pre_auth_code=${data.pre_auth_code}&redirect_uri=https://gravity.nodejs.top/wechat/bind/success/${id}`;
 			res.send({ url });
 		});
 	});
+};
+
+exports.handleBindSuccess = (req, res, next) => {
+	res.send(req.query.auth_code);
 };
