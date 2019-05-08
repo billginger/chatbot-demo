@@ -10,7 +10,6 @@ if (!component_appid) {
 
 let options = {
 	hostname: 'api.weixin.qq.com',
-	path: '/cgi-bin/component/api_create_preauthcode?component_access_token=',
 	method: 'POST',
 	headers: { 'Content-Type': 'application/json' }
 };
@@ -21,10 +20,8 @@ exports.handleBind = (req, res, next) => {
 		if (err) return next(err);
 		if (!doc) return send('No component found!');
 		// Request pre_auth_code
-		options.path += doc.accessToken;
-		console.log(options);
+		options.path = `/cgi-bin/component/api_create_preauthcode?component_access_token=${doc.accessToken}`;
 		const postData = JSON.stringify({ component_appid });
-		console.log(postData);
 		httpsRequest(options, postData, (err, data) => {
 			if (err) return next(err);
 			if (!data.pre_auth_code) return send(`No pre_auth_code in:\n${data}`);
