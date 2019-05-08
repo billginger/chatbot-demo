@@ -41,7 +41,7 @@ const getComponentAccessToken = xml => {
 				verifyTicket: component_verify_ticket,
 				accessToken: data.component_access_token
 			};
-			Component.update({}, doc, { upsert: true }, err => {
+			Component.updateOne({}, doc, { upsert: true }, err => {
 				if (err) return log.error(err);
 				log.info(`component_access_token has updated!`);
 			});
