@@ -17,6 +17,7 @@ class BrandWechatBind extends React.Component {
 		fetch(`/api/brand/wechat/bind/${id}`).then(res => (
 			res.ok ? res.json() : Promise.reject(res)
 		)).then(data => {
+			console.log(data);
 			this.props.history.push(data.url);
 		}).catch(err => {
 			const errMsg = err.statusText || err;
