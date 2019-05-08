@@ -53,7 +53,7 @@ const updateAuthorizer = xml => {
 	log.debug(`will update Authorizer`);
 }
 
-exports.handleAuth = (req, res) => {
+exports.wechatAuth = (req, res) => {
 	let data = '';
 	req.setEncoding('utf8');
 	req.on('data', d => {
