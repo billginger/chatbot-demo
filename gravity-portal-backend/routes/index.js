@@ -1,7 +1,7 @@
 const express = require('express');
 const { userLogin, userCheck, userProfile, userLogout, userBrand } = require('../controllers/user.js');
 const { systemHome, systemDashboard } = require('../controllers/system.js');
-const { brandList, brandAdd, brandDetail, brandWechatBind } = require('../controllers/brand.js');
+const { brandList, brandAdd, brandDetail, brandWechatBind, brandWechatUpdate } = require('../controllers/brand.js');
 
 const router = express.Router();
 
