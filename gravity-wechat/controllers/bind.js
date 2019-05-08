@@ -57,7 +57,8 @@ exports.updateAccount = (req, res, next) => {
 		idc: req.authorizer_info.idc,
 		principalName: req.authorizer_info.principal_name,
 		signature: req.authorizer_info.signature,
-		brand: id
+		brand: id,
+		isDeleted: false
 	};
 	Account.updateOne({ appid }, data, { upsert: true }, err => {
 		if (err) return next(err);
