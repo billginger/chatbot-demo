@@ -27,7 +27,9 @@ class Dashboard extends React.Component {
 		const { errMsg, data } = this.state;
 		// Breadcrumb
 		const breadcrumb = (
-			<Breadcrumb.Item>{i18n.dashboard}</Breadcrumb.Item>
+			<Breadcrumb>
+				<Breadcrumb.Item>{i18n.dashboard}</Breadcrumb.Item>
+			</Breadcrumb>
 		);
 		// Error
 		if (errMsg) {

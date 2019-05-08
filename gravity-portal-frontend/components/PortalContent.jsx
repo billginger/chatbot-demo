@@ -1,13 +1,13 @@
 import React from 'react';
-import { Layout, Breadcrumb } from 'antd';
+import { Layout } from 'antd';
 const { Content, Footer } = Layout;
 
 const PortalContent = ({ breadcrumb, content }) => (
 	<Layout>
 		<Content id="tc-portal-content">
-			<Breadcrumb className="tc-portal-breadcrumb">
+			<div id="tc-portal-breadcrumb">
 				{breadcrumb}
-			</Breadcrumb>
+			</div>
 			<div id="tc-portal-main">
 				{content}
 			</div>

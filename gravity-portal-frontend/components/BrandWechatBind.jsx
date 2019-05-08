@@ -28,12 +28,12 @@ class BrandWechatBind extends React.Component {
 		const { errMsg } = this.state;
 		// Breadcrumb
 		const breadcrumb = (
-			<React.Fragment>
+			<Breadcrumb>
 				<Breadcrumb.Item>{i18n.system}</Breadcrumb.Item>
 				<Breadcrumb.Item><Link to="/brand">{i18n.brand}</Link></Breadcrumb.Item>
 				<Breadcrumb.Item>{i18n.brandWechatAccount}</Breadcrumb.Item>
 				<Breadcrumb.Item>{i18n.brandBind}</Breadcrumb.Item>
-			</React.Fragment>
+			</Breadcrumb>
 		);
 		// Error
 		if (errMsg) {

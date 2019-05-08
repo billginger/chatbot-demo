@@ -20,11 +20,11 @@ class BrandAdd extends React.Component {
 		const tailFormItemLayout = { wrapperCol: { offset: 4, span: 16 } };
 		// Breadcrumb
 		const breadcrumb = (
-			<React.Fragment>
+			<Breadcrumb>
 				<Breadcrumb.Item>{i18n.system}</Breadcrumb.Item>
 				<Breadcrumb.Item><Link to="/brand">{i18n.brand}</Link></Breadcrumb.Item>
 				<Breadcrumb.Item>{i18n.labelAdd}</Breadcrumb.Item>
-			</React.Fragment>
+			</Breadcrumb>
 		);
 		// Error
 		let alertMessage;

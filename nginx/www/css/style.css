@@ -9626,9 +9626,8 @@ div.ant-typography-edit-content {
 #tc-portal-column #tc-portal-content {
   padding: 0 30px;
 }
-.tc-portal-breadcrumb {
+#tc-portal-breadcrumb {
   margin: 16px 0;
-  overflow: hidden;
 }
 #tc-portal-main {
   background: #fff;
