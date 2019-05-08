@@ -5,6 +5,7 @@ const { brandList, brandAdd, brandDetail, brandWechatBind } = require('../contro
 
 const router = express.Router();
 
+// From Portal Frontend
 router.post('/api/user/login', userLogin);
 router.get('/api/user/profile', userCheck, userProfile);
 router.get('/api/user/logout', userLogout);
@@ -15,5 +16,8 @@ router.get('/api/brand', userCheck, brandList);
 router.post('/api/brand/add', userCheck, brandAdd);
 router.get('/api/brand/:id', userCheck, brandDetail);
 router.get('/api/brand/wechat/bind/:id', userCheck, brandWechatBind);
+
+// From WeChat Microservice
+router.post('/api/brand/wechat/bind/:id', brandWechatUpdate);
 
 module.exports = router;

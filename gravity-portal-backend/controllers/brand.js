@@ -56,3 +56,13 @@ exports.brandWechatBind = (req, res, next) => {
 		handleSuccess(req, res, `[brand] [wechat] [bind] [brand:${id}]`, data);
 	});
 };
+
+exports.brandWechatUpdate = (req, res, next) => {
+	const id = req.params.id;
+	const wechat = req.body.wechat;
+	Brand.findByIdAndUpdate(id, { wechat }, (err, brand) => {
+		if (err) return next(err);
+		if (!brand) return handleFail(req, res, `[brand] [wechat] [update] [brand:${_id}] [not found]`);
+		handleSuccess(req, res, `[brand] [wechat] [update] [brand:${id}] [wechat:${wechat}]`, { success: 1 });
+	});
+};
