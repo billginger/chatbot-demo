@@ -65,7 +65,7 @@ exports.userLogout = (req, res) => {
 	}
 };
 
-exports.userBrand = (req, res) => {
+exports.userBrand = (req, res, next) => {
 	const id = req.profile._id;
 	const brand = req.params.id;
 	User.findByIdAndUpdate(id, { brand }, (err, user) => {

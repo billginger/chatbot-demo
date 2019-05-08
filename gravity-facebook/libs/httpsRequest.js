@@ -12,8 +12,9 @@ module.exports = (options, postData, callback) => {
 		res.on('end', () => {
 			try {
 				data = JSON.parse(data);
-			} finally {
 				callback(0, data);
+			} catch (err) {
+				callback(data);
 			}
 		});
 	});

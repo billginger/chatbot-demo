@@ -3,7 +3,7 @@ const httpsRequest = require('../libs/httpsRequest.js');
 const Brand = require('../models/brand.js');
 const User = require('../models/user.js');
 
-exports.brandList = (req, res) => {
+exports.brandList = (req, res, next) => {
 	Brand.find({ isDeleted: false }, null, { sort: '-_id' }, (err, brands) => {
 		if (err) return next(err);
 		if (!brands) return handleFail(req, res, `[brand] [list] [not found]`, 'msgNotFound');
@@ -11,7 +11,7 @@ exports.brandList = (req, res) => {
 	});
 };
 
-exports.brandAdd = (req, res) => {
+exports.brandAdd = (req, res, next) => {
 	const name = req.body.name && req.body.name.trim();
 	const nameAnyCase = new RegExp(`^${name}$`, 'i');
 	Brand.count({ name: nameAnyCase }, (err, count) => {
@@ -29,7 +29,7 @@ exports.brandAdd = (req, res) => {
 	});
 };
 
-exports.brandDetail = (req, res) => {
+exports.brandDetail = (req, res, next) => {
 	const _id = req.params.id;
 	Brand.findOne({ _id, isDeleted: false }, (err, brand) => {
 		if (err) return next(err);
@@ -43,7 +43,7 @@ exports.brandDetail = (req, res) => {
 	});
 };
 
-exports.brandWechatBind = (req, res) => {
+exports.brandWechatBind = (req, res, next) => {
 	const id = req.params.id;
 	const options = {
 		hostname: 'gravity.nodejs.top',
