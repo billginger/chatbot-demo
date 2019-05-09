@@ -21,8 +21,7 @@ const xmlParsing = (req, res, next, data) => {
 			log.error(err);
 			return res.sendStatus(403);
 		}
-		log.debug(result);
-		const encrypt = result.Encrypt;
+		const encrypt = result.xml && result.xml.Encrypt;
 		if (!encrypt) {
 			log.error(`No Encrypt in:\n${data}`);
 			return res.sendStatus(403);
