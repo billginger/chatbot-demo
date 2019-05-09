@@ -1,7 +1,6 @@
 const crypto = require('crypto');
 const xml2js = require('xml2js');
 const config = require('../config.js');
-const xmlPick = require('../libs/xmlPick.js');
 const { log } = require('../libs/log.js');
 const msgCrypto = require('../libs/msgCrypto');
 
@@ -16,15 +15,14 @@ if (!component_appid || !component_appsecret || !verification_token || !encoding
 	throw 'Please check config.js!';
 }
 
-exports.getMessage = (req, res, next) => {
-	let data = '';
-	req.setEncoding('utf8');
-	req.on('data', d => {
-		data += d;
-	});
-	req.on('end', () => {
-		// XML Parsing
-		const encrypt = xmlPick(data, 'Encrypt');
+const xmlParsing = (req, res, next, data) => {
+	parser.parseString(data, (err, result) => {
+		if (err) {
+			log.error(err);
+			return res.sendStatus(403);
+		}
+		log.debug(result);
+		const encrypt = result.Encrypt;
 		if (!encrypt) {
 			log.error(`No Encrypt in:\n${data}`);
 			return res.sendStatus(403);
@@ -46,15 +44,26 @@ exports.getMessage = (req, res, next) => {
 		parser.parseString(xml, (err, result) => {
 			if (err) return log.error(err);
 			log.debug(result);
-			log.debug(typeof result);
+			req.xml = xml;
+			req.message = result.xml;
+			next();
 		});
-		req.xml = xml;
-		next();
+	});
+
+};
+
+exports.getMessage = (req, res, next) => {
+	let data = '';
+	req.setEncoding('utf8');
+	req.on('data', d => {
+		data += d;
+	});
+	req.on('end', () => {
+		xmlParsing(req, res, next, data);
 	});
 };
 
 exports.handleMessage = (req, res, next) => {
-	const xml = req.xml;
-	const ToUserName = xmlPick(xml, 'ToUserName');
+	const ToUserName = req.message.ToUserName;
 	log.debug(ToUserName);
 };
