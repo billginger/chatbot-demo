@@ -20,5 +20,6 @@ router.get('/api/brand/wechat/bind/:id', userCheck, brandWechatBind);
 
 // From WeChat Microservice
 router.post('/api/brand/wechat/bind/:id', ipCheck, brandWechatUpdate);
+router.post('/api/brand/wechat/message/:id', ipCheck, brandWechatMessage);
 
 module.exports = router;
