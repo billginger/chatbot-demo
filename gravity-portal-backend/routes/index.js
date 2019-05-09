@@ -3,6 +3,7 @@ const { userLogin, userCheck, userProfile, userLogout, userBrand } = require('..
 const { systemHome, systemDashboard } = require('../controllers/system.js');
 const { brandList, brandAdd, brandDetail, brandWechatBind, brandWechatUpdate } = require('../controllers/brand.js');
 const { ipCheck } = require('../controllers/ip.js');
+const { brandWechatMessage } = require('../controllers/message.js');
 
 const router = express.Router();
 
