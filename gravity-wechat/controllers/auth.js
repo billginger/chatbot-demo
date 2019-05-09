@@ -38,7 +38,7 @@ const getComponentAccessToken = (xml, json) => {
 			};
 			Component.updateOne({}, doc, { upsert: true }, err => {
 				if (err) return log.error(err);
-				log.info('component_access_token has updated!');
+				log.info('component_access_token has been updated!');
 			});
 		});
 	});

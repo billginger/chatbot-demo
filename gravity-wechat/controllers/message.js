@@ -22,7 +22,7 @@ exports.handleMessage = (req, res, next) => {
 			const postData = JSON.stringify(json);
 			httpsRequest(options, postData, (err, data) => {
 				if (err) return log.error(err);
-				log.info(data);
+				log.info('Message has been forwarded!');
 			});
 		});
 	});
