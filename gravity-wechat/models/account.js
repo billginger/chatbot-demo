@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const accountSchema = new mongoose.Schema({
 	appid: String,
@@ -17,7 +16,7 @@ const accountSchema = new mongoose.Schema({
 	idc: Number,
 	principalName: String,
 	signature: String,
-	brand: ObjectId,
+	brand: String,
 	isDeleted: { type: Boolean, default: false }
 }, {
 	timestamps: true
