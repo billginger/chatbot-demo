@@ -2,6 +2,7 @@ const config = require('../config.js');
 const { log } = require('../libs/log.js');
 const httpsRequest = require('../libs/httpsRequest.js');
 const Component = require('../models/component.js');
+const Account = require('../models/account.js');
 
 const component_appid = config.component_appid;
 const component_appsecret = config.component_appsecret;
@@ -15,6 +16,20 @@ const options = {
 	path: '/cgi-bin/component/api_component_token',
 	method: 'POST',
 	headers: { 'Content-Type': 'application/json' }
+};
+
+const refreshAccountToken = (token, appid, refreshToken) => {
+	log.debug('will refresh Account');
+};
+
+const refreshAccountsToken = token => {
+	Account.find({ isDeleted: false }, 'appid refreshToken', (err, accounts) => {
+		if (err) return log.error(err);
+		if (!accounts) return;
+		for (let account of accounts) {
+			refreshAccountToken(token, account.appid, account.refreshToken);
+		}
+	});
 };
 
 const getComponentAccessToken = (xml, json) => {
@@ -40,6 +55,8 @@ const getComponentAccessToken = (xml, json) => {
 				if (err) return log.error(err);
 				log.info('component_access_token has been updated!');
 			});
+			// Refresh Accounts Token
+			refreshAccountsToken(data.component_access_token);
 		});
 	});
 };
