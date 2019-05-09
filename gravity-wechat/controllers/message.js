@@ -42,13 +42,11 @@ const xmlParsing = (req, res, next, data) => {
 		log.info(xml);
 		parser.parseString(xml, (err, result) => {
 			if (err) return log.error(err);
-			log.debug(result);
 			req.xml = xml;
-			req.message = result.xml;
+			req.json = result.xml;
 			next();
 		});
 	});
-
 };
 
 exports.getMessage = (req, res, next) => {
@@ -63,6 +61,5 @@ exports.getMessage = (req, res, next) => {
 };
 
 exports.handleMessage = (req, res, next) => {
-	const ToUserName = req.message.ToUserName;
-	log.debug(ToUserName);
+	const ToUserName = req.json.ToUserName;
 };

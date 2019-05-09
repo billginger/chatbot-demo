@@ -1,5 +1,4 @@
 const config = require('../config.js');
-const xmlPick = require('../libs/xmlPick.js');
 const { log } = require('../libs/log.js');
 const httpsRequest = require('../libs/httpsRequest.js');
 const Component = require('../models/component.js');
@@ -18,8 +17,8 @@ const options = {
 	headers: { 'Content-Type': 'application/json' }
 };
 
-const getComponentAccessToken = xml => {
-	const component_verify_ticket = xmlPick(xml, 'ComponentVerifyTicket');
+const getComponentAccessToken = (xml, json) => {
+	const component_verify_ticket = json.ComponentVerifyTicket;
 	if (!component_verify_ticket) {
 		return log.error(`No ComponentVerifyTicket in:\n${xml}`);
 	}
@@ -45,22 +44,23 @@ const getComponentAccessToken = xml => {
 	});
 };
 
-const updateAuthorizer = xml => {
+const updateAuthorizer = (xml, json) => {
 	log.debug('will update Authorizer');
 }
 
 exports.auth = (req, res) => {
 	const xml = req.xml;
-	const infoType = xmlPick(xml, 'InfoType');
+	const json = req.json;
+	const infoType = json.InfoType;
 	if (!infoType) {
 		return log.error(`No InfoType in:\n${xml}`);
 	}
 	switch (infoType) {
 		case 'component_verify_ticket':
-			getComponentAccessToken(xml);
+			getComponentAccessToken(xml, json);
 			break;
 		case 'unauthorized':
-			updateAuthorizer(xml);
+			updateAuthorizer(xml, json);
 			break;
 		default:
 			log.warn(`Unknow InfoType in:\n${xml}`);
