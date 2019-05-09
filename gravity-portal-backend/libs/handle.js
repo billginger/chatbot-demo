@@ -9,10 +9,11 @@ const handleSuccess = (req, res, logText, data) => {
 const handleFail = (req, res, logText, statusText) => {
 	const ip = req.headers['x-forwarded-for'] || req.ip;
 	log.warn(`[fail]`, logText, `[${ip}]`);
-	if (statusText) {
-		res.statusMessage = statusText;
+	if (!statusText) {
+		return res.sendStatus(403);
 	}
-	res.status(400).end();
+	res.statusMessage = statusText;
+	res.status(403).end();
 };
 
 const handleError = (err, req, res, next) => {

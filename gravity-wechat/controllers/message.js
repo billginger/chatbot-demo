@@ -22,7 +22,6 @@ exports.handleMessage = (req, res, next) => {
 			const postData = JSON.stringify(json);
 			httpsRequest(options, postData, (err, data) => {
 				if (err) return log.error(err);
-				log.debug(data);
 				log.info(data);
 			});
 		});
