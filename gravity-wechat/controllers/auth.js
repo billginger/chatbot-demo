@@ -13,13 +13,26 @@ if (!component_appid || !component_appsecret) {
 
 const options = {
 	hostname: 'api.weixin.qq.com',
-	path: '/cgi-bin/component/api_component_token',
 	method: 'POST',
 	headers: { 'Content-Type': 'application/json' }
 };
 
-const refreshAccountToken = (token, appid, refreshToken) => {
-	log.debug('will refresh Account');
+const refreshAccountToken = (component_access_token, authorizer_appid, authorizer_refresh_token) => {
+	const path = `/cgi-bin/component/api_authorizer_token?component_access_token=${component_access_token}`;
+	const postOptions = { ...options, path };
+	const postData = JSON.stringify({ component_appid, authorizer_appid, authorizer_refresh_token });
+	httpsRequest(postOptions, postData, (err, data) => {
+		if (err) return log.error(err);
+		if (!data.authorizer_access_token) return log.error(`No authorizer_access_token in:\n${data}`);
+		// Save new authorizer_access_token
+		const appid = authorizer_appid;
+		const accessToken = data.authorizer_access_token;
+		const refreshToken = data.authorizer_refresh_token;
+		Account.updateOne({ appid }, { accessToken, refreshToken }, err => {
+			if (err) return log.error(err);
+			log.info('authorizer_access_token has been updated!');
+		});
+	});
 };
 
 const refreshAccountsToken = token => {
@@ -37,21 +50,21 @@ const getComponentAccessToken = (xml, json) => {
 	if (!component_verify_ticket) {
 		return log.error(`No ComponentVerifyTicket in:\n${xml}`);
 	}
-	const postData = JSON.stringify({ component_appid, component_appsecret, component_verify_ticket });
 	const anHourAgo = new Date() - 3600000;
-	Component.findOne({}, (err, doc) => {
+	Component.findOne({}, (err, component) => {
 		if (err) return log.error(err);
-		if (doc && doc.updatedAt > anHourAgo) return;
+		// if (component && component.updatedAt > anHourAgo) return;
 		// Request new component_access_token
-		httpsRequest(options, postData, (err, data) => {
+		const path = '/cgi-bin/component/api_component_token';
+		const postOptions = { ...options, path };
+		const postData = JSON.stringify({ component_appid, component_appsecret, component_verify_ticket });
+		httpsRequest(postOptions, postData, (err, data) => {
 			if (err) return log.error(err);
 			if (!data.component_access_token) return log.error(`No component_access_token in:\n${data}`);
 			// Save new component_access_token
-			doc = {
-				verifyTicket: component_verify_ticket,
-				accessToken: data.component_access_token
-			};
-			Component.updateOne({}, doc, { upsert: true }, err => {
+			const verifyTicket = component_verify_ticket;
+			const accessToken = data.component_access_token;
+			Component.updateOne({}, { verifyTicket, accessToken }, { upsert: true }, err => {
 				if (err) return log.error(err);
 				log.info('component_access_token has been updated!');
 			});
