@@ -1,6 +1,7 @@
 const express = require('express');
-const { getMessage, handleMessage } = require('../controllers/message.js');
-const { auth } = require('../controllers/auth.js');
+const { getXml } = require('../controllers/xml.js');
+const { handleAuth } = require('../controllers/auth.js');
+const { handleMessage } = require('../controllers/message.js');
 const { ipCheck } = require('../controllers/ip.js');
 const { getComponent } = require('../controllers/component.js');
 const { accountAuth } = require('../controllers/account.js');
@@ -9,8 +10,8 @@ const { getAuthorization, getAuthorizer, updateAccount, updatePortal } = require
 const router = express.Router();
 
 // From WeChat Server
-router.post('/wechat/auth', getMessage, auth);
-router.post('/wechat/account/:id', getMessage, handleMessage);
+router.post('/wechat/auth', getXml, handleAuth);
+router.post('/wechat/account/:id', getXml, handleMessage);
 
 // From Portal Microservice
 router.put('/wechat/bind/:id', ipCheck, getComponent, accountAuth);

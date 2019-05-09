@@ -48,7 +48,7 @@ const updateAuthorizer = (xml, json) => {
 	log.debug('will update Authorizer');
 }
 
-exports.auth = (req, res) => {
+exports.handleAuth = (req, res) => {
 	const xml = req.xml;
 	const json = req.json;
 	const infoType = json.InfoType;
