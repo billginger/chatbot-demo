@@ -19,7 +19,8 @@ exports.handleMessage = (req, res, next) => {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' }
 			};
-			httpsRequest(options, json, (err, data) => {
+			const postData = JSON.stringify(json);
+			httpsRequest(options, postData, (err, data) => {
 				if (err) return log.error(err);
 				log.info(data);
 			});
