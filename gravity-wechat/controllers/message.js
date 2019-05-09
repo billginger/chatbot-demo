@@ -1,8 +1,11 @@
 const crypto = require('crypto');
+const xml2js = require('xml2js');
 const config = require('../config.js');
 const xmlPick = require('../libs/xmlPick.js');
 const { log } = require('../libs/log.js');
 const msgCrypto = require('../libs/msgCrypto');
+
+const parser = new xml2js.Parser();
 
 const component_appid = config.component_appid;
 const component_appsecret = config.component_appsecret;
@@ -13,23 +16,19 @@ if (!component_appid || !component_appsecret || !verification_token || !encoding
 	throw 'Please check config.js!';
 }
 
-exports.message = (req, res) => {
+exports.getMessage = (req, res, next) => {
 	let data = '';
 	req.setEncoding('utf8');
 	req.on('data', d => {
 		data += d;
 	});
 	req.on('end', () => {
-		// Debug
-		log.debug(data);
 		// XML Parsing
 		const encrypt = xmlPick(data, 'Encrypt');
 		if (!encrypt) {
 			log.error(`No Encrypt in:\n${data}`);
 			return res.sendStatus(403);
 		}
-		// Debug
-		log.debug(req.query);
 		// Signature Verification
 		const sha1 = crypto.createHash('sha1');
 		const timestamp = req.query.timestamp;
@@ -43,8 +42,18 @@ exports.message = (req, res) => {
 		res.send('success');
 		// Message Decryption
 		const xml = new msgCrypto(component_appid, encoding_key).decryptMsg(encrypt);
-		// Debug
-		log.debug(xml);
-		// Waiting
+		log.info(xml);
+		parser.parseString(xml, (err, result) => {
+			if (err) return log.error(err);
+			log.debug(result);
+		});
+		req.xml = xml;
+		next();
 	});
+};
+
+exports.handleMessage = (req, res, next) => {
+	const xml = req.xml;
+	const ToUserName = xmlPick(xml, 'ToUserName');
+	log.debug(ToUserName);
 };
