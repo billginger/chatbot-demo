@@ -3,6 +3,26 @@ const httpsRequest = require('../libs/httpsRequest.js');
 const Message = require('../models/message.js');
 const Account = require('../models/account.js');
 
+const replyMessage = (accessToken, touser) => {
+	const options = {
+		hostname: 'api.weixin.qq.com',
+		path: `/cgi-bin/message/custom/send?access_token=${accessToken}`,
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' }
+	};
+	const postData = JSON.stringify({
+		touser,
+		msgtype: 'text',
+		text: {
+			content: 'Hello World'
+		}
+	});
+	httpsRequest(options, postData, (err, data) => {
+		if (err) return log.error(err);
+		log.info(data);
+	});
+};
+
 exports.handleMessage = (req, res, next) => {
 	// Save Message
 	const json = req.json;
@@ -23,6 +43,9 @@ exports.handleMessage = (req, res, next) => {
 			httpsRequest(options, postData, (err, data) => {
 				if (err) return log.error(err);
 				log.info('Message has been forwarded!');
+				const accessToken = account.accessToken;
+				const touser = json.FromUserName;
+				replyMessage(accessToken, touser);
 			});
 		});
 	});

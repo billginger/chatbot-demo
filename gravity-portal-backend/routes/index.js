@@ -3,7 +3,7 @@ const { userLogin, userCheck, userProfile, userLogout, userBrand } = require('..
 const { systemHome, systemDashboard } = require('../controllers/system.js');
 const { brandList, brandAdd, brandDetail, brandWechatBind, brandWechatUpdate } = require('../controllers/brand.js');
 const { ipCheck } = require('../controllers/ip.js');
-const { brandWechatMessage } = require('../controllers/message.js');
+const { brandWechatMessage, handleWeChatMessage } = require('../controllers/message.js');
 
 const router = express.Router();
 
@@ -21,6 +21,6 @@ router.get('/api/brand/wechat/bind/:id', userCheck, brandWechatBind);
 
 // From WeChat Microservice
 router.post('/api/brand/wechat/bind/:id', ipCheck, brandWechatUpdate);
-router.post('/api/brand/wechat/message/:id', ipCheck, brandWechatMessage);
+router.post('/api/brand/wechat/message/:id', ipCheck, brandWechatMessage, handleWeChatMessage);
 
 module.exports = router;
