@@ -1,8 +1,7 @@
 const config = require('../config.js');
 const { handleFail } = require('../libs/handle.js');
 
-// const ip_whitelist = config.ip_whitelist;
-const ip_whitelist = ['127.0.0.1'];
+const ip_whitelist = config.ip_whitelist;
 
 if (!ip_whitelist) {
 	throw 'Please check config.js!';
