@@ -5,7 +5,7 @@ const xmlPick = require('../libs/xmlPick.js');
 const { log } = require('../libs/log.js');
 const msgCrypto = require('../libs/msgCrypto');
 
-const parser = new xml2js.Parser();
+const parser = new xml2js.Parser({ explicitArray: false });
 
 const component_appid = config.component_appid;
 const component_appsecret = config.component_appsecret;
@@ -46,6 +46,7 @@ exports.getMessage = (req, res, next) => {
 		parser.parseString(xml, (err, result) => {
 			if (err) return log.error(err);
 			log.debug(result);
+			log.debug(typeof result);
 		});
 		req.xml = xml;
 		next();
