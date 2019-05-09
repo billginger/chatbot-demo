@@ -8,7 +8,7 @@ if (!component_appid) {
 	throw 'Please check config.js!';
 }
 
-let options = {
+const options = {
 	hostname: 'api.weixin.qq.com',
 	method: 'POST',
 	headers: { 'Content-Type': 'application/json' }
@@ -16,9 +16,10 @@ let options = {
 
 exports.getAuthorization = (req, res, next) => {
 	const authorization_code = req.query.auth_code;
-	options.path = `/cgi-bin/component/api_query_auth?component_access_token=${req.component.accessToken}`;
+	const path = `/cgi-bin/component/api_query_auth?component_access_token=${req.component.accessToken}`;
+	const postOptions = { ...options, path };
 	const postData = JSON.stringify({ component_appid, authorization_code });
-	httpsRequest(options, postData, (err, data) => {
+	httpsRequest(postOptions, postData, (err, data) => {
 		if (err) return next(err);
 		if (!data.authorization_info) return res.send(`No authorization_info in:\n${data}`);
 		req.authorization_info = data.authorization_info;
@@ -28,9 +29,10 @@ exports.getAuthorization = (req, res, next) => {
 
 exports.getAuthorizer = (req, res, next) => {
 	const authorizer_appid = req.authorization_info.authorizer_appid;
-	options.path = `/cgi-bin/component/api_get_authorizer_info?component_access_token=${req.component.accessToken}`;
+	const path = `/cgi-bin/component/api_get_authorizer_info?component_access_token=${req.component.accessToken}`;
+	const postOptions = { ...options, path };
 	const postData = JSON.stringify({ component_appid, authorizer_appid });
-	httpsRequest(options, postData, (err, data) => {
+	httpsRequest(postOptions, postData, (err, data) => {
 		if (err) return next(err);
 		if (!data.authorizer_info) return res.send(`No authorizer_info in:\n${data}`);
 		req.authorizer_info = data.authorizer_info;
@@ -39,7 +41,7 @@ exports.getAuthorizer = (req, res, next) => {
 };
 
 exports.updateAccount = (req, res, next) => {
-	const id = req.params.id;
+	const brand = req.params.id;
 	const appid = req.authorization_info.authorizer_appid;
 	const data = {
 		appid,
@@ -57,7 +59,7 @@ exports.updateAccount = (req, res, next) => {
 		idc: req.authorizer_info.idc,
 		principalName: req.authorizer_info.principal_name,
 		signature: req.authorizer_info.signature,
-		brand: id,
+		brand,
 		isDeleted: false
 	};
 	Account.updateOne({ appid }, data, { upsert: true }, err => {
@@ -68,14 +70,15 @@ exports.updateAccount = (req, res, next) => {
 
 exports.updatePortal = (req, res, next) => {
 	const id = req.params.id;
-	const portalOptions = {
+	const wechat = req.authorizer_info.nick_name;
+	const postOptions = {
 		hostname: 'gravity.nodejs.top',
 		path: `/api/brand/wechat/bind/${id}`,
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' }
 	};
-	const postData = JSON.stringify({ wechat: req.authorizer_info.nick_name });
-	httpsRequest(portalOptions, postData, (err, data) => {
+	const postData = JSON.stringify({ wechat });
+	httpsRequest(postOptions, postData, (err, data) => {
 		if (err) return next(err);
 		const url = `https://gravity.nodejs.top/brand/${id}`;
 		res.redirect(url);

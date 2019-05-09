@@ -43,9 +43,8 @@ exports.handleMessage = (req, res, next) => {
 			httpsRequest(options, postData, (err, data) => {
 				if (err) return log.error(err);
 				log.info('Message has been forwarded!');
-				const accessToken = account.accessToken;
-				const touser = json.FromUserName;
-				replyMessage(accessToken, touser);
+				// Reply Message
+				replyMessage(account.accessToken, json.FromUserName);
 			});
 		});
 	});
