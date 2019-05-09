@@ -28,6 +28,7 @@ if (cluster.isMaster) {
 			reason = `signal ${signal}`;
 		}
 		log.error(`A worker process has exited with pid ${worker.process.pid} caused ${reason}!`);
+		cluster.fork();
 	});
 } else {
 	app.listen(3000, () => log.info(`A worker process is listening on port 3000 with pid ${process.pid}!`));
