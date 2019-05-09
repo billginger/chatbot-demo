@@ -2,6 +2,7 @@ const express = require('express');
 const { userLogin, userCheck, userProfile, userLogout, userBrand } = require('../controllers/user.js');
 const { systemHome, systemDashboard } = require('../controllers/system.js');
 const { brandList, brandAdd, brandDetail, brandWechatBind, brandWechatUpdate } = require('../controllers/brand.js');
+const { ipCheck } = require('../controllers/ip.js');
 
 const router = express.Router();
 
@@ -18,6 +19,6 @@ router.get('/api/brand/:id', userCheck, brandDetail);
 router.get('/api/brand/wechat/bind/:id', userCheck, brandWechatBind);
 
 // From WeChat Microservice
-router.post('/api/brand/wechat/bind/:id', brandWechatUpdate);
+router.post('/api/brand/wechat/bind/:id', ipCheck, brandWechatUpdate);
 
 module.exports = router;
