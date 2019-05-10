@@ -44,6 +44,11 @@ exports.handleMessage = (req, res, next) => {
 				if (err) return log.error(err);
 				log.info('Message has been forwarded!');
 				// Reply Message
+				// Debug Code Begin
+				if (json.FromUserName != 'o2rwt1SxkOsK6AwJw-0oEVg6WRq8') {
+					return log.debug('Stop by debug code.');
+				}
+				// Debug Code End
 				replyMessage(account.accessToken, json.FromUserName);
 			});
 		});
