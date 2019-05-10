@@ -33,7 +33,6 @@ const en_US = {
 	brandBind: 'Bind',
 	brandUnbind: 'Unbind',
 	brandView: 'View',
-	brandWechatRedirecting: 'Redirecting to the WeChat official account authorization page, please wait...',
 	system: 'System',
 	user: 'Users',
 	userFullName: 'Full Name',

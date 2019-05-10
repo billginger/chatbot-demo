@@ -33,7 +33,6 @@ const zh_CN = {
 	brandBind: '绑定',
 	brandUnbind: '解绑',
 	brandView: '查看',
-	brandWechatRedirecting: '即将跳转到微信公众号授权页面，请稍候……',
 	system: '系统管理',
 	user: '用户',
 	userFullName: '姓名',

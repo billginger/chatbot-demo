@@ -4,6 +4,7 @@ import Home from './Home.jsx';
 import BrandAdd from './BrandAdd.jsx';
 import BrandDetail from './BrandDetail.jsx';
 import BrandWechatBind from './BrandWechatBind.jsx';
+import BrandFacebookBind from './BrandFacebookBind.jsx';
 import Building from './Building.jsx';
 import PortalColumn from './PortalColumn.jsx';
 import NoMatch from './NoMatch.jsx';
@@ -18,7 +19,7 @@ const PortalBody = () => (
 		<Route exact path="/brand/wechat/bind/:id" component={BrandWechatBind} />
 		<Route exact path="/brand/wechat/unbind/:id" component={Building} />
 		<Route exact path="/brand/facebook/:id" component={Building} />
-		<Route exact path="/brand/facebook/bind/:id" component={Building} />
+		<Route exact path="/brand/facebook/bind/:id" component={BrandFacebookBind} />
 		<Route exact path="/brand/facebook/unbind/:id" component={Building} />
 		<Route path={['/dashboard', '/chatbot']} component={PortalColumn} />
 		<Route component={NoMatch} />
