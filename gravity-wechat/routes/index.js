@@ -14,7 +14,7 @@ router.post('/wechat/auth', getXml, handleAuth);
 router.post('/wechat/account/:id', getXml, handleMessage);
 
 // From Portal Microservice
-router.put('/wechat/bind/:id', ipCheck, getComponent, accountAuth);
+router.put('/wechat/auth/:id', ipCheck, getComponent, accountAuth);
 
 // From Client
 router.get('/wechat/bind/:id', getComponent, getAuthorization, getAuthorizer, updateAccount, updatePortal);

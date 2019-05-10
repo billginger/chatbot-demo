@@ -1,5 +1,4 @@
 const { handleSuccess, handleFail } = require('../libs/handle.js');
-const httpsRequest = require('../libs/httpsRequest.js');
 const Brand = require('../models/brand.js');
 const User = require('../models/user.js');
 
@@ -40,29 +39,5 @@ exports.brandDetail = (req, res, next) => {
 			}
 			handleSuccess(req, res, `[brand] [detail] [id:${_id}] [name:${brand.name}]`, brand);
 		});
-	});
-};
-
-exports.brandWechatBind = (req, res, next) => {
-	const id = req.params.id;
-	const options = {
-		hostname: 'gravity.nodejs.top',
-		path: `/wechat/bind/${id}`,
-		method: 'PUT'
-	};
-	const postData = 0;
-	httpsRequest(options, postData, (err, data) => {
-		if (err) return next(err);
-		handleSuccess(req, res, `[brand] [wechat] [bind] [brand:${id}]`, data);
-	});
-};
-
-exports.brandWechatUpdate = (req, res, next) => {
-	const id = req.params.id;
-	const wechat = req.body.wechat;
-	Brand.findByIdAndUpdate(id, { wechat }, (err, brand) => {
-		if (err) return next(err);
-		if (!brand) return handleFail(req, res, `[brand] [wechat] [update] [brand:${_id}] [not found]`);
-		handleSuccess(req, res, `[brand] [wechat] [update] [brand:${id}] [wechat:${wechat}]`, { success: 1 });
 	});
 };

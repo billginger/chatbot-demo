@@ -1,7 +1,8 @@
 const express = require('express');
 const { userLogin, userCheck, userProfile, userLogout, userBrand } = require('../controllers/user.js');
 const { systemHome, systemDashboard } = require('../controllers/system.js');
-const { brandList, brandAdd, brandDetail, brandWechatBind, brandWechatUpdate } = require('../controllers/brand.js');
+const { brandList, brandAdd, brandDetail } = require('../controllers/brand.js');
+const { brandWechatAuth, brandWechatBind, brandFacebookBind } = require('../controllers/brandBind.js');
 const { ipCheck } = require('../controllers/ip.js');
 const { brandWechatMessage, handleWeChatMessage } = require('../controllers/message.js');
 
@@ -17,10 +18,11 @@ router.get('/api/system/dashboard', userCheck, systemDashboard);
 router.get('/api/brand', userCheck, brandList);
 router.post('/api/brand/add', userCheck, brandAdd);
 router.get('/api/brand/:id', userCheck, brandDetail);
-router.get('/api/brand/wechat/bind/:id', userCheck, brandWechatBind);
+router.get('/api/brand/wechat/bind/:id', userCheck, brandWechatAuth);
+router.get('/api/brand/facebook/bind/:id', userCheck, brandFacebookBind);
 
 // From WeChat Microservice
-router.post('/api/brand/wechat/bind/:id', ipCheck, brandWechatUpdate);
+router.post('/api/brand/wechat/bind/:id', ipCheck, brandWechatBind);
 router.post('/api/brand/wechat/message/:id', ipCheck, brandWechatMessage, handleWeChatMessage);
 
 module.exports = router;
