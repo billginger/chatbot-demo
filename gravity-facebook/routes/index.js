@@ -1,9 +1,10 @@
 const express = require('express');
-const { verify, handle } = require('../controllers/webhook.js');
+const { verify } = require('../controllers/webhook.js');
+const { handleMessages } = require('../controllers/message.js');
 
 const router = express.Router();
 
 router.get('/facebook/webhook', verify);
-router.post('/facebook/webhook', handle);
+router.post('/facebook/webhook', handleMessages);
 
 module.exports = router;
