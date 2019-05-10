@@ -51,7 +51,7 @@ exports.handleMessage = (req, res, next) => {
 			const id = account.brand;
 			const options = {
 				hostname: 'gravity.nodejs.top',
-				path: `/api/brand/wechat/message/${id}`,
+				path: `/api/chatbot/message/${id}`,
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' }
 			};

@@ -1,20 +1,18 @@
 const { handleSuccess } = require('../libs/handle.js');
 const Message = require('../models/message.js');
 
-exports.brandWechatMessage = (req, res, next) => {
-	let message = req.body;
-	message.brand = req.params.id;
-	message.channel = 1;
-	Message.create(message, (err, msg) => {
-		if (err) return next(err);
-		req.msg = msg;
-		next();
-	});
+const replyMessage = (req, res, next, message) => {
+	const content = 'Hi~';
+	handleSuccess(req, res, `[chatbot] [message] [reply]`, { content });
 };
 
-exports.handleWeChatMessage = (req, res, next) => {
-	let message = req.msg;
-	// After handleMessage
-	const content = 'Hi~';
-	handleSuccess(req, res, `[brand] [wechat] [message] [reply]`, { content });
+exports.handleMessage = (req, res, next) => {
+	let message = req.body;
+	message.brand = req.params.id;
+	message.channel = message.MsgId ? 1 : 2;
+	Message.create(message, (err, msg) => {
+		if (err) return next(err);
+		handleSuccess(req, res, `[chatbot] [message] [add]`);
+		replyMessage(req, res, next, message);
+	});
 };

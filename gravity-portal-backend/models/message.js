@@ -13,7 +13,20 @@ const messageSchema = new mongoose.Schema({
 	CreateTime: Number,
 	MsgType: String,
 	Content: String,
-	MsgId: Number
+	MsgId: Number,
+	sender: { id: String },
+	recipient: { id: String },
+	timestamp: Number,
+	message: {
+		mid: String,
+		seq: Number,
+		text: String,
+		nlp: Object
+	},
+	postback: {
+		title: String,
+		payload: String
+	}
 }, {
 	timestamps: true
 });

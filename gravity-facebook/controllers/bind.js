@@ -1,4 +1,5 @@
 const Account = require('../models/account.js');
+const { log } = require('../libs/log.js');
 
 const appid = '256113305335648';
 const facebook = 'Gravity Prototype';
@@ -12,6 +13,7 @@ exports.handleBind = (req, res, next) => {
 	};
 	Account.updateOne({ appid }, data, { upsert: true }, err => {
 		if (err) return next(err);
+		log.info('Account updated!');
 		res.send({ facebook });
 	});
 };

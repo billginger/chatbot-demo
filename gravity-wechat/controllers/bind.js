@@ -1,4 +1,5 @@
 const config = require('../config.js');
+const { log } = require('../libs/log.js');
 const httpsRequest = require('../libs/httpsRequest.js');
 const Account = require('../models/account.js');
 
@@ -64,6 +65,7 @@ exports.updateAccount = (req, res, next) => {
 	};
 	Account.updateOne({ appid }, data, { upsert: true }, err => {
 		if (err) return next(err);
+		log.info('Account updated!');
 		next();
 	});
 };

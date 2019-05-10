@@ -12,5 +12,6 @@ exports.ipCheck = (req, res, next) => {
 	if (ip_whitelist.indexOf(ip) < 0) {
 		return handleFail(req, res, `[check] [ip]`);
 	}
+	handleSuccess(req, res, `[check] [ip]`);
 	next();
 };

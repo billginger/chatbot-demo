@@ -4,7 +4,7 @@ const { systemHome, systemDashboard } = require('../controllers/system.js');
 const { brandList, brandAdd, brandDetail } = require('../controllers/brand.js');
 const { brandWechatAuth, brandWechatBind, brandFacebookBind } = require('../controllers/brandBind.js');
 const { ipCheck } = require('../controllers/ip.js');
-const { brandWechatMessage, handleWeChatMessage } = require('../controllers/message.js');
+const { handleMessage } = require('../controllers/message.js');
 
 const router = express.Router();
 
@@ -23,6 +23,9 @@ router.get('/api/brand/facebook/bind/:id', userCheck, brandFacebookBind);
 
 // From WeChat Microservice
 router.post('/api/brand/wechat/bind/:id', ipCheck, brandWechatBind);
-router.post('/api/brand/wechat/message/:id', ipCheck, brandWechatMessage, handleWeChatMessage);
+router.post('/api/brand/wechat/message/:id', ipCheck, handleMessage);
+
+// From Facebook Microservice
+router.post('/api/chatbot/message/:id', ipCheck, handleMessage);
 
 module.exports = router;
