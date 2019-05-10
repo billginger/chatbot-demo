@@ -3,36 +3,38 @@ const httpsRequest = require('../libs/httpsRequest.js');
 const Message = require('../models/message.js');
 const Account = require('../models/account.js');
 
-const replyMessage = (accessToken, touser) => {
+/* replyMessage - msgmenu has tested, Not supported
+return: { errcode: 40200, errmsg: 'invalid account type' }
+---
+const postData = JSON.stringify({
+	touser,
+	msgtype: 'msgmenu',
+	msgmenu: {
+		head_content: '您对本次服务是否满意呢?',
+		list: [
+			{ id: '101', content: '满意' },
+			{ id: '102', content: '不满意' }
+		],
+		tail_content: '欢迎再次光临'
+	}
+}); */
+
+const replyMessage = (accessToken, touser, content) => {
 	const options = {
 		hostname: 'api.weixin.qq.com',
 		path: `/cgi-bin/message/custom/send?access_token=${accessToken}`,
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' }
 	};
-	/* const postData = JSON.stringify({
-		touser,
-		msgtype: 'text',
-		text: {
-			content: 'Hello World'
-		}
-	}); */
-	// try other message
 	const postData = JSON.stringify({
 		touser,
-		msgtype: 'msgmenu',
-		msgmenu: {
-			head_content: '您对本次服务是否满意呢?',
-			list: [
-				{ id: '101', content: '满意' },
-				{ id: '102', content: '不满意' }
-			],
-			tail_content: '欢迎再次光临'
-		}
+		msgtype: 'text',
+		text: { content }
 	});
 	httpsRequest(options, postData, (err, data) => {
 		if (err) return log.error(err);
-		log.info(data);
+		if (data.errcode) return log.error(data);
+		log.info('Message has been replied!');
 	});
 };
 
@@ -42,6 +44,7 @@ exports.handleMessage = (req, res, next) => {
 	const originalId = json.ToUserName;
 	Message.create(json, (err, message) => {
 		if (err) return log.error(err);
+		log.info('Message has been saved!');
 		// Forward Message
 		Account.findOne({ originalId }, (err, account) => {
 			if (err) return log.error(err);
@@ -62,7 +65,7 @@ exports.handleMessage = (req, res, next) => {
 				}
 				/* Debug Code End */
 				// Reply Message
-				replyMessage(account.accessToken, json.FromUserName);
+				replyMessage(account.accessToken, json.FromUserName, data.content);
 			});
 		});
 	});
