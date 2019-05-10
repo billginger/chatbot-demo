@@ -1,5 +1,6 @@
 module.exports = {
-	db_url: '<MONGODB_URL>',
+	db_url: 'mongodb://<USERNAME>:<PASSWORD>@<HOST>:<PORT>/gravity-facebook?authSource=admin',
+	ip_whitelist: ['<IP_ADDRESS>'],
 	log_file_access: '/logs/gravity_facebook_access.log',
 	log_file_access_format: ':method :url :status :content-length :response-timems',
 	log_file_app: '/logs/gravity_facebook_app.log',
