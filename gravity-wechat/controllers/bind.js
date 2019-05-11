@@ -63,9 +63,13 @@ exports.updateAccount = (req, res, next) => {
 		brand,
 		isDeleted: false
 	};
-	Account.count({ appid }, (err, count) => {
+	Account.countDocuments({ appid }, (err, count) => {
 		if (err) return next(err);
-		if (count) return res.send('Binding failed! Already bound to other brand.');
+		if (count) {
+			const warnMessage = 'Binding failed! Already bound to other brand.';
+			log.warn(warnMessage);
+			return res.send(warnMessage);
+		}
 		Account.updateOne({ appid }, data, { upsert: true }, err => {
 			if (err) return next(err);
 			log.info('Account binding success!');

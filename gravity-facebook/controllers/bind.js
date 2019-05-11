@@ -11,7 +11,7 @@ exports.handleBind = (req, res, next) => {
 		brand,
 		isDeleted: false
 	};
-	Account.count({ appid }, (err, count) => {
+	Account.countDocuments({ appid }, (err, count) => {
 		if (err) return next(err);
 		if (count) return res.send({ bound: 1 });
 		Account.updateOne({ appid }, data, { upsert: true }, err => {

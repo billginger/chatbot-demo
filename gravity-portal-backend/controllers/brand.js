@@ -13,7 +13,7 @@ exports.brandList = (req, res, next) => {
 exports.brandAdd = (req, res, next) => {
 	const name = req.body.name && req.body.name.trim();
 	const nameAnyCase = new RegExp(`^${name}$`, 'i');
-	Brand.count({ name: nameAnyCase }, (err, count) => {
+	Brand.countDocuments({ name: nameAnyCase }, (err, count) => {
 		if (err) return next(err);
 		if (count) {
 			const statusText = JSON.stringify({ id: 'msgExist', key: 'labelName', value: name });
