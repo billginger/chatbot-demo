@@ -63,10 +63,14 @@ exports.updateAccount = (req, res, next) => {
 		brand,
 		isDeleted: false
 	};
-	Account.updateOne({ appid }, data, { upsert: true }, err => {
+	Account.count({ appid }, (err, count) => {
 		if (err) return next(err);
-		log.info('Account updated!');
-		next();
+		if (count) return res.send('Binding failed! Already bound to other brand.');
+		Account.updateOne({ appid }, data, { upsert: true }, err => {
+			if (err) return next(err);
+			log.info('Account binding success!');
+			next();
+		});
 	});
 };
 

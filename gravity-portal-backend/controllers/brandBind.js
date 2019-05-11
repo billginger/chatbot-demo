@@ -36,6 +36,7 @@ exports.brandFacebookBind = (req, res, next) => {
 	const postData = 0;
 	httpsRequest(options, postData, (err, data) => {
 		if (err) return next(err);
+		if (data.bound) return handleFail(req, res, '[brand] [facebook] [bind] [already bound]', 'brandBound');
 		const facebook = data.facebook;
 		Brand.findByIdAndUpdate(id, { facebook }, (err, brand) => {
 			if (err) return next(err);

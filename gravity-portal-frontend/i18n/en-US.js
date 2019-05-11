@@ -31,6 +31,7 @@ const en_US = {
 	brandWechatAccount: 'WeChat Official Account',
 	brandUnbound: 'Unbound',
 	brandBind: 'Bind',
+	brandBound: 'Binding failed! Already bound to other brand.',
 	brandUnbind: 'Unbind',
 	brandView: 'View',
 	system: 'System',

@@ -31,6 +31,7 @@ const zh_CN = {
 	brandWechatAccount: '微信公众号',
 	brandUnbound: '未绑定',
 	brandBind: '绑定',
+	brandBound: '绑定失败！已绑定给其它品牌。',
 	brandUnbind: '解绑',
 	brandView: '查看',
 	system: '系统管理',

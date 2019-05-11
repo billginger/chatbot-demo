@@ -11,9 +11,13 @@ exports.handleBind = (req, res, next) => {
 		brand,
 		isDeleted: false
 	};
-	Account.updateOne({ appid }, data, { upsert: true }, err => {
+	Account.count({ appid }, (err, count) => {
 		if (err) return next(err);
-		log.info('Account updated!');
-		res.send({ facebook });
+		if (count) return res.send({ bound: 1 });
+		Account.updateOne({ appid }, data, { upsert: true }, err => {
+			if (err) return next(err);
+			log.info('Account binding success!');
+			res.send({ facebook });
+		});
 	});
 };
