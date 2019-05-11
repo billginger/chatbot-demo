@@ -1,7 +1,7 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, Typography } from 'antd';
+import { Breadcrumb, Typography, Icon } from 'antd';
 import PortalContent from './PortalContent.jsx';
 const { Text } = Typography;
 
