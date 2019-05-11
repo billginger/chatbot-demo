@@ -1,5 +1,5 @@
 const config = require('../config.js');
-const { handleFail } = require('../libs/handle.js');
+const { handleFail, handleSuccess } = require('../libs/handle.js');
 
 const ip_whitelist = config.ip_whitelist;
 
