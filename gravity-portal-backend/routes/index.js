@@ -23,9 +23,8 @@ router.get('/api/brand/facebook/bind/:id', userCheck, brandFacebookBind);
 
 // From WeChat Microservice
 router.post('/api/brand/wechat/bind/:id', ipCheck, brandWechatBind);
-router.post('/api/brand/wechat/message/:id', ipCheck, handleMessage);
 
-// From Facebook Microservice
+// From WeChat & Facebook Microservice
 router.post('/api/chatbot/message/:id', ipCheck, handleMessage);
 
 module.exports = router;

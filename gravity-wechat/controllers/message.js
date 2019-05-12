@@ -64,6 +64,9 @@ exports.handleMessage = (req, res, next) => {
 					return log.debug('Stop by debug code.');
 				}
 				/* Debug Code End */
+				if (!data.content) {
+					return;
+				}
 				// Reply Message
 				replyMessage(account.accessToken, json.FromUserName, data.content);
 			});

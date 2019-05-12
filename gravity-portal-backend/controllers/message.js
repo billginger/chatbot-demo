@@ -1,9 +1,10 @@
 const { handleSuccess } = require('../libs/handle.js');
 const Message = require('../models/message.js');
 const ChatbotCustomer = require('../models/chatbotCustomer.js');
+const ChatbotDialogue = require('../models/ChatbotDialogue.js');
 
-const matchNoneMessage = {
-	en: 'sorry, I do not understand what you mean. Do you need help from manual customer service?',
+const matchNone = {
+	en: 'Sorry, I do not understand what you mean. Do you need help from manual customer service?',
 	chs: '对不起，我不明白你的意思。请问是否需要人工客服的帮助？',
 	cht: '對不起，我不明白你的意思。請問是否需要人工客服的幫助？'
 };
@@ -11,11 +12,36 @@ const matchNoneMessage = {
 const replyMessage = (req, res, next, dialogue, customer) => {
 	let language = customer.language;
 	if (!language) {
-		// language = discernLanguage(dialogue.content);
+		if (/[\u4e00-\u9fa5]+/.test(dialogue.content)) {
+			language = 'chs';
+		} else {
+			language = 'en';
+		}
 	}
-	const matchNone = matchNoneMessage[language];
-	const content = matchNone;
-	handleSuccess(req, res, `[chatbot] [message] [reply]`, { content });
+	let content = matchNone[language];
+	/* if (matchSomething) {
+		content = dbContent;
+	} */
+	if (customer.scene == 'manual') {
+		content = '';
+	}
+	ChatbotDialogue.create(dialogue, (err, doc) => {
+		if (err) return next(err);
+		if (content.length) {
+			const data = {
+				brand: dialogue.brand,
+				channel: dialogue.channel,
+				direction: 2,
+				message: dialogue.message,
+				to: dialogue.from,
+				from: dialogue.to,
+				content,
+				manual: false
+			}
+			ChatbotDialogue.create(data);
+		}
+		handleSuccess(req, res, `[chatbot] [message] [reply]`, { content });
+	});
 };
 
 const analyzeCustomer = (req, res, next, dialogue) => {

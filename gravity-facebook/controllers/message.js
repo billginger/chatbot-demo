@@ -52,6 +52,9 @@ const handleMessage = msg => {
 					return log.debug('Stop by debug code.');
 				}
 				/* Debug Code End */
+				if (!data.content) {
+					return;
+				}
 				// Reply Message
 				replyMessage(msg.sender.id, data.content);
 			});
