@@ -17,4 +17,4 @@ const chatbotCustomerSchema = new mongoose.Schema({
 	timestamps: true
 });
 
-module.exports = mongoose.model('ChatbotCustomer', chatbotCustomerSchema);
+module.exports = mongoose.model('ChatbotCustomer', chatbotCustomerSchema, 'chatbotCustomers');

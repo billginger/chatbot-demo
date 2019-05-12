@@ -23,7 +23,7 @@ const refreshAccountToken = (component_access_token, authorizer_appid, authorize
 	const postData = JSON.stringify({ component_appid, authorizer_appid, authorizer_refresh_token });
 	httpsRequest(postOptions, postData, (err, data) => {
 		if (err) return log.error(err);
-		if (!data.authorizer_access_token) return log.error(`No authorizer_access_token in:\n${data}`);
+		if (!data.authorizer_access_token) return log.error(`No authorizer_access_token in:\n${JSON.stringify(data)}`);
 		// Save new authorizer_access_token
 		const appid = authorizer_appid;
 		const accessToken = data.authorizer_access_token;
@@ -53,7 +53,7 @@ const getComponentAccessToken = (xml, json) => {
 	const anHourAgo = new Date() - 3600000;
 	Component.findOne({}, (err, component) => {
 		if (err) return log.error(err);
-		if (component && component.updatedAt > anHourAgo) return;
+		// if (component && component.updatedAt > anHourAgo) return;
 		// Request new component_access_token
 		const path = '/cgi-bin/component/api_component_token';
 		const postOptions = { ...options, path };
