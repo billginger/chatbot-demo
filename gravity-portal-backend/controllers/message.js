@@ -1,7 +1,7 @@
 const { handleSuccess } = require('../libs/handle.js');
 const Message = require('../models/message.js');
 const ChatbotCustomer = require('../models/chatbotCustomer.js');
-const ChatbotDialogue = require('../models/ChatbotDialogue.js');
+const ChatbotDialogue = require('../models/chatbotDialogue.js');
 
 const matchNone = {
 	en: 'Sorry, I do not understand what you mean. Do you need help from manual customer service?',
