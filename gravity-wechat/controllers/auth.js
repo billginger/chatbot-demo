@@ -53,7 +53,7 @@ const getComponentAccessToken = (xml, json) => {
 	const anHourAgo = new Date() - 3600000;
 	Component.findOne({}, (err, component) => {
 		if (err) return log.error(err);
-		// if (component && component.updatedAt > anHourAgo) return;
+		if (component && component.updatedAt > anHourAgo) return;
 		// Request new component_access_token
 		const path = '/cgi-bin/component/api_component_token';
 		const postOptions = { ...options, path };
