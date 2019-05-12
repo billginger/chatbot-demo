@@ -44,7 +44,7 @@ exports.getAuthorizer = (req, res, next) => {
 exports.updateAccount = (req, res, next) => {
 	const brand = req.params.id;
 	const appid = req.authorization_info.authorizer_appid;
-	const data = {
+	let data = {
 		appid,
 		accessToken: req.authorization_info.authorizer_access_token,
 		refreshToken: req.authorization_info.authorizer_refresh_token,
@@ -60,18 +60,20 @@ exports.updateAccount = (req, res, next) => {
 		idc: req.authorizer_info.idc,
 		principalName: req.authorizer_info.principal_name,
 		signature: req.authorizer_info.signature,
-		brand,
 		isDeleted: false
 	};
-	Account.countDocuments({ appid }, (err, count) => {
+	Account.countDocuments({ appid, brand: { $ne: brand } }, (err, count) => {
 		if (err) return next(err);
-		if (count) {
-			const warnMessage = 'Binding failed! Already bound to other brand.';
-			log.warn(warnMessage);
-			return res.send(warnMessage);
+		if (!count) {
+			data.brand = brand;
 		}
 		Account.updateOne({ appid }, data, { upsert: true }, err => {
 			if (err) return next(err);
+			if (count) {
+				const warnMessage = 'Binding failed! Already bound to other brand.';
+				log.warn(warnMessage);
+				return res.send(warnMessage);
+			}
 			log.info('Account binding success!');
 			next();
 		});
