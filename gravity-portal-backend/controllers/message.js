@@ -1,3 +1,4 @@
+const { log } = require('../libs/log.js');
 const { handleSuccess } = require('../libs/handle.js');
 const Message = require('../models/message.js');
 const ChatbotCustomer = require('../models/chatbotCustomer.js');
@@ -70,15 +71,17 @@ const replyMessage = (req, res, next, dialogue, replyContent, replyOptions, scen
 					channel: dialogue.channel
 				};
 				// Asyn processing
-				ChatbotCustomer.updateOne(conditions, { scene: scene }, err => {
-					console.log(err);
+				ChatbotCustomer.updateOne(conditions, { scene }, err => {
+					if (err) log.error(err);
 				});
 			}
 			if (replyOptions) {
 				data.options = replyOptions;
 			}
 			// Asyn processing
-			ChatbotDialogue.create(data);
+			ChatbotDialogue.create(data, err => {
+				if (err) log.error(err);
+			});
 		}
 		handleSuccess(req, res, `[chatbot] [message] [reply]`, { content: replyContent });
 	});
