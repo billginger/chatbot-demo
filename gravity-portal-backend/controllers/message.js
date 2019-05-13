@@ -52,10 +52,13 @@ const replyMessage = (req, res, next, dialogue, customer) => {
 	if (customer.scene != 'Manual') {
 		if (/^\d+$/.test(dialogue.content)) {
 			// do something
+			console.log('got number');
 		} else if (understand(dialogue.content) == 'No') {
 			// do something
+			console.log('got no');
 		} else if (understand(dialogue.content) == 'Yes') {
 			// do something
+			console.log('got yes');
 		} else {
 			// if match
 			// do something
@@ -97,7 +100,7 @@ const replyMessage = (req, res, next, dialogue, customer) => {
 		if (scene) {
 			// Update Scene
 		}
-		handleSuccess(req, res, `[chatbot] [message] [reply]`, { replyContent });
+		handleSuccess(req, res, `[chatbot] [message] [reply]`, { content: replyContent });
 	});
 };
 
