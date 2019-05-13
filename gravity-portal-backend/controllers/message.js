@@ -48,7 +48,6 @@ const understand = content => {
 }
 
 const replyMessage = (req, res, next, dialogue, replyContent, replyOptions, scene) => {
-	console.log(scene);
 	// Save Dialogues
 	ChatbotDialogue.create(dialogue, (err, doc) => {
 		if (err) return next(err);
@@ -63,21 +62,23 @@ const replyMessage = (req, res, next, dialogue, replyContent, replyOptions, scen
 				content: replyContent,
 				manual: false
 			}
+			if (scene) {
+				data.waiting = true;
+				const conditions = {
+					id: dialogue.from,
+					brand: dialogue.brand,
+					channel: dialogue.channel
+				};
+				console.log(conditions);
+				console.log(scene);
+				// Asyn processing
+				ChatbotCustomer.updateOne(conditions, { scene });
+			}
 			if (replyOptions) {
 				data.options = replyOptions;
 			}
 			// Asyn processing
 			ChatbotDialogue.create(data);
-		}
-		// Update Scene
-		if (scene) {
-			const conditions = {
-				id: dialogue.from,
-				brand: dialogue.brand,
-				channel: dialogue.channel
-			};
-			// Asyn processing
-			ChatbotCustomer.updateOne(conditions, { scene });
 		}
 		handleSuccess(req, res, `[chatbot] [message] [reply]`, { content: replyContent });
 	});
