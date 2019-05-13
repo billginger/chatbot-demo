@@ -11,13 +11,13 @@ const matchNone = {
 };
 
 const matchNoneNormal = {
-	en: 'Do you need help from manual customer service?',
+	en: ' Do you need help from manual customer service?',
 	chs: '请问是否需要人工客服的帮助？',
 	cht: '請問是否需要人工客服的幫助？'
 };
 
 const matchNoneWaiting = {
-	en: 'We have arranged a manual customer service for you, our customer service staff will contact you within 24 hours, please be patient.',
+	en: ' We have arranged a manual customer service for you, our customer service staff will contact you within 24 hours, please be patient.',
 	chs: '已经为你安排人工客服，我们的客服人员将在 24 小时内与你联系，请耐心等候。',
 	cht: '已經為你安排人工客服，我們的客服人員將在 24 小時內與你聯繫，請耐心等候。'
 };
@@ -48,6 +48,7 @@ const understand = content => {
 }
 
 const replyMessage = (req, res, next, dialogue, replyContent, replyOptions, scene) => {
+	console.log(scene);
 	// Save Dialogues
 	ChatbotDialogue.create(dialogue, (err, doc) => {
 		if (err) return next(err);
