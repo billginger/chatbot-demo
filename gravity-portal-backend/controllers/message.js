@@ -65,11 +65,18 @@ const replyMessage = (req, res, next, dialogue, replyContent, replyOptions, scen
 			if (replyOptions) {
 				data.options = replyOptions;
 			}
+			// Asyn processing
 			ChatbotDialogue.create(data);
 		}
 		// Update Scene
 		if (scene) {
-			// Update Scene
+			const conditions = {
+				id: dialogue.from,
+				brand: dialogue.brand,
+				channel: dialogue.channel
+			};
+			// Asyn processing
+			ChatbotCustomer.updateOne(conditions, { scene });
 		}
 		handleSuccess(req, res, `[chatbot] [message] [reply]`, { content: replyContent });
 	});
@@ -87,38 +94,45 @@ const matchMessage = (req, res, next, dialogue, customer, content) => {
 	let replyContent = '';
 	let replyOptions = '';
 	let scene = '';
-	if (customer.scene != 'Manual') {
-		const conditions = {
-			brand: dialogue.brand,
-			keywords: { $elemMatch: { $eq: content } },
-			isDeleted: false
-		};
-		ChatbotRule.findOne(conditions, (err, doc) => {
-			if (err) return next(err);
-			if (doc && doc.replyContent) {
-				// if match
-				replyContent = doc.replyContent[language];
-			} else {
-				// if match none
-				replyContent = matchNone[language];
-				if (customer.scene == 'Normal') {
-					replyContent += matchNoneNormal[language];
-					replyOptions = {
-						yes: manualService[language],
-						no: noThanks[language]
-					};
-				} else {
-					replyContent += matchNoneWaiting[language];
-				}
-			}
-			replyMessage(req, res, next, dialogue, replyContent, replyOptions, scene);
-		});
+	// no replyContent on Manual
+	if (customer.scene == 'Manual') {
+		return replyMessage(req, res, next, dialogue, replyContent, replyOptions, scene);
 	}
+	// get replyContent
+	const conditions = {
+		brand: dialogue.brand,
+		keywords: { $elemMatch: { $eq: content } },
+		isDeleted: false
+	};
+	ChatbotRule.findOne(conditions, (err, doc) => {
+		if (err) return next(err);
+		if (doc && doc.replyContent) {
+			// if match
+			replyContent = doc.replyContent[language];
+			if (doc.replyOptions) {
+				replyContent = doc.replyOptions;
+			}
+			if (doc.setScene) {
+				scene = doc.setScene;
+			}
+		} else {
+			// if match none
+			replyContent = matchNone[language];
+			if (customer.scene == 'Normal') {
+				replyContent += matchNoneNormal[language];
+				replyOptions = {
+					yes: manualService[language],
+					no: noThanks[language]
+				};
+			} else {
+				replyContent += matchNoneWaiting[language];
+			}
+		}
+		replyMessage(req, res, next, dialogue, replyContent, replyOptions, scene);
+	});
 }
 
 const analyzeOptions = (req, res, next, dialogue, customer, options) => {
-	console.debug('options:');
-	console.debug(options);
 	let content = dialogue.content;
 	if (options) {
 		if (/^\d+$/.test(content)) {
@@ -181,8 +195,6 @@ const analyzeMessage = (req, res, next, msg) => {
 		createdAt: { $gt: new Date(oneDayAgo) }
 	};
 	ChatbotDialogue.findOne(conditions, null, { sort: '-_id' }, (err, doc) => {
-		console.log('ChatbotDialogue:');
-		console.log(doc);
 		if (err) return next(err);
 		if (doc && doc.options) {
 			return analyzeCustomer(req, res, next, dialogue, doc.options);

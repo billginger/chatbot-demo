@@ -10,7 +10,8 @@ const chatbotRuleSchema = new mongoose.Schema({
 		chs: String,
 		cht: String
 	},
-	replyEvent: String,
+	replyOptions: Object,
+	setScene: String,
 	allowGuess: { type: Boolean, default: false },
 	isDeleted: { type: Boolean, default: false }
 }, {
