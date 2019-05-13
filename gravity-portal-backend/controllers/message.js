@@ -69,10 +69,10 @@ const replyMessage = (req, res, next, dialogue, replyContent, replyOptions, scen
 					brand: dialogue.brand,
 					channel: dialogue.channel
 				};
-				console.log(conditions);
-				console.log(scene);
 				// Asyn processing
-				ChatbotCustomer.updateOne(conditions, { scene });
+				ChatbotCustomer.updateOne(conditions, { scene: scene }, err => {
+					console.log(err);
+				});
 			}
 			if (replyOptions) {
 				data.options = replyOptions;
