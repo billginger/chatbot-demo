@@ -117,6 +117,7 @@ const matchMessage = (req, res, next, dialogue, customer, content) => {
 }
 
 const analyzeOptions = (req, res, next, dialogue, customer, options) => {
+	console.debug('options:');
 	console.debug(options);
 	let content = dialogue.content;
 	if (options) {
@@ -180,6 +181,8 @@ const analyzeMessage = (req, res, next, msg) => {
 		createAt: { $gte: new Date(oneDayAgo) }
 	};
 	ChatbotDialogue.findOne(conditions, null, { sort: '-_id' }, (err, doc) => {
+		console.log('ChatbotDialogue:');
+		console.log(doc);
 		if (err) return next(err);
 		if (doc && doc.options) {
 			return analyzeCustomer(req, res, next, dialogue, doc.options);
