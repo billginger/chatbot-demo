@@ -117,6 +117,7 @@ const matchMessage = (req, res, next, dialogue, customer, content) => {
 }
 
 const analyzeOptions = (req, res, next, dialogue, customer, options) => {
+	console.debug(options);
 	let content = dialogue.content;
 	if (options) {
 		if (/^\d+$/.test(content)) {
