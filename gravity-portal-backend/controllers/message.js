@@ -180,9 +180,7 @@ const analyzeMessage = (req, res, next, msg) => {
 		options: { $exists: true },
 		createdAt: { $gt: new Date(oneDayAgo) }
 	};
-	console.log('conditions:');
-	console.log(conditions);
-	ChatbotDialogue.findOne(conditions, (err, doc) => {
+	ChatbotDialogue.findOne(conditions, null, { sort: '-_id' }, (err, doc) => {
 		console.log('ChatbotDialogue:');
 		console.log(doc);
 		if (err) return next(err);
