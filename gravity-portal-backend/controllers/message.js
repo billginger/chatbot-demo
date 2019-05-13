@@ -4,10 +4,38 @@ const ChatbotCustomer = require('../models/chatbotCustomer.js');
 const ChatbotDialogue = require('../models/chatbotDialogue.js');
 
 const matchNone = {
-	en: 'Sorry, I do not understand what you mean. Do you need help from manual customer service?',
-	chs: '对不起，我不明白你的意思。请问是否需要人工客服的帮助？',
-	cht: '對不起，我不明白你的意思。請問是否需要人工客服的幫助？'
+	en: 'Sorry, I do not understand what you mean.',
+	chs: '对不起，我不明白你的意思。',
+	cht: '對不起，我不明白你的意思。'
 };
+
+const matchNoneNormal = {
+	en: 'Do you need help from manual customer service?',
+	chs: '请问是否需要人工客服的帮助？',
+	cht: '請問是否需要人工客服的幫助？'
+};
+
+const matchNoneWaiting = {
+	en: 'We have arranged a manual customer service for you, our customer service staff will contact you within 24 hours, please be patient.',
+	chs: '已经为你安排人工客服，我们的客服人员将在 24 小时内与你联系，请耐心等候。',
+	cht: '已經為你安排人工客服，我們的客服人員將在 24 小時內與你聯繫，請耐心等候。'
+};
+
+const manualService = {
+	en: 'manual customer service',
+	chs: '人工客服',
+	cht: '人工客服'
+};
+
+const noThanks = {
+	en: 'no',
+	chs: '不用了',
+	cht: '不用了'
+};
+
+const understand = content => {
+	return '';
+}
 
 const replyMessage = (req, res, next, dialogue, customer) => {
 	let language = customer.language;
@@ -18,29 +46,58 @@ const replyMessage = (req, res, next, dialogue, customer) => {
 			language = 'en';
 		}
 	}
-	let content = matchNone[language];
-	/* if (matchSomething) {
-		content = dbContent;
-	} */
-	if (customer.scene == 'manual') {
-		content = '';
+	let replyContent = '';
+	let replyOptions = '';
+	let scene = '';
+	if (customer.scene != 'Manual') {
+		if (/^\d+$/.test(dialogue.content)) {
+			// do something
+		} else if (understand(dialogue.content) == 'No') {
+			// do something
+		} else if (understand(dialogue.content) == 'Yes') {
+			// do something
+		} else {
+			// if match
+			// do something
+			// if match none
+			if (1 == 1) {
+				replyContent = matchNone[language];
+				if (customer.scene == 'Normal') {
+					replyContent += matchNoneNormal[language];
+					replyOptions = {
+						Yes: manualService[language],
+						No: noThanks[language]
+					};
+				} else {
+					replyContent += matchNoneWaiting[language];
+				}
+			}
+		}
 	}
+	// Save Dialogues
 	ChatbotDialogue.create(dialogue, (err, doc) => {
 		if (err) return next(err);
-		if (content.length) {
-			const data = {
+		if (replyContent.length) {
+			let data = {
 				brand: dialogue.brand,
 				channel: dialogue.channel,
 				direction: 2,
 				message: dialogue.message,
 				to: dialogue.from,
 				from: dialogue.to,
-				content,
+				content: replyContent,
 				manual: false
+			}
+			if (replyOptions) {
+				data.options = replyOptions;
 			}
 			ChatbotDialogue.create(data);
 		}
-		handleSuccess(req, res, `[chatbot] [message] [reply]`, { content });
+		// Update Scene
+		if (scene) {
+			// Update Scene
+		}
+		handleSuccess(req, res, `[chatbot] [message] [reply]`, { replyContent });
 	});
 };
 
@@ -53,6 +110,7 @@ const analyzeCustomer = (req, res, next, dialogue) => {
 	ChatbotCustomer.findOne(data, (err, customer) => {
 		if (err) return next(err);
 		if (customer) return replyMessage(req, res, next, dialogue, customer);
+		data.scene = 'Normal';
 		ChatbotCustomer.create(data, (err, customer) => {
 			if (err) return next(err);
 			replyMessage(req, res, next, dialogue, customer);
