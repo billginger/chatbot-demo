@@ -90,7 +90,7 @@ const matchMessage = (req, res, next, dialogue, customer, content) => {
 	if (customer.scene != 'Manual') {
 		const conditions = {
 			brand: dialogue.brand,
-			keywords: { $elemMatch: content },
+			keywords: { $elemMatch: { $eq: content } },
 			isDeleted: false
 		};
 		ChatbotRule.findOne(conditions, (err, doc) => {
