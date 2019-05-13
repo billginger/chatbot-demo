@@ -2,6 +2,7 @@ const { handleSuccess } = require('../libs/handle.js');
 const Message = require('../models/message.js');
 const ChatbotCustomer = require('../models/chatbotCustomer.js');
 const ChatbotDialogue = require('../models/chatbotDialogue.js');
+const ChatbotRule = require('../models/chatbotRule.js');
 
 const matchNone = {
 	en: 'Sorry, I do not understand what you mean.',
@@ -34,49 +35,19 @@ const noThanks = {
 };
 
 const understand = content => {
+	const yes = ['yes', 'ok', 'sure', 'please', '是', '好', '好的', '好吧', '需要'];
+	const no = ['no', 'nope', 'no need', '否', '不用', '不用了', '不需要'];
+	content = content.toLowerCase().trim();
+	if (yes.indexOf(content) >= 0) {
+		return 'yes';
+	}
+	if (no.indexOf(content) >= 0) {
+		return 'no';
+	}
 	return '';
 }
 
-const replyMessage = (req, res, next, dialogue, customer) => {
-	let language = customer.language;
-	if (!language) {
-		if (/[\u4e00-\u9fa5]+/.test(dialogue.content)) {
-			language = 'chs';
-		} else {
-			language = 'en';
-		}
-	}
-	let replyContent = '';
-	let replyOptions = '';
-	let scene = '';
-	if (customer.scene != 'Manual') {
-		if (/^\d+$/.test(dialogue.content)) {
-			// do something
-			console.log('got number');
-		} else if (understand(dialogue.content) == 'No') {
-			// do something
-			console.log('got no');
-		} else if (understand(dialogue.content) == 'Yes') {
-			// do something
-			console.log('got yes');
-		} else {
-			// if match
-			// do something
-			// if match none
-			if (1 == 1) {
-				replyContent = matchNone[language];
-				if (customer.scene == 'Normal') {
-					replyContent += matchNoneNormal[language];
-					replyOptions = {
-						Yes: manualService[language],
-						No: noThanks[language]
-					};
-				} else {
-					replyContent += matchNoneWaiting[language];
-				}
-			}
-		}
-	}
+const replyMessage = (req, res, next, dialogue, replyContent, replyOptions, scene) => {
 	// Save Dialogues
 	ChatbotDialogue.create(dialogue, (err, doc) => {
 		if (err) return next(err);
@@ -102,9 +73,64 @@ const replyMessage = (req, res, next, dialogue, customer) => {
 		}
 		handleSuccess(req, res, `[chatbot] [message] [reply]`, { content: replyContent });
 	});
+}
+
+const matchMessage = (req, res, next, dialogue, customer, content) => {
+	let language = customer.language;
+	if (!language) {
+		if (/[\u4e00-\u9fa5]+/.test(content)) {
+			language = 'chs';
+		} else {
+			language = 'en';
+		}
+	}
+	let replyContent = '';
+	let replyOptions = '';
+	let scene = '';
+	if (customer.scene != 'Manual') {
+		const conditions = {
+			brand: dialogue.brand,
+			keywords: { $elemMatch: content },
+			isDeleted: false
+		};
+		ChatbotRule.findOne(conditions, (err, doc) => {
+			if (err) return next(err);
+			if (doc && doc.replyContent) {
+				// if match
+				replyContent = doc.replyContent[language];
+			} else {
+				// if match none
+				replyContent = matchNone[language];
+				if (customer.scene == 'Normal') {
+					replyContent += matchNoneNormal[language];
+					replyOptions = {
+						yes: manualService[language],
+						no: noThanks[language]
+					};
+				} else {
+					replyContent += matchNoneWaiting[language];
+				}
+			}
+			replyMessage(req, res, next, dialogue, replyContent, replyOptions, scene);
+		});
+	}
+}
+
+const analyzeOptions = (req, res, next, dialogue, customer, options) => {
+	let content = dialogue.content;
+	if (options) {
+		if (/^\d+$/.test(content)) {
+			content = options[content] || content;
+		} else if (understand(dialogue.content) == 'no') {
+			content = options.no || content;
+		} else if (understand(dialogue.content) == 'yes') {
+			content = options.yes || content;
+		}
+	}
+	matchMessage(req, res, next, dialogue, customer, content);
 };
 
-const analyzeCustomer = (req, res, next, dialogue) => {
+const analyzeCustomer = (req, res, next, dialogue, options) => {
 	let data = {
 		id: dialogue.from,
 		brand: dialogue.brand,
@@ -112,11 +138,11 @@ const analyzeCustomer = (req, res, next, dialogue) => {
 	};
 	ChatbotCustomer.findOne(data, (err, customer) => {
 		if (err) return next(err);
-		if (customer) return replyMessage(req, res, next, dialogue, customer);
+		if (customer) return analyzeOptions(req, res, next, dialogue, customer, options);
 		data.scene = 'Normal';
 		ChatbotCustomer.create(data, (err, customer) => {
 			if (err) return next(err);
-			replyMessage(req, res, next, dialogue, customer);
+			analyzeOptions(req, res, next, dialogue, customer, options);
 		});
 	});
 };
@@ -137,7 +163,28 @@ const analyzeMessage = (req, res, next, msg) => {
 		dialogue.from = msg.sender.id;
 		dialogue.content = msg.message.text;
 	}
-	analyzeCustomer(req, res, next, dialogue);
+	// no content, no options
+	if (!dialogue.content) {
+		return analyzeCustomer(req, res, next, dialogue);
+	}
+	// if has content, try to get options
+	const oneDayAgo = new Date() - 86400000;
+	const conditions = {
+		brand: dialogue.brand,
+		channel: dialogue.channel,
+		direction: 2,
+		to: dialogue.from,
+		from: dialogue.to,
+		options: { $exists: true },
+		createAt: { $gte: new Date(oneDayAgo) }
+	};
+	ChatbotDialogue.findOne(conditions, null, { sort: '-_id' }, (err, doc) => {
+		if (err) return next(err);
+		if (doc && doc.options) {
+			return analyzeCustomer(req, res, next, dialogue, doc.options);
+		}
+		analyzeCustomer(req, res, next, dialogue);
+	});
 };
 
 exports.handleMessage = (req, res, next) => {
