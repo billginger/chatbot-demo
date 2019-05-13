@@ -178,7 +178,7 @@ const analyzeMessage = (req, res, next, msg) => {
 		to: dialogue.from,
 		from: dialogue.to,
 		options: { $exists: true },
-		createAt: { $gte: new Date(oneDayAgo) }
+		createdAt: { $gt: new Date(oneDayAgo) }
 	};
 	console.log('conditions:');
 	console.log(conditions);
