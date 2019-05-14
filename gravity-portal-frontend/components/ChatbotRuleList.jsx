@@ -53,6 +53,10 @@ class ChatbotRuleList extends React.Component {
 				<PortalContent breadcrumb={breadcrumb} content={loading} />
 			);
 		}
+		// Handle
+		const handleDelete = e => {
+			console.log(e);
+		};
 		// Table
 		const colors = ['magenta', 'red', 'volcano', 'orange', 'gold', 'green', 'cyan', 'blue', 'geekblue', 'purple'];
 		const randomColor = () => (
@@ -61,7 +65,15 @@ class ChatbotRuleList extends React.Component {
 		const columns = [{
 			title: i18n.labelName,
 			dataIndex: 'name',
-			render: (text, record) => <Link to={`/chatbot/rule/${record._id}`}>{text}</Link>
+			render: (text, record) => (
+				<React.Fragment>
+					<Link to={`/chatbot/rule/${record._id}`}>{text}</Link>
+					<ul>
+						<li><Link to={`/chatbot/rule/edit/${data._id}`}>{i18n.actionEdit}</Link></li>
+						<li><a onClick={handleDelete}>{i18n.actionDelete}</a></li>
+					</ul>
+				</React.Fragment>
+			)
 		}, {
 			title: i18n.chatbotRuleKeyword,
 			dataIndex: 'keywords',
