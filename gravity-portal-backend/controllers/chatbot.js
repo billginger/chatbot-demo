@@ -55,12 +55,15 @@ exports.chatbotRuleDetail = (req, res, next) => {
 	ChatbotRule.findOne({ _id, isDeleted: false }, async (err, rule) => {
 		if (err) return next(err);
 		if (!rule) return handleFail(req, res, `[chatbot] [rule] [detail] [id:${_id}] [not found]`, 'msgNotFound');
-		const user = await User.findById(rule.createdBy, 'name');
-		console.log(user);
-		const test = User.findById(rule.createdBy, 'name').exec();
-		console.log(test);
-		if (user.name) {
-			rule = { ...rule._doc, createdBy: user.name };
+		const createdBy = User.findById(rule.createdBy, 'name');
+		const updatedBy = User.findById(rule.updatedBy, 'name');
+		await createdBy;
+		await updatedBy;
+		if (createdBy.name) {
+			rule = { ...rule._doc, createdBy: createdBy.name };
+		}
+		if (updatedBy.name) {
+			rule = { ...rule._doc, createdBy: updatedBy.name };
 		}
 		handleSuccess(req, res, `[chatbot] [rule] [detail] [id:${_id}] [name:${rule.name}]`, rule);
 	});
