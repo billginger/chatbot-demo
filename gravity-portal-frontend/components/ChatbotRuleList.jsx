@@ -62,16 +62,14 @@ class ChatbotRuleList extends React.Component {
 		}, {
 			title: withTimeZone(i18n.labelCreatedAt),
 			dataIndex: 'createdAt',
-			key: 'createdAt',
-			render: text => {getLocalDate(text)}
+			render: text => getLocalDate(text)
 		}, {
 			title: withTimeZone(i18n.labelUpdatedAt),
 			dataIndex: 'updatedAt',
-			key: 'updatedAt',
-			render: text => {getLocalDate(text)}
+			render: text => getLocalDate(text)
 		}];
 		const content = (
-			<Table dataSource={data} columns={columns} />
+			<Table rowKey="_id" dataSource={data} columns={columns} />
 		);
 		return (
 			<PortalContent breadcrumb={breadcrumb} content={content} />
