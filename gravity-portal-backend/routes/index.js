@@ -5,7 +5,7 @@ const { brandList, brandAdd, brandDetail } = require('../controllers/brand.js');
 const { brandWechatAuth, brandWechatBind, brandFacebookBind } = require('../controllers/brandBind.js');
 const { ipCheck } = require('../controllers/ip.js');
 const { handleMessage } = require('../controllers/message.js');
-const { chatbotRuleList } = require('../controllers/chatbot.js');
+const { chatbotRuleList, chatbotRuleAdd } = require('../controllers/chatbot.js');
 
 const router = express.Router();
 
@@ -22,6 +22,7 @@ router.get('/api/brand/:id', userCheck, brandDetail);
 router.get('/api/brand/wechat/bind/:id', userCheck, brandWechatAuth);
 router.get('/api/brand/facebook/bind/:id', userCheck, brandFacebookBind);
 router.get('/api/chatbot/rule', userCheck, chatbotRuleList);
+router.get('/api/chatbot/rule/add', userCheck, chatbotRuleAdd);
 
 // From WeChat Microservice
 router.post('/api/brand/wechat/bind/:id', ipCheck, brandWechatBind);
