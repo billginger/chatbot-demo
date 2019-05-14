@@ -46,6 +46,7 @@ const en_US = {
 	chatbotConfig: 'Config',
 	chatbotRule: 'Rules',
 	chatbotRuleKeyword: 'Keywords',
+	chatbotRuleReplyContent: 'Reply Content',
 	chatbotTrain: 'Train',
 	chatbotManual: 'Manual'
 };

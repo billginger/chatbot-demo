@@ -46,6 +46,7 @@ const zh_CN = {
 	chatbotConfig: '基本配置',
 	chatbotRule: '匹配规则',
 	chatbotRuleKeyword: '关键词',
+	chatbotRuleReplyContent: '回复内容',
 	chatbotTrain: '训练学习',
 	chatbotManual: '人工介入'
 };

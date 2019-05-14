@@ -3,6 +3,7 @@ import { injectIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, Form, Input, Button, Alert } from 'antd';
 import PortalContent from './PortalContent.jsx';
+const { TextArea } = Input;
 
 class ChatbotRuleAdd extends React.Component {
 	constructor(props) {
@@ -48,14 +49,14 @@ class ChatbotRuleAdd extends React.Component {
 			validateFieldsAndScroll((err, values) => {
 				if (err) return;
 				this.setState({ buttonLoading: true });
-				fetch('/api/brand/add', {
+				fetch('/api/chatbot/rule/add', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify(values)
 				}).then(res => (
 					res.ok ? res.json() : Promise.reject(res)
 				)).then(data => {
-					this.props.history.push(`/brand/${data._id}`);
+					this.props.history.push(`/chatbot/rule/${data._id}`);
 				}).catch(err => {
 					const errMsg = err.statusText || err;
 					this.setState({
@@ -70,12 +71,26 @@ class ChatbotRuleAdd extends React.Component {
 		};
 		// Page
 		const content = (
-			<Form {...formItemLayout} onSubmit={handleSubmit} style={{ marginTop: 40 }}>
+			<Form {...formItemLayout} onSubmit={handleSubmit}>
 				<Form.Item label={i18n.labelName}>
 					{getFieldDecorator('name', {
 						rules: [{ required: true, message: i18n.msgNeedInput, whitespace: true }]
 					})(
 						<Input placeholder={i18n.labelName} onChange={handleInputChange} />
+					)}
+				</Form.Item>
+				<Form.Item label={i18n.chatbotRuleKeyword}>
+					{getFieldDecorator('keywords', {
+						rules: [{ required: true, message: i18n.msgNeedInput, whitespace: true }]
+					})(
+						<TextArea placeholder={i18n.chatbotRuleKeyword} onChange={handleInputChange} rows={4} />
+					)}
+				</Form.Item>
+				<Form.Item label={i18n.chatbotRuleReplyContent}>
+					{getFieldDecorator('replyContent', {
+						rules: [{ required: true, message: i18n.msgNeedInput, whitespace: true }]
+					})(
+						<TextArea placeholder={i18n.chatbotRuleReplyContent} onChange={handleInputChange} rows={4} />
 					)}
 				</Form.Item>
 				<Form.Item {...tailFormItemLayout}>
