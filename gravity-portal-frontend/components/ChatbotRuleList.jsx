@@ -69,7 +69,7 @@ class ChatbotRuleList extends React.Component {
 				<React.Fragment>
 					<Link to={`/chatbot/rule/${record._id}`}><b>{text}</b></Link>
 					<div className="tc-table-actions">
-						<Link to={`/chatbot/rule/edit/${data._id}`}>{i18n.actionEdit}</Link>
+						<Link to={`/chatbot/rule/edit/${record._id}`}>{i18n.actionEdit}</Link>
 						<a onClick={handleDelete}>{i18n.actionDelete}</a>
 					</div>
 				</React.Fragment>
