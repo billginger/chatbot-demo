@@ -124,18 +124,18 @@ class ChatbotRuleDetail extends React.Component {
 					</Row>
 					<Row>
 						<Col span={6}>
-							{withTimeZone(i18n.labelCreatedAt)}
-						</Col>
-						<Col span={18}>
-							{getLocalDate(data.createdAt)}
-						</Col>
-					</Row>
-					<Row>
-						<Col span={6}>
 							{i18n.labelUpdatedBy}
 						</Col>
 						<Col span={18}>
 							{data.updatedBy || '-'}
+						</Col>
+					</Row>
+					<Row>
+						<Col span={6}>
+							{withTimeZone(i18n.labelCreatedAt)}
+						</Col>
+						<Col span={18}>
+							{getLocalDate(data.createdAt)}
 						</Col>
 					</Row>
 					<Row>
