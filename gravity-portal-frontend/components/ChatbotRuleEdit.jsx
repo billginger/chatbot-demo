@@ -5,18 +5,30 @@ import { Breadcrumb, Form, Input, Checkbox, Button, Alert } from 'antd';
 import PortalContent from './PortalContent.jsx';
 const { TextArea } = Input;
 
-class ChatbotRuleAdd extends React.Component {
+class ChatbotRuleEdit extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			errMsg: '',
+			data: '',
 			buttonLoading: false
 		}
+	}
+	componentDidMount() {
+		const id = this.props.match.params.id;
+		fetch(`/api/chatbot/rule/${id}`).then(res => (
+			res.ok ? res.json() : Promise.reject(res)
+		)).then(data => {
+			this.setState({ data });
+		}).catch(err => {
+			const errMsg = err.statusText || err;
+			this.setState({ errMsg });
+		});
 	}
 	render() {
 		const i18n = this.props.intl.messages;
 		const { getFieldDecorator, validateFieldsAndScroll } = this.props.form;
-		const { errMsg, buttonLoading } = this.state;
+		const { errMsg, data, buttonLoading } = this.state;
 		const formItemLayout = { labelCol: { span: 4 }, wrapperCol: { span: 16 } };
 		const tailFormItemLayout = { wrapperCol: { offset: 4, span: 16 } };
 		// Breadcrumb
@@ -24,7 +36,7 @@ class ChatbotRuleAdd extends React.Component {
 			<Breadcrumb>
 				<Breadcrumb.Item>{i18n.chatbot}</Breadcrumb.Item>
 				<Breadcrumb.Item><Link to="/chatbot/rule">{i18n.chatbotRule}</Link></Breadcrumb.Item>
-				<Breadcrumb.Item>{i18n.labelAdd}</Breadcrumb.Item>
+				<Breadcrumb.Item>{i18n.labelEdit}</Breadcrumb.Item>
 			</Breadcrumb>
 		);
 		// Error
@@ -43,13 +55,23 @@ class ChatbotRuleAdd extends React.Component {
 		const formAlert = (
 			alertMessage && <Alert className="tc-form-alert" message={alertMessage} type="error" />
 		);
+		// Loading
+		if (!data) {
+			const loading = (
+				<Icon type="loading" />
+			);
+			return (
+				<PortalContent breadcrumb={breadcrumb} content={loading} />
+			);
+		}
 		// Handle
 		const handleSubmit = e => {
 			e.preventDefault();
 			validateFieldsAndScroll((err, values) => {
 				if (err) return;
 				this.setState({ buttonLoading: true });
-				fetch('/api/chatbot/rule/add', {
+				const id = this.props.match.params.id;
+				fetch(`/api/chatbot/rule/edit/${id}`, {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify(values)
@@ -74,14 +96,16 @@ class ChatbotRuleAdd extends React.Component {
 			<Form className="tc-form" {...formItemLayout} onSubmit={handleSubmit}>
 				<Form.Item label={i18n.labelName}>
 					{getFieldDecorator('name', {
-						rules: [{ required: true, message: i18n.msgNeedInput, whitespace: true }]
+						rules: [{ required: true, message: i18n.msgNeedInput, whitespace: true }],
+						initialValue: data.name
 					})(
 						<Input placeholder={i18n.labelName} onChange={handleInputChange} />
 					)}
 				</Form.Item>
 				<Form.Item label={i18n.chatbotRuleKeyword}>
 					{getFieldDecorator('keywords', {
-						rules: [{ required: true, message: i18n.msgNeedInput, whitespace: true }]
+						rules: [{ required: true, message: i18n.msgNeedInput, whitespace: true }],
+						initialValue: data.keywords.join('\n')
 					})(
 						<TextArea placeholder={i18n.chatbotRuleKeyword} onChange={handleInputChange} autosize={
 							{ minRows: 4, maxRows: 20 }
@@ -90,7 +114,8 @@ class ChatbotRuleAdd extends React.Component {
 				</Form.Item>
 				<Form.Item label={i18n.chatbotRuleReplyContent}>
 					{getFieldDecorator('replyContent', {
-						rules: [{ required: true, message: i18n.msgNeedInput, whitespace: true }]
+						rules: [{ required: true, message: i18n.msgNeedInput, whitespace: true }],
+						initialValue: JSON.stringify(data.replyContent)
 					})(
 						<TextArea placeholder={i18n.chatbotRuleReplyContent} onChange={handleInputChange} autosize={
 							{ minRows: 4, maxRows: 20 }
@@ -98,7 +123,9 @@ class ChatbotRuleAdd extends React.Component {
 					)}
 				</Form.Item>
 				<Form.Item label={i18n.chatbotRuleReplyOption}>
-					{getFieldDecorator('replyOptions')(
+					{getFieldDecorator('replyOptions', {
+						initialValue: JSON.stringify(data.replyOptions)
+					})(
 						<TextArea placeholder={i18n.chatbotRuleReplyOption} onChange={handleInputChange} autosize={
 							{ minRows: 4, maxRows: 20 }
 						} />
@@ -107,7 +134,7 @@ class ChatbotRuleAdd extends React.Component {
 				<Form.Item {...tailFormItemLayout} style={{margin:0}}>
 					{getFieldDecorator('allowGuess', {
 						valuePropName: 'checked',
-						initialValue: false
+						initialValue: data.allowGuess
 					})(
 						<Checkbox onChange={handleInputChange}>
 							{i18n.chatbotRuleAllowGuess}
@@ -117,7 +144,7 @@ class ChatbotRuleAdd extends React.Component {
 				<Form.Item {...tailFormItemLayout}>
 					{getFieldDecorator('enableWaiting', {
 						valuePropName: 'checked',
-						initialValue: false
+						initialValue: data.enableWaiting
 					})(
 						<Checkbox onChange={handleInputChange}>
 							{i18n.chatbotRuleEnableWaiting}
@@ -138,4 +165,4 @@ class ChatbotRuleAdd extends React.Component {
 	}
 }
 
-export default injectIntl(Form.create()(ChatbotRuleAdd));
+export default injectIntl(Form.create()(ChatbotRuleEdit));

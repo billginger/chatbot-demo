@@ -11,6 +11,7 @@ const zh_CN = {
 	modalConfirmBody: '确定要{action}{target}？',
 	labelAdd: '新建',
 	labelDetail: '详情',
+	labelEdit: '编辑',
 	labelName: '名称',
 	labelCreatedBy: '创建者',
 	labelCreatedAt: '创建日期',

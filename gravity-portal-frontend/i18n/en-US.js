@@ -11,6 +11,7 @@ const en_US = {
 	modalConfirmBody: 'To Confirm {action} {target}?',
 	labelAdd: 'Add',
 	labelDetail: 'Details',
+	labelEdit: 'Edit',
 	labelName: 'Name',
 	labelCreatedBy: 'Created User',
 	labelCreatedAt: 'Created Date',
