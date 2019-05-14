@@ -1,6 +1,6 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
-import { Breadcrumb, Typography, Icon, Button, Table } from 'antd';
+import { Breadcrumb, Typography, Icon, Button, Table, Tag } from 'antd';
 import { withTimeZone, getLocalDate } from '../utils/date.js';
 import PortalContent from './PortalContent.jsx';
 const { Text } = Typography;
@@ -53,12 +53,22 @@ class ChatbotRuleList extends React.Component {
 			);
 		}
 		// Table
+		const colorfulTag = () => {
+			const colors = [
+				'magenta', 'red', 'volcano', 'orange', 'gold', 'green', 'cyan', 'blue', 'geekblue', 'purple'
+			];
+			const x = parseInt(Math.random() * 10);
+			return colors[x];
+		};
 		const columns = [{
 			title: i18n.labelName,
 			dataIndex: 'name'
 		}, {
 			title: i18n.chatbotRuleKeyword,
-			dataIndex: 'keywords'
+			dataIndex: 'keywords',
+			render: text => text.map((item, key) => (
+				<Tag color={colorfulTag}>{item}</Tag>
+			))
 		}, {
 			title: withTimeZone(i18n.labelCreatedAt),
 			dataIndex: 'createdAt',
