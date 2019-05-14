@@ -71,7 +71,7 @@ class ChatbotRuleAdd extends React.Component {
 		};
 		// Page
 		const content = (
-			<Form {...formItemLayout} onSubmit={handleSubmit}>
+			<Form className="tc-form" {...formItemLayout} onSubmit={handleSubmit}>
 				<Form.Item label={i18n.labelName}>
 					{getFieldDecorator('name', {
 						rules: [{ required: true, message: i18n.msgNeedInput, whitespace: true }]
@@ -83,14 +83,18 @@ class ChatbotRuleAdd extends React.Component {
 					{getFieldDecorator('keywords', {
 						rules: [{ required: true, message: i18n.msgNeedInput, whitespace: true }]
 					})(
-						<TextArea placeholder={i18n.chatbotRuleKeyword} onChange={handleInputChange} rows={4} />
+						<TextArea placeholder={i18n.chatbotRuleKeyword} onChange={handleInputChange} autosize={
+							{ minRows: 2, maxRows: 10 }
+						} />
 					)}
 				</Form.Item>
 				<Form.Item label={i18n.chatbotRuleReplyContent}>
 					{getFieldDecorator('replyContent', {
 						rules: [{ required: true, message: i18n.msgNeedInput, whitespace: true }]
 					})(
-						<TextArea placeholder={i18n.chatbotRuleReplyContent} onChange={handleInputChange} rows={4} />
+						<TextArea placeholder={i18n.chatbotRuleReplyContent} onChange={handleInputChange} autosize={
+							{ minRows: 4, maxRows: 10 }
+						} />
 					)}
 				</Form.Item>
 				<Form.Item {...tailFormItemLayout}>

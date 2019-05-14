@@ -70,7 +70,7 @@ class BrandAdd extends React.Component {
 		};
 		// Page
 		const content = (
-			<Form {...formItemLayout} onSubmit={handleSubmit} style={{ marginTop: 40 }}>
+			<Form className="tc-form" {...formItemLayout} onSubmit={handleSubmit}>
 				<Form.Item label={i18n.labelName}>
 					{getFieldDecorator('name', {
 						rules: [{ required: true, message: i18n.msgNeedInput, whitespace: true }]
