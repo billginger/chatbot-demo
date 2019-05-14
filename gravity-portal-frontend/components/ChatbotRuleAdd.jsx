@@ -97,6 +97,13 @@ class ChatbotRuleAdd extends React.Component {
 						} />
 					)}
 				</Form.Item>
+				<Form.Item label={i18n.chatbotRuleReplyOption}>
+					{getFieldDecorator('replyOptions')(
+						<TextArea placeholder={i18n.chatbotRuleReplyOption} onChange={handleInputChange} autosize={
+							{ minRows: 4, maxRows: 20 }
+						} />
+					)}
+				</Form.Item>
 				<Form.Item {...tailFormItemLayout} style={{margin:0}}>
 					{getFieldDecorator('allowGuess', {
 						valuePropName: 'checked', initialValue: false

@@ -47,6 +47,7 @@ const zh_CN = {
 	chatbotRule: '匹配规则',
 	chatbotRuleKeyword: '关键词',
 	chatbotRuleReplyContent: '回复内容',
+	chatbotRuleReplyOption: '预置选项',
 	chatbotRuleAllowGuess: '允许模糊匹配并建议',
 	chatbotRuleEnableWaiting: '触发等待人工介入状态',
 	chatbotTrain: '训练学习',

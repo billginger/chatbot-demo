@@ -47,6 +47,7 @@ const en_US = {
 	chatbotRule: 'Rules',
 	chatbotRuleKeyword: 'Keywords',
 	chatbotRuleReplyContent: 'Reply Content',
+	chatbotRuleReplyOption: 'Preset Options',
 	chatbotRuleAllowGuess: 'Allow similar matches and suggest',
 	chatbotRuleEnableWaiting: 'Trigger waiting for manual intervention status',
 	chatbotTrain: 'Train',
