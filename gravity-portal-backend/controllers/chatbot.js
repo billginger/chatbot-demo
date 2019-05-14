@@ -59,10 +59,10 @@ exports.chatbotRuleDetail = (req, res, next) => {
 		const updatedByAsync = User.findById(rule.updatedBy, 'name');
 		const createdBy = await createdByAsync;
 		const updatedBy = await updatedByAsync;
-		if (createdBy.name) {
+		if (createdBy && createdBy.name) {
 			rule._doc.createdBy = createdBy.name;
 		}
-		if (updatedBy.name) {
+		if (updatedBy && updatedBy.name) {
 			rule._doc.updatedBy = updatedBy.name;
 		}
 		handleSuccess(req, res, `[chatbot] [rule] [detail] [id:${_id}] [name:${rule.name}]`, rule);
