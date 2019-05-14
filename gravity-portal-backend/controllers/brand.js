@@ -5,7 +5,6 @@ const User = require('../models/user.js');
 exports.brandList = (req, res, next) => {
 	Brand.find({ isDeleted: false }, null, { sort: '-_id' }, (err, brands) => {
 		if (err) return next(err);
-		if (!brands) return handleFail(req, res, `[brand] [list] [not found]`, 'msgNotFound');
 		handleSuccess(req, res, `[brand] [list]`, brands);
 	});
 };
