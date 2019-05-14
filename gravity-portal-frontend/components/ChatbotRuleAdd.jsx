@@ -97,7 +97,7 @@ class ChatbotRuleAdd extends React.Component {
 						} />
 					)}
 				</Form.Item>
-				<Form.Item {...tailFormItemLayout}>
+				<Form.Item {...tailFormItemLayout} style={{margin:0}}>
 					{getFieldDecorator('allowGuess', {
 						valuePropName: 'checked', initialValue: false
 					})(
