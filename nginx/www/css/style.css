@@ -12350,6 +12350,17 @@ textarea.ant-pagination-options-quick-jumper input {
 .tc-table .ant-tag {
   margin: 2px 5px 2px 0;
 }
+.tc-table-actions a:nth-child(n+2) {
+  margin: 0 0 0 5px;
+}
+.tc-table-actions a:nth-child(n+2):before {
+  content: '';
+  display: inline-block;
+  margin: 0 5px 0 0;
+  width: 1px;
+  height: 8px;
+  background: #ddd;
+}
 .tc-form {
   margin: 20px 0 0;
 }
