@@ -14,6 +14,7 @@ const en_US = {
 	labelEdit: 'Edit',
 	labelName: 'Name',
 	labelCreatedBy: 'Created User',
+	labelUpdatedBy: 'Updated User',
 	labelCreatedAt: 'Created Date',
 	labelUpdatedAt: 'Updated Date',
 	actionSubmit: 'Submit',

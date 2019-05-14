@@ -14,6 +14,7 @@ const zh_CN = {
 	labelEdit: '编辑',
 	labelName: '名称',
 	labelCreatedBy: '创建者',
+	labelUpdatedBy: '编辑者',
 	labelCreatedAt: '创建日期',
 	labelUpdatedAt: '更新日期',
 	actionSubmit: '提交',
