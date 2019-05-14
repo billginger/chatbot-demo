@@ -76,7 +76,7 @@ class ChatbotRuleDetail extends React.Component {
 						<Col span={6}>
 							{i18n.chatbotRuleKeyword}
 						</Col>
-						<Col span={17}>
+						<Col span={18}>
 							{data.keywords.map((item, key) => (
 								<Tag key={key} color={randomColor()}>{item}</Tag>
 							))}
@@ -86,7 +86,7 @@ class ChatbotRuleDetail extends React.Component {
 						<Col span={6}>
 							{i18n.chatbotRuleReplyContent}
 						</Col>
-						<Col span={17}>
+						<Col span={18}>
 							{JSON.stringify(data.replyContent)}
 						</Col>
 					</Row>
@@ -94,7 +94,7 @@ class ChatbotRuleDetail extends React.Component {
 						<Col span={6}>
 							{i18n.labelCreatedBy}
 						</Col>
-						<Col span={17}>
+						<Col span={18}>
 							{data.createdBy || '-'}
 						</Col>
 					</Row>
@@ -102,7 +102,7 @@ class ChatbotRuleDetail extends React.Component {
 						<Col span={6}>
 							{withTimeZone(i18n.labelCreatedAt)}
 						</Col>
-						<Col span={17}>
+						<Col span={18}>
 							{getLocalDate(data.createdAt)}
 						</Col>
 					</Row>

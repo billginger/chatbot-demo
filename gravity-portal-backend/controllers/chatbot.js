@@ -56,7 +56,6 @@ exports.chatbotRuleDetail = (req, res, next) => {
 		if (err) return next(err);
 		if (!rule) return handleFail(req, res, `[chatbot] [rule] [detail] [id:${_id}] [not found]`, 'msgNotFound');
 		User.findById(rule.createdBy, (err, user) => {
-			console.log(user);
 			if (user) {
 				rule = { ...rule._doc, createdBy: user.name };
 			}
