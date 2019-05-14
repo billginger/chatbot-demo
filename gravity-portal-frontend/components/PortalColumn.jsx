@@ -5,6 +5,7 @@ import PortalSiderMenu from './PortalSiderMenu.jsx';
 import Dashboard from './Dashboard.jsx';
 import ChatbotRuleList from './ChatbotRuleList.jsx';
 import ChatbotRuleAdd from './ChatbotRuleAdd.jsx';
+import ChatbotRuleDetail from './ChatbotRuleDetail.jsx';
 import NoMatch from './NoMatch.jsx';
 const { Sider } = Layout;
 
@@ -18,6 +19,7 @@ const PortalColumn = () => (
 			<Route exact path="/dashboard" component={Dashboard} />
 			<Route exact path="/chatbot/rule" component={ChatbotRuleList} />
 			<Route exact path="/chatbot/rule/add" component={ChatbotRuleAdd} />
+			<Route exact path="/chatbot/rule/:id" component={ChatbotRuleDetail} />
 			<Route component={NoMatch} />
 		</Switch>
 	</Layout>

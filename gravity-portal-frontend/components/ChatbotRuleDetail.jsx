@@ -1,12 +1,12 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, Typography, Icon, Button, Table, Tag } from 'antd';
+import { Breadcrumb, Typography, Icon, Row, Col } from 'antd';
 import { withTimeZone, getLocalDate } from '../utils/date.js';
 import PortalContent from './PortalContent.jsx';
 const { Text } = Typography;
 
-class ChatbotRuleList extends React.Component {
+class ChatbotRuleDetail extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -15,7 +15,8 @@ class ChatbotRuleList extends React.Component {
 		}
 	}
 	componentDidMount() {
-		fetch('/api/chatbot/rule').then(res => (
+		const id = this.props.match.params.id;
+		fetch(`/api/chatbot/rule/${id}`).then(res => (
 			res.ok ? res.json() : Promise.reject(res)
 		)).then(data => {
 			this.setState({ data });
@@ -31,7 +32,8 @@ class ChatbotRuleList extends React.Component {
 		const breadcrumb = (
 			<Breadcrumb>
 				<Breadcrumb.Item>{i18n.chatbot}</Breadcrumb.Item>
-				<Breadcrumb.Item>{i18n.chatbotRule}</Breadcrumb.Item>
+				<Breadcrumb.Item><Link to="/chatbot/rule">{i18n.chatbotRule}</Link></Breadcrumb.Item>
+				<Breadcrumb.Item>{i18n.labelDetail}</Breadcrumb.Item>
 			</Breadcrumb>
 		);
 		// Error
@@ -53,36 +55,58 @@ class ChatbotRuleList extends React.Component {
 				<PortalContent breadcrumb={breadcrumb} content={loading} />
 			);
 		}
-		// Table
+		// Handle
+		const handleDelete = e => {
+			console.log(e);
+		};
+		// Page
 		const colors = ['magenta', 'red', 'volcano', 'orange', 'gold', 'green', 'cyan', 'blue', 'geekblue', 'purple'];
 		const randomColor = () => (
 			colors[parseInt(Math.random() * 10)]
 		);
-		const columns = [{
-			title: i18n.labelName,
-			dataIndex: 'name',
-			render: (text, record) => <Link to={`/chatbot/rule/${record._id}`}>{text}</Link>
-		}, {
-			title: i18n.chatbotRuleKeyword,
-			dataIndex: 'keywords',
-			render: text => text.map((item, key) => (
-				<Tag key={key} color={randomColor()}>{item}</Tag>
-			))
-		}, {
-			title: withTimeZone(i18n.labelCreatedAt),
-			dataIndex: 'createdAt',
-			render: text => getLocalDate(text)
-		}, {
-			title: withTimeZone(i18n.labelUpdatedAt),
-			dataIndex: 'updatedAt',
-			render: text => getLocalDate(text)
-		}];
 		const content = (
 			<React.Fragment>
-				<Link className="ant-btn ant-btn-primary" to="/chatbot/rule/add">
-					{i18n.labelAdd}
-				</Link>
-				<Table className="tc-table" rowKey="_id" dataSource={data} columns={columns} />
+				<div id="tc-page-header">
+					<h1>{data.name}</h1>
+					<Link to={`/chatbot/rule/edit/${data._id}`}>{i18n.actionEdit}</Link>
+					<a onClick={handleDelete}>{i18n.actionDelete}</a>
+				</div>
+				<div id="tc-page-main">
+					<Row>
+						<Col span={6}>
+							{i18n.chatbotRuleKeyword}
+						</Col>
+						<Col span={18}>
+							{data.keywords.map((item, key) => (
+								<Tag key={key} color={randomColor()}>{item}</Tag>
+							))}
+						</Col>
+					</Row>
+					<Row>
+						<Col span={6}>
+							{i18n.chatbotRuleReplyContent}
+						</Col>
+						<Col span={18}>
+							{data.replyContent}
+						</Col>
+					</Row>
+					<Row>
+						<Col span={6}>
+							{i18n.labelCreatedBy}
+						</Col>
+						<Col span={18}>
+							{data.createdBy}
+						</Col>
+					</Row>
+					<Row>
+						<Col span={6}>
+							{withTimeZone(i18n.labelCreatedAt)}
+						</Col>
+						<Col span={18}>
+							{getLocalDate(data.createdAt)}
+						</Col>
+					</Row>
+				</div>
 			</React.Fragment>
 		);
 		return (
@@ -91,4 +115,4 @@ class ChatbotRuleList extends React.Component {
 	}
 }
 
-export default injectIntl(ChatbotRuleList);
+export default injectIntl(ChatbotRuleDetail);

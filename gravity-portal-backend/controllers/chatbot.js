@@ -1,5 +1,6 @@
 const { handleSuccess, handleFail } = require('../libs/handle.js');
 const ChatbotRule = require('../models/chatbotRule.js');
+const User = require('../models/user.js');
 
 exports.chatbotRuleList = (req, res, next) => {
 	const brand = req.profile.brand;
@@ -45,6 +46,20 @@ exports.chatbotRuleAdd = (req, res, next) => {
 			if (err) return next(err);
 			const id = rule._id.toString();
 			handleSuccess(req, res, `[chatbot] [rule] [add] [id:${id}] [name:${name}]`, rule);
+		});
+	});
+};
+
+exports.chatbotRuleDetail = (req, res, next) => {
+	const _id = req.params.id;
+	ChatbotRule.findOne({ _id, isDeleted: false }, (err, rule) => {
+		if (err) return next(err);
+		if (!rule) return handleFail(req, res, `[chatbot] [rule] [detail] [id:${_id}] [not found]`, 'msgNotFound');
+		User.findById(rule.createdBy, (err, user) => {
+			if (user) {
+				rule = { ...rule._doc, createdBy: user.name };
+			}
+			handleSuccess(req, res, `[chatbot] [rule] [detail] [id:${_id}] [name:${rule.name}]`, rule);
 		});
 	});
 };
