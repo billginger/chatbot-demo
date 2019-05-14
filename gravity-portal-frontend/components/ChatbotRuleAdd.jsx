@@ -1,7 +1,7 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, Form, Input, Button, Alert } from 'antd';
+import { Breadcrumb, Form, Input, Checkbox, Button, Alert } from 'antd';
 import PortalContent from './PortalContent.jsx';
 const { TextArea } = Input;
 
@@ -84,7 +84,7 @@ class ChatbotRuleAdd extends React.Component {
 						rules: [{ required: true, message: i18n.msgNeedInput, whitespace: true }]
 					})(
 						<TextArea placeholder={i18n.chatbotRuleKeyword} onChange={handleInputChange} autosize={
-							{ minRows: 2, maxRows: 10 }
+							{ minRows: 4, maxRows: 20 }
 						} />
 					)}
 				</Form.Item>
@@ -93,8 +93,24 @@ class ChatbotRuleAdd extends React.Component {
 						rules: [{ required: true, message: i18n.msgNeedInput, whitespace: true }]
 					})(
 						<TextArea placeholder={i18n.chatbotRuleReplyContent} onChange={handleInputChange} autosize={
-							{ minRows: 4, maxRows: 10 }
+							{ minRows: 4, maxRows: 20 }
 						} />
+					)}
+				</Form.Item>
+				<Form.Item {...tailFormItemLayout}>
+					{getFieldDecorator('allowGuess', {
+						valuePropName: 'checked', initialValue: data.allowGuess
+					})(
+						<Checkbox onChange={handleInputChange}>
+							{i18n.chatbotRuleAllowGuess}
+						</Checkbox>
+					)}
+					{getFieldDecorator('setScene', {
+						valuePropName: 'checked', initialValue: data.setScene
+					})(
+						<Checkbox onChange={handleInputChange}>
+							{i18n.chatbotRuleSetScene}
+						</Checkbox>
 					)}
 				</Form.Item>
 				<Form.Item {...tailFormItemLayout}>

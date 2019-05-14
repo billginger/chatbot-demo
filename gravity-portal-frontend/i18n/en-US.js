@@ -47,6 +47,8 @@ const en_US = {
 	chatbotRule: 'Rules',
 	chatbotRuleKeyword: 'Keywords',
 	chatbotRuleReplyContent: 'Reply Content',
+	chatbotRuleAllowGuess: 'Allow similar matches and suggest',
+	chatbotRuleSetScene: 'Trigger waiting for customer service intervention status',
 	chatbotTrain: 'Train',
 	chatbotManual: 'Manual'
 };
