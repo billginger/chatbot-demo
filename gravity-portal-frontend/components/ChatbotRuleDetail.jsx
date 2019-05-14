@@ -92,6 +92,30 @@ class ChatbotRuleDetail extends React.Component {
 					</Row>
 					<Row>
 						<Col span={6}>
+							{i18n.chatbotRuleReplyOption}
+						</Col>
+						<Col span={18}>
+							{JSON.stringify(data.replyOptions) || '-'}
+						</Col>
+					</Row>
+					<Row>
+						<Col span={6}>
+							{i18n.chatbotRuleAllowGuess}
+						</Col>
+						<Col span={18}>
+							{data.allowGuess ? 'Yes' : 'No'}
+						</Col>
+					</Row>
+					<Row>
+						<Col span={6}>
+							{i18n.chatbotRuleEnableWaiting}
+						</Col>
+						<Col span={18}>
+							{data.enableWaiting ? 'Yes' : 'No'}
+						</Col>
+					</Row>
+					<Row>
+						<Col span={6}>
 							{i18n.labelCreatedBy}
 						</Col>
 						<Col span={18}>
@@ -104,6 +128,14 @@ class ChatbotRuleDetail extends React.Component {
 						</Col>
 						<Col span={18}>
 							{getLocalDate(data.createdAt)}
+						</Col>
+					</Row>
+					<Row>
+						<Col span={6}>
+							{withTimeZone(i18n.labelUpdatedAt)}
+						</Col>
+						<Col span={18}>
+							{getLocalDate(data.updatedAt)}
 						</Col>
 					</Row>
 				</div>
