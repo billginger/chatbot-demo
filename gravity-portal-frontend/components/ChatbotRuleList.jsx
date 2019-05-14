@@ -62,10 +62,12 @@ class ChatbotRuleList extends React.Component {
 		}, {
 			title: withTimeZone(i18n.labelCreatedAt),
 			dataIndex: 'createdAt',
+			key: 'createdAt',
 			render: text => {getLocalDate(text)}
 		}, {
 			title: withTimeZone(i18n.labelUpdatedAt),
 			dataIndex: 'updatedAt',
+			key: 'updatedAt',
 			render: text => {getLocalDate(text)}
 		}];
 		const content = (
