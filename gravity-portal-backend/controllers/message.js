@@ -115,7 +115,7 @@ const matchMessage = (req, res, next, dialogue, customer, content) => {
 			// if match
 			replyContent = doc.replyContent[language];
 			if (doc.replyOptions) {
-				replyContent = doc.replyOptions;
+				replyOptions = doc.replyOptions;
 			}
 			if (doc.enableWaiting) {
 				scene = 'Waiting';

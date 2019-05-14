@@ -21,8 +21,14 @@ exports.chatbotRuleAdd = (req, res, next) => {
 		const createdBy = req.profile._id;
 		const brand = req.profile.brand;
 		const keywords = req.body.keywords && req.body.keywords.split('\n');
-		const replyContent = req.body.replyContent && JSON.parse(req.body.replyContent);
-		const replyOptions = req.body.replyOptions && JSON.parse(req.body.replyOptions);
+		let replyContent = '';
+		let replyOptions = '';
+		try {
+			replyContent = req.body.replyContent && JSON.parse(req.body.replyContent);
+			replyOptions = req.body.replyOptions && JSON.parse(req.body.replyOptions);
+		} catch (err) {
+			return next(err);
+		}
 		const allowGuess = req.body.allowGuess;
 		const enableWaiting = req.body.enableWaiting;
 		let conditions = { name, keywords, replyContent, createdBy, brand };
@@ -35,7 +41,6 @@ exports.chatbotRuleAdd = (req, res, next) => {
 		if (enableWaiting) {
 			conditions.enableWaiting = enableWaiting;
 		}
-		return console.log(conditions);
 		ChatbotRule.create(conditions, (err, rule) => {
 			if (err) return next(err);
 			const id = rule._id.toString();
