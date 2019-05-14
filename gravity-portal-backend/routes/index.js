@@ -24,7 +24,7 @@ router.get('/api/brand/facebook/bind/:id', userCheck, brandFacebookBind);
 router.get('/api/chatbot/rule', userCheck, chatbotRuleList);
 router.post('/api/chatbot/rule/add', userCheck, chatbotRuleAdd);
 router.get('/api/chatbot/rule/:id', userCheck, chatbotRuleDetail);
-router.get('/api/chatbot/rule/edit/:id', userCheck, chatbotRuleEdit);
+router.post('/api/chatbot/rule/edit/:id', userCheck, chatbotRuleEdit);
 
 // From WeChat Microservice
 router.post('/api/brand/wechat/bind/:id', ipCheck, brandWechatBind);

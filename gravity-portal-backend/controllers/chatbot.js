@@ -55,12 +55,12 @@ exports.chatbotRuleDetail = (req, res, next) => {
 	ChatbotRule.findOne({ _id, isDeleted: false }, (err, rule) => {
 		if (err) return next(err);
 		if (!rule) return handleFail(req, res, `[chatbot] [rule] [detail] [id:${_id}] [not found]`, 'msgNotFound');
-		User.findById(rule.createdBy, (err, user) => {
-			if (user) {
-				rule = { ...rule._doc, createdBy: user.name };
-			}
-			handleSuccess(req, res, `[chatbot] [rule] [detail] [id:${_id}] [name:${rule.name}]`, rule);
-		});
+		const user = User.findById(rule.createdBy, 'name');
+		console.log(user);
+		if (user.name) {
+			rule = { ...rule._doc, createdBy: user.name };
+		}
+		handleSuccess(req, res, `[chatbot] [rule] [detail] [id:${_id}] [name:${rule.name}]`, rule);
 	});
 };
 
