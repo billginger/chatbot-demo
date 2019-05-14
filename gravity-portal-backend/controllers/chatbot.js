@@ -10,7 +10,6 @@ exports.chatbotRuleList = (req, res, next) => {
 };
 
 exports.chatbotRuleAdd = (req, res, next) => {
-	return console.log(req.body);
 	const name = req.body.name && req.body.name.trim();
 	const nameAnyCase = new RegExp(`^${name}$`, 'i');
 	ChatbotRule.countDocuments({ name: nameAnyCase }, (err, count) => {
@@ -23,7 +22,21 @@ exports.chatbotRuleAdd = (req, res, next) => {
 		const brand = req.profile.brand;
 		const keywords = req.body.keywords && req.body.keywords.split('\n');
 		const replyContent = req.body.replyContent && JSON.parse(req.body.replyContent);
-		ChatbotRule.create({ name, brand, keywords, replyContent, createdBy }, (err, rule) => {
+		const replyOptions = req.body.replyOptions && JSON.parse(req.body.replyOptions);
+		const allowGuess = req.body.allowGuess;
+		const enableWaiting = req.body.enableWaiting;
+		let conditions = { name, keywords, replyContent, createdBy, brand };
+		if (replyOptions) {
+			conditions.replyOptions = replyOptions;
+		}
+		if (allowGuess) {
+			conditions.allowGuess = allowGuess;
+		}
+		if (enableWaiting) {
+			conditions.enableWaiting = enableWaiting;
+		}
+		return console.log(conditions);
+		ChatbotRule.create(conditions, (err, rule) => {
 			if (err) return next(err);
 			const id = rule._id.toString();
 			handleSuccess(req, res, `[chatbot] [rule] [add] [id:${id}] [name:${name}]`, rule);

@@ -107,11 +107,11 @@ class ChatbotRuleAdd extends React.Component {
 					)}
 				</Form.Item>
 				<Form.Item {...tailFormItemLayout}>
-					{getFieldDecorator('setScene', {
+					{getFieldDecorator('enableWaiting', {
 						valuePropName: 'checked', initialValue: false
 					})(
 						<Checkbox onChange={handleInputChange}>
-							{i18n.chatbotRuleSetScene}
+							{i18n.chatbotRuleEnableWaiting}
 						</Checkbox>
 					)}
 				</Form.Item>

@@ -48,7 +48,7 @@ const zh_CN = {
 	chatbotRuleKeyword: '关键词',
 	chatbotRuleReplyContent: '回复内容',
 	chatbotRuleAllowGuess: '允许模糊匹配并建议',
-	chatbotRuleSetScene: '触发等待人工介入状态',
+	chatbotRuleEnableWaiting: '触发等待人工介入状态',
 	chatbotTrain: '训练学习',
 	chatbotManual: '人工介入'
 };

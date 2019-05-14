@@ -117,8 +117,8 @@ const matchMessage = (req, res, next, dialogue, customer, content) => {
 			if (doc.replyOptions) {
 				replyContent = doc.replyOptions;
 			}
-			if (doc.setScene) {
-				scene = doc.setScene;
+			if (doc.enableWaiting) {
+				scene = 'Waiting';
 			}
 		} else {
 			// if match none
