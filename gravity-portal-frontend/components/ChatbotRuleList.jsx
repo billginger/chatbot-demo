@@ -1,6 +1,6 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
-import { Breadcrumb, Typography, Icon } from 'antd';
+import { Breadcrumb, Typography, Icon, Table } from 'antd';
 import PortalContent from './PortalContent.jsx';
 const { Text } = Typography;
 
@@ -51,9 +51,22 @@ class ChatbotRuleList extends React.Component {
 				<PortalContent breadcrumb={breadcrumb} content={loading} />
 			);
 		}
-		// Page
+		// Table
+		const columns = [{
+			title: i18n.labelName,
+			dataIndex: 'name'
+		}, {
+			title: i18n.chatbotRuleKeyword,
+			dataIndex: 'keywords'
+		}, {
+			title: i18n.labelCreatedAt,
+			dataIndex: 'createdAt'
+		}, {
+			title: i18n.labelUpdatedAt,
+			dataIndex: 'updatedAt'
+		}];
 		const content = (
-			<p>Weclome to Gravity Prototype!</p>
+			<Table dataSource={data} columns={columns} />
 		);
 		return (
 			<PortalContent breadcrumb={breadcrumb} content={content} />
