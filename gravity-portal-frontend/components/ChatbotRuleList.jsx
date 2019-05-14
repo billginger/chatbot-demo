@@ -62,11 +62,11 @@ class ChatbotRuleList extends React.Component {
 		}, {
 			title: withTimeZone(i18n.labelCreatedAt),
 			dataIndex: 'createdAt',
-			render: text => <React.Fragment>{getLocalDate(text)}</React.Fragment>
+			render: text => getLocalDate(text)
 		}, {
 			title: withTimeZone(i18n.labelUpdatedAt),
 			dataIndex: 'updatedAt',
-			render: text => <React.Fragment>{getLocalDate(text)}</React.Fragment>
+			render: text => getLocalDate(text)
 		}];
 		const content = (
 			<Table rowKey="_id" dataSource={data} columns={columns} />
