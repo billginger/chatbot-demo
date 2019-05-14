@@ -44,7 +44,7 @@ const zh_CN = {
 	dashboard: '概览',
 	chatbot: '智能客服',
 	chatbotConfig: '基本配置',
-	chatbotRule: '响应规则',
+	chatbotRule: '匹配规则',
 	chatbotTrain: '训练学习',
 	chatbotManual: '人工介入'
 };

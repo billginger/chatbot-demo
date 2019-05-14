@@ -20,6 +20,7 @@ router.post('/api/brand/add', userCheck, brandAdd);
 router.get('/api/brand/:id', userCheck, brandDetail);
 router.get('/api/brand/wechat/bind/:id', userCheck, brandWechatAuth);
 router.get('/api/brand/facebook/bind/:id', userCheck, brandFacebookBind);
+router.get('/api/chatbot/rule', userCheck, chatbotRuleList);
 
 // From WeChat Microservice
 router.post('/api/brand/wechat/bind/:id', ipCheck, brandWechatBind);

@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { Layout } from 'antd';
 import PortalSiderMenu from './PortalSiderMenu.jsx';
 import Dashboard from './Dashboard.jsx';
+import ChatbotRuleList from './ChatbotRuleList.jsx';
 import NoMatch from './NoMatch.jsx';
 const { Sider } = Layout;
 
@@ -14,6 +15,7 @@ const PortalColumn = () => (
 		<Switch>
 			<Redirect exact from="/dashboard/redirect" to="/dashboard" />
 			<Route exact path="/dashboard" component={Dashboard} />
+			<Route exact path="/chatbot/rule" component={ChatbotRuleList} />
 			<Route component={NoMatch} />
 		</Switch>
 	</Layout>

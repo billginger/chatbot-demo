@@ -44,7 +44,7 @@ const en_US = {
 	dashboard: 'Dashboard',
 	chatbot: 'Bot Chat',
 	chatbotConfig: 'Config',
-	chatbotRule: 'Rule',
+	chatbotRule: 'Rules',
 	chatbotTrain: 'Train',
 	chatbotManual: 'Manual'
 };
