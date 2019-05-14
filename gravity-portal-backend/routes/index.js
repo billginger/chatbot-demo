@@ -5,6 +5,7 @@ const { brandList, brandAdd, brandDetail } = require('../controllers/brand.js');
 const { brandWechatAuth, brandWechatBind, brandFacebookBind } = require('../controllers/brandBind.js');
 const { ipCheck } = require('../controllers/ip.js');
 const { handleMessage } = require('../controllers/message.js');
+const { chatbotRuleList } = require('../controllers/chatbot.js');
 
 const router = express.Router();
 
