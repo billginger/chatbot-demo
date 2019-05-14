@@ -1,6 +1,8 @@
-const withTimeZone = label => (
-	label + ' GMT+' + -(new Date().getTimezoneOffset() / 60)
-);
+const withTimeZone = label => {
+	const timezone = -(new Date().getTimezoneOffset() / 60);
+	const plus = timezone >= 0 && '+';
+	return `${label} GMT${plus}${timezone}`;
+};
 
 const getLocalDate = date => {
 	date = new Date(date);

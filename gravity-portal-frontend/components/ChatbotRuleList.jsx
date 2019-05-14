@@ -1,6 +1,7 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import { Breadcrumb, Typography, Icon, Table } from 'antd';
+import { withTimeZone, getLocalDate } from '../utils/date.js';
 import PortalContent from './PortalContent.jsx';
 const { Text } = Typography;
 
@@ -59,11 +60,13 @@ class ChatbotRuleList extends React.Component {
 			title: i18n.chatbotRuleKeyword,
 			dataIndex: 'keywords'
 		}, {
-			title: i18n.labelCreatedAt,
-			dataIndex: 'createdAt'
+			title: withTimeZone(i18n.labelCreatedAt),
+			dataIndex: 'createdAt',
+			render: text => {getLocalDate(text)}
 		}, {
-			title: i18n.labelUpdatedAt,
-			dataIndex: 'updatedAt'
+			title: withTimeZone(i18n.labelUpdatedAt),
+			dataIndex: 'updatedAt',
+			render: text => {getLocalDate(text)}
 		}];
 		const content = (
 			<Table dataSource={data} columns={columns} />
