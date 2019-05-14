@@ -70,10 +70,10 @@ class ChatbotRuleList extends React.Component {
 		}];
 		const content = (
 			<React.Fragment>
-				<Button type="primary" icon="plus" href="/chatbot/rule/add">
+				<Button type="primary" href="/chatbot/rule/add">
 					{i18n.labelAdd}
 				</Button>
-				<Table rowKey="_id" dataSource={data} columns={columns} />
+				<Table className="tc-table" rowKey="_id" dataSource={data} columns={columns} />
 			</React.Fragment>
 		);
 		return (

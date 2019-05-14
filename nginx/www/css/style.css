@@ -12125,6 +12125,9 @@ textarea.ant-pagination-options-quick-jumper input {
 #tc-page-main a {
   margin: 0 0 0 10px;
 }
+.tc-table {
+  margin: 15px 0 0;
+}
 .tc-form-alert {
   margin: 0 0 10px;
 }
