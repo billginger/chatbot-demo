@@ -99,14 +99,14 @@ class ChatbotRuleAdd extends React.Component {
 				</Form.Item>
 				<Form.Item {...tailFormItemLayout}>
 					{getFieldDecorator('allowGuess', {
-						valuePropName: 'checked', initialValue: data.allowGuess
+						valuePropName: 'checked', initialValue: false
 					})(
 						<Checkbox onChange={handleInputChange}>
 							{i18n.chatbotRuleAllowGuess}
 						</Checkbox>
 					)}
 					{getFieldDecorator('setScene', {
-						valuePropName: 'checked', initialValue: data.setScene
+						valuePropName: 'checked', initialValue: false
 					})(
 						<Checkbox onChange={handleInputChange}>
 							{i18n.chatbotRuleSetScene}
