@@ -1,7 +1,7 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, Form, Input, Checkbox, Button, Alert } from 'antd';
+import { Breadcrumb, Form, Input, Checkbox, Button, Alert, Icon } from 'antd';
 import PortalContent from './PortalContent.jsx';
 const { TextArea } = Input;
 
