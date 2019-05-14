@@ -53,13 +53,10 @@ class ChatbotRuleList extends React.Component {
 			);
 		}
 		// Table
-		const colorfulTag = () => {
-			const colors = [
-				'magenta', 'red', 'volcano', 'orange', 'gold', 'green', 'cyan', 'blue', 'geekblue', 'purple'
-			];
-			const x = parseInt(Math.random() * 10);
-			return colors[x];
-		};
+		const colors = ['magenta', 'red', 'volcano', 'orange', 'gold', 'green', 'cyan', 'blue', 'geekblue', 'purple'];
+		const randomColor = () => (
+			colors[parseInt(Math.random() * 10)]
+		);
 		const columns = [{
 			title: i18n.labelName,
 			dataIndex: 'name'
@@ -67,7 +64,7 @@ class ChatbotRuleList extends React.Component {
 			title: i18n.chatbotRuleKeyword,
 			dataIndex: 'keywords',
 			render: text => text.map((item, key) => (
-				<Tag color={colorfulTag}>{item}</Tag>
+				<Tag key={key} color={randomColor()}>{item}</Tag>
 			))
 		}, {
 			title: withTimeZone(i18n.labelCreatedAt),
