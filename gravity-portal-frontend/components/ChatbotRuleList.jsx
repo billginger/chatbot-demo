@@ -1,5 +1,6 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
+import { Link } from 'react-router-dom';
 import { Breadcrumb, Typography, Icon, Button, Table, Tag } from 'antd';
 import { withTimeZone, getLocalDate } from '../utils/date.js';
 import PortalContent from './PortalContent.jsx';
@@ -77,9 +78,9 @@ class ChatbotRuleList extends React.Component {
 		}];
 		const content = (
 			<React.Fragment>
-				<Button type="primary" href="/chatbot/rule/add">
+				<Link className="ant-btn ant-btn-primary" to="/chatbot/rule/add">
 					{i18n.labelAdd}
-				</Button>
+				</Link>
 				<Table className="tc-table" rowKey="_id" dataSource={data} columns={columns} />
 			</React.Fragment>
 		);
