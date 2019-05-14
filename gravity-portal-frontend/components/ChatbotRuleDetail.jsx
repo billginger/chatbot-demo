@@ -87,7 +87,7 @@ class ChatbotRuleDetail extends React.Component {
 							{i18n.chatbotRuleReplyContent}
 						</Col>
 						<Col span={18}>
-							{data.replyContent}
+							{JSON.stringify(data.replyContent)}
 						</Col>
 					</Row>
 					<Row>
