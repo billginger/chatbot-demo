@@ -1,6 +1,6 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
-import { Breadcrumb, Typography, Icon, Table } from 'antd';
+import { Breadcrumb, Typography, Icon, Button, Table } from 'antd';
 import { withTimeZone, getLocalDate } from '../utils/date.js';
 import PortalContent from './PortalContent.jsx';
 const { Text } = Typography;
@@ -69,7 +69,12 @@ class ChatbotRuleList extends React.Component {
 			render: text => getLocalDate(text)
 		}];
 		const content = (
-			<Table rowKey="_id" dataSource={data} columns={columns} />
+			<React.Fragment>
+				<Button type="primary" icon="plus" href="/chatbot/rule/add">
+					{i18n.labelAdd}
+				</Button>
+				<Table rowKey="_id" dataSource={data} columns={columns} />
+			</React.Fragment>
 		);
 		return (
 			<PortalContent breadcrumb={breadcrumb} content={content} />
