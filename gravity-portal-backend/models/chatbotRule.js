@@ -12,8 +12,9 @@ const chatbotRuleSchema = new mongoose.Schema({
 	replyOptions: Object,
 	allowGuess: Boolean,
 	enableWaiting: Boolean,
-	createdBy: ObjectId,
 	brand: ObjectId,
+	createdBy: ObjectId,
+	updatedBy: ObjectId,
 	isDeleted: { type: Boolean, default: false }
 }, {
 	timestamps: true

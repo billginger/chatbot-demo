@@ -11,16 +11,16 @@ exports.chatbotRuleList = (req, res, next) => {
 };
 
 exports.chatbotRuleAdd = (req, res, next) => {
+	const createdBy = req.profile._id;
+	const brand = req.profile.brand;
 	const name = req.body.name && req.body.name.trim();
 	const nameAnyCase = new RegExp(`^${name}$`, 'i');
-	ChatbotRule.countDocuments({ name: nameAnyCase }, (err, count) => {
+	ChatbotRule.countDocuments({ name: nameAnyCase, brand }, (err, count) => {
 		if (err) return next(err);
 		if (count) {
 			const statusText = JSON.stringify({ id: 'msgExist', key: 'labelName', value: name });
 			return handleFail(req, res, `[chatbot] [rule] [add] [name:${name}] [exist]`, statusText);
 		}
-		const createdBy = req.profile._id;
-		const brand = req.profile.brand;
 		const keywords = req.body.keywords && req.body.keywords.split('\n');
 		let replyContent = '';
 		let replyOptions = '';
@@ -32,17 +32,17 @@ exports.chatbotRuleAdd = (req, res, next) => {
 		}
 		const allowGuess = req.body.allowGuess;
 		const enableWaiting = req.body.enableWaiting;
-		let conditions = { name, keywords, replyContent, createdBy, brand };
+		let data = { name, keywords, replyContent, createdBy, brand };
 		if (replyOptions) {
-			conditions.replyOptions = replyOptions;
+			data.replyOptions = replyOptions;
 		}
 		if (allowGuess) {
-			conditions.allowGuess = allowGuess;
+			data.allowGuess = allowGuess;
 		}
 		if (enableWaiting) {
-			conditions.enableWaiting = enableWaiting;
+			data.enableWaiting = enableWaiting;
 		}
-		ChatbotRule.create(conditions, (err, rule) => {
+		ChatbotRule.create(data, (err, rule) => {
 			if (err) return next(err);
 			const id = rule._id.toString();
 			handleSuccess(req, res, `[chatbot] [rule] [add] [id:${id}] [name:${name}]`, rule);
@@ -60,6 +60,46 @@ exports.chatbotRuleDetail = (req, res, next) => {
 				rule = { ...rule._doc, createdBy: user.name };
 			}
 			handleSuccess(req, res, `[chatbot] [rule] [detail] [id:${_id}] [name:${rule.name}]`, rule);
+		});
+	});
+};
+
+exports.chatbotRuleEdit = (req, res, next) => {
+	const _id = req.params.id;
+	const updatedBy = req.profile._id;
+	const brand = req.profile.brand;
+	const name = req.body.name && req.body.name.trim();
+	const nameAnyCase = new RegExp(`^${name}$`, 'i');
+	ChatbotRule.countDocuments({ name: nameAnyCase, brand, _id: { $ne: _id } }, (err, count) => {
+		if (err) return next(err);
+		if (count) {
+			const statusText = JSON.stringify({ id: 'msgExist', key: 'labelName', value: name });
+			return handleFail(req, res, `[chatbot] [rule] [add] [name:${name}] [exist]`, statusText);
+		}
+		const keywords = req.body.keywords && req.body.keywords.split('\n');
+		let replyContent = '';
+		let replyOptions = '';
+		try {
+			replyContent = req.body.replyContent && JSON.parse(req.body.replyContent);
+			replyOptions = req.body.replyOptions && JSON.parse(req.body.replyOptions);
+		} catch (err) {
+			return next(err);
+		}
+		const allowGuess = req.body.allowGuess;
+		const enableWaiting = req.body.enableWaiting;
+		let data = { name, keywords, replyContent, updatedBy, brand };
+		if (replyOptions) {
+			data.replyOptions = replyOptions;
+		}
+		if (allowGuess) {
+			data.allowGuess = allowGuess;
+		}
+		if (enableWaiting) {
+			data.enableWaiting = enableWaiting;
+		}
+		ChatbotRule.updateOne({ _id, isDeleted: false }, data, err => {
+			if (err) return next(err);
+			handleSuccess(req, res, `[chatbot] [rule] [edit] [id:${_id}] [name:${name}]`, 'ok');
 		});
 	});
 };

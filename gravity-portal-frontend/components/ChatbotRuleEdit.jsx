@@ -76,10 +76,8 @@ class ChatbotRuleEdit extends React.Component {
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify(values)
 				}).then(res => (
-					res.ok ? res.json() : Promise.reject(res)
-				)).then(data => {
-					this.props.history.push(`/chatbot/rule/${data._id}`);
-				}).catch(err => {
+					res.ok ? this.props.history.push(`/chatbot/rule/${id}`) : Promise.reject(res)
+				)).catch(err => {
 					const errMsg = err.statusText || err;
 					this.setState({
 						errMsg,
