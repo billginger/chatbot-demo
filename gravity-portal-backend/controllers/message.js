@@ -47,7 +47,7 @@ const understand = content => {
 	return '';
 }
 
-const replyMessage = (req, res, next, dialogue, replyContent, replyOptions, scene) => {
+const replyMessage = (req, res, next, dialogue, replyContent, replyOptions) => {
 	// Save Dialogues
 	ChatbotDialogue.create(dialogue, (err, doc) => {
 		if (err) return next(err);
@@ -61,18 +61,6 @@ const replyMessage = (req, res, next, dialogue, replyContent, replyOptions, scen
 				from: dialogue.to,
 				content: replyContent,
 				manual: false
-			}
-			if (scene) {
-				data.waiting = true;
-				const conditions = {
-					id: dialogue.from,
-					brand: dialogue.brand,
-					channel: dialogue.channel
-				};
-				// Asyn processing
-				ChatbotCustomer.updateOne(conditions, { scene }, err => {
-					if (err) log.error(err);
-				});
 			}
 			if (replyOptions) {
 				data.options = replyOptions;
@@ -97,10 +85,9 @@ const matchMessage = (req, res, next, dialogue, customer, content) => {
 	}
 	let replyContent = '';
 	let replyOptions = '';
-	let scene = '';
 	// no replyContent on Manual
 	if (customer.scene == 'Manual') {
-		return replyMessage(req, res, next, dialogue, replyContent, replyOptions, scene);
+		return replyMessage(req, res, next, dialogue, replyContent, replyOptions);
 	}
 	// get replyContent
 	const conditions = {
@@ -118,7 +105,16 @@ const matchMessage = (req, res, next, dialogue, customer, content) => {
 				replyOptions = doc.replyOptions;
 			}
 			if (doc.enableWaiting) {
-				scene = 'Waiting';
+				dialogue.waiting = true;
+				const conditions = {
+					id: dialogue.from,
+					brand: dialogue.brand,
+					channel: dialogue.channel
+				};
+				// Asyn processing
+				ChatbotCustomer.updateOne(conditions, { scene: 'Waiting' }, err => {
+					if (err) log.error(err);
+				});
 			}
 		} else {
 			// if match none
@@ -134,7 +130,7 @@ const matchMessage = (req, res, next, dialogue, customer, content) => {
 				replyContent += matchNoneWaiting[language];
 			}
 		}
-		replyMessage(req, res, next, dialogue, replyContent, replyOptions, scene);
+		replyMessage(req, res, next, dialogue, replyContent, replyOptions);
 	});
 }
 

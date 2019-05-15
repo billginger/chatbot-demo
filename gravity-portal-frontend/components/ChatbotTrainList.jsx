@@ -56,7 +56,7 @@ class ChatbotTrainList extends React.Component {
 		// Handle
 		// Table
 		const columns = [{
-			title: i18n.chatbotTrainContent,
+			title: i18n.chatbotLabelContent,
 			dataIndex: 'content',
 			render: (text, record) => (
 				<React.Fragment>
@@ -69,10 +69,10 @@ class ChatbotTrainList extends React.Component {
 				</React.Fragment>
 			)
 		}, {
-			title: i18n.chatbotTrainFrom,
+			title: i18n.chatbotLabelFrom,
 			dataIndex: 'from'
 		}, {
-			title: i18n.chatbotTrainChannel,
+			title: i18n.chatbotLabelChannel,
 			dataIndex: 'channel',
 			render: text => (
 				text == 1 ? 'WeChat' : 'Facebook'
@@ -80,10 +80,6 @@ class ChatbotTrainList extends React.Component {
 		}, {
 			title: withTimeZone(i18n.labelCreatedAt),
 			dataIndex: 'createdAt',
-			render: text => getLocalDate(text)
-		}, {
-			title: withTimeZone(i18n.labelUpdatedAt),
-			dataIndex: 'updatedAt',
 			render: text => getLocalDate(text)
 		}];
 		const content = (

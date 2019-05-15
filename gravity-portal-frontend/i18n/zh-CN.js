@@ -46,6 +46,9 @@ const zh_CN = {
 	setting: '设置',
 	dashboard: '概览',
 	chatbot: '智能客服',
+	chatbotLabelContent: '内容',
+	chatbotLabelFrom: '来自',
+	chatbotLabelChannel: '渠道',
 	chatbotConfig: '基本配置',
 	chatbotRule: '匹配规则',
 	chatbotRuleKeyword: '关键词',
@@ -57,10 +60,9 @@ const zh_CN = {
 	chatbotTrainAdd: '新建规则',
 	chatbotTrainUpdate: '更新规则',
 	chatbotTrainIgnore: '忽略',
-	chatbotTrainContent: '内容',
-	chatbotTrainFrom: '来自',
-	chatbotTrainChannel: '渠道',
-	chatbotManual: '人工介入'
+	chatbotManual: '人工介入',
+	chatbotManualIntervene: '介入',
+	chatbotManualClose: '关闭'
 };
 
 export default zh_CN;

@@ -46,6 +46,9 @@ const en_US = {
 	setting: 'Setting',
 	dashboard: 'Dashboard',
 	chatbot: 'Bot Chat',
+	chatbotLabelContent: 'Content',
+	chatbotLabelFrom: 'From',
+	chatbotLabelChannel: 'Channel',
 	chatbotConfig: 'Config',
 	chatbotRule: 'Rules',
 	chatbotRuleKeyword: 'Keywords',
@@ -57,10 +60,9 @@ const en_US = {
 	chatbotTrainAdd: 'Add Rule',
 	chatbotTrainUpdate: 'Update Rule',
 	chatbotTrainIgnore: 'Ignore',
-	chatbotTrainContent: 'Content',
-	chatbotTrainFrom: 'From',
-	chatbotTrainChannel: 'Channel',
-	chatbotManual: 'Manual'
+	chatbotManual: 'Manual',
+	chatbotManualIntervene: 'Intervene',
+	chatbotManualClose: 'Close'
 };
 
 export default en_US;
