@@ -70,7 +70,7 @@ class ChatbotRuleDetail extends React.Component {
 			const action = e.target.textContent;
 			Modal.confirm({
 				title: i18n.modalConfirmTitle,
-				content: intl.formatMessage({ id: 'modalConfirmBody' }, { action, target: data.name }),
+				content: this.props.intl.formatMessage({ id: 'modalConfirmBody' }, { action, target: data.name }),
 				onOk: () => {
 					fetch(`/api/chatbot/rule/delete/${data._id}`, {
 						method: 'PUT'
