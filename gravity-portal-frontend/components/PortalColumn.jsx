@@ -8,6 +8,7 @@ import ChatbotRuleAdd from './ChatbotRuleAdd.jsx';
 import ChatbotRuleDetail from './ChatbotRuleDetail.jsx';
 import ChatbotRuleEdit from './ChatbotRuleEdit.jsx';
 import ChatbotTrainList from './ChatbotTrainList.jsx';
+import ChatbotManualList from './ChatbotManualList.jsx';
 import NoMatch from './NoMatch.jsx';
 const { Sider } = Layout;
 
@@ -24,6 +25,7 @@ const PortalColumn = () => (
 			<Route exact path="/chatbot/rule/:id" component={ChatbotRuleDetail} />
 			<Route exact path="/chatbot/rule/edit/:id" component={ChatbotRuleEdit} />
 			<Route exact path="/chatbot/train" component={ChatbotTrainList} />
+			<Route exact path="/chatbot/manual" component={ChatbotManualList} />
 			<Route component={NoMatch} />
 		</Switch>
 	</Layout>
