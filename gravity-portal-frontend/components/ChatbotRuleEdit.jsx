@@ -67,10 +67,10 @@ class ChatbotRuleEdit extends React.Component {
 		// Handle
 		const handleSubmit = e => {
 			e.preventDefault();
-			const id = this.props.match.params.id;
 			validateFieldsAndScroll((err, values) => {
 				if (err) return;
 				this.setState({ buttonLoading: true });
+				const id = this.props.match.params.id;
 				fetch(`/api/chatbot/rule/edit/${id}`, {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },

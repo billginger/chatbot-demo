@@ -81,10 +81,10 @@ class ChatbotManualIntervene extends React.Component {
 		// Handle
 		const handleSubmit = e => {
 			e.preventDefault();
-			const id = this.props.match.params.id;
 			validateFields((err, values) => {
 				if (err) return;
 				this.setState({ buttonLoading: true });
+				const id = this.props.match.params.id;
 				fetch(`/api/chatbot/manual/${id}`, {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
@@ -120,10 +120,10 @@ class ChatbotManualIntervene extends React.Component {
 				</Form.Item>
 				<Form.Item style={{margin:0}}>
 					{formAlert}
-					<Button type="primary" htmlType="submit" loading={true}>
+					<Button type="primary" loading={true}>
 						{i18n.chatbotManualDialogueSend}
 					</Button>
-					<Button className="tc-dealogue-button" onClick={handleClose}>
+					<Button className="tc-dealogue-button" onClick={handleClose} loading={true}>
 						{i18n.chatbotManualDialogueClose}
 					</Button>
 				</Form.Item>
