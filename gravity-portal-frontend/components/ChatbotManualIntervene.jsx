@@ -97,8 +97,6 @@ class ChatbotManualIntervene extends React.Component {
 					})(
 						<Input.TextArea onChange={handleInputChange} autosize={{ minRows: 2, maxRows: 4 }} />
 					)}
-				</Form.Item>
-				<Form.Item>
 					{formAlert}
 					<Button type="primary" htmlType="submit" loading={buttonLoading}>
 						{i18n.chatbotManualDialogueSend}
