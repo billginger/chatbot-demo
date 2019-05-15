@@ -38,7 +38,6 @@ const noThanks = {
 const understand = content => {
 	const yes = ['yes', 'ok', 'sure', 'please', '是', '好', '好的', '好吧', '需要'];
 	const no = ['no', 'nope', 'no need', '否', '不用', '不用了', '不需要'];
-	content = content.toLowerCase().trim();
 	if (yes.indexOf(content) >= 0) {
 		return 'yes';
 	}
@@ -140,7 +139,7 @@ const matchMessage = (req, res, next, dialogue, customer, content) => {
 }
 
 const analyzeOptions = (req, res, next, dialogue, customer, options) => {
-	let content = dialogue.content;
+	let content = dialogue.content.toLowerCase().trim();
 	if (options) {
 		if (/^\d+$/.test(content)) {
 			content = options[content] || content;
