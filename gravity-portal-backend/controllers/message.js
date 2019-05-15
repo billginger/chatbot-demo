@@ -114,6 +114,7 @@ const matchMessage = (req, res, next, dialogue, customer, content) => {
 		if (doc && doc.replyContent) {
 			// if match
 			replyContent = doc.replyContent[language];
+			dialogue.level = 2;
 			if (doc.replyOptions) {
 				replyOptions = doc.replyOptions;
 			}
@@ -123,6 +124,7 @@ const matchMessage = (req, res, next, dialogue, customer, content) => {
 		} else {
 			// if match none
 			replyContent = matchNone[language];
+			dialogue.level = 0;
 			if (customer.scene == 'Normal') {
 				replyContent += matchNoneNormal[language];
 				replyOptions = {
@@ -189,7 +191,7 @@ const analyzeMessage = (req, res, next, msg) => {
 		return analyzeCustomer(req, res, next, dialogue);
 	}
 	// if has content, try to get options
-	const oneDayAgo = new Date() - 86400000;
+	const anHourAgo = new Date() - 3600000;
 	const conditions = {
 		brand: dialogue.brand,
 		channel: dialogue.channel,
@@ -197,7 +199,7 @@ const analyzeMessage = (req, res, next, msg) => {
 		to: dialogue.from,
 		from: dialogue.to,
 		options: { $exists: true },
-		createdAt: { $gt: new Date(oneDayAgo) }
+		createdAt: { $gt: new Date(anHourAgo) }
 	};
 	ChatbotDialogue.findOne(conditions, null, { sort: '-_id' }, (err, doc) => {
 		if (err) return next(err);
