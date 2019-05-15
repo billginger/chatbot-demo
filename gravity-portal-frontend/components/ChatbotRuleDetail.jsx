@@ -1,7 +1,7 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, Typography, Icon, Row, Col, Tag } from 'antd';
+import { Breadcrumb, Typography, Icon, Row, Col, Tag, Modal } from 'antd';
 import { withTimeZone, getLocalDate } from '../utils/date.js';
 import PortalContent from './PortalContent.jsx';
 const { Text } = Typography;
@@ -11,7 +11,8 @@ class ChatbotRuleDetail extends React.Component {
 		super(props);
 		this.state = {
 			errMsg: '',
-			data: ''
+			data: '',
+			isDeleted: false
 		}
 	}
 	componentDidMount() {
@@ -27,7 +28,7 @@ class ChatbotRuleDetail extends React.Component {
 	}
 	render() {
 		const i18n = this.props.intl.messages;
-		const { errMsg, data } = this.state;
+		const { errMsg, data, isDeleted } = this.state;
 		// Breadcrumb
 		const breadcrumb = (
 			<Breadcrumb>
@@ -36,6 +37,15 @@ class ChatbotRuleDetail extends React.Component {
 				<Breadcrumb.Item>{i18n.labelDetail}</Breadcrumb.Item>
 			</Breadcrumb>
 		);
+		// Deleted
+		if (isDeleted) {
+			const deletedText = (
+				<p>{i18n.msgDeleted}</p>
+			);
+			return (
+				<PortalContent breadcrumb={breadcrumb} content={deletedText} />
+			);
+		}
 		// Error
 		if (errMsg) {
 			const warnMessage = i18n[errMsg] || i18n.msgError;
@@ -57,7 +67,32 @@ class ChatbotRuleDetail extends React.Component {
 		}
 		// Handle
 		const handleDelete = e => {
-			console.log(e);
+			const action = e.target.textContent;
+			Modal.confirm({
+				title: i18n.modalConfirmTitle,
+				content: intl.formatMessage({ id: 'modalConfirmBody' }, { action, target: data.name }),
+				onOk: () => {
+					fetch(`/api/chatbot/rule/delete/${data._id}`, {
+						method: 'PUT'
+					}).then(res => (
+						res.ok ? this.setState({ isDeleted: true }) : Promise.reject(res)
+					)).catch(err => {
+						let warnMsg = err.statusText || err;
+						warnMsg = i18n[warnMsg]
+						if (warnMsg) {
+							Modal.warning({
+								title: i18n.modalWarningTitle,
+								content: warnMsg
+							});
+						} else {
+							Modal.error({
+								title: i18n.modalErrorTitle,
+								content: i18n.msgError
+							});
+						}
+					});
+				}
+			});
 		};
 		// Page
 		const colors = ['magenta', 'red', 'volcano', 'orange', 'gold', 'green', 'cyan', 'blue', 'geekblue', 'purple'];

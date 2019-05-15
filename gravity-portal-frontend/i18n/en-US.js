@@ -7,6 +7,7 @@ const en_US = {
 	msgLoginExpired: 'Your login information has expired! please login again!',
 	msgNotFound: 'Did not find the relevant records!',
 	msgExist: '{key} {value} already exists!',
+	msgDeleted: 'Deleted successfully!',
 	modalConfirmTitle: 'Please Check',
 	modalConfirmBody: 'To Confirm {action} {target}?',
 	labelAdd: 'Add',
