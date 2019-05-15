@@ -78,15 +78,25 @@ class ChatbotManualIntervene extends React.Component {
 		);
 		const content = (
 			<List
-				bordered	
+				className="tc-dialogue"
+				bordered
+				split={false}
 				header={listHeader}
 				footer={listFooter}
 				dataSource={data}
-				renderItem={item => (
-					<List.Item>
-						abc
-					</List.Item>
-				)}
+				renderItem={item => {
+					let color = '#2db7f5';
+					let className = 'tc-left';
+					if (item.direction != 1) {
+						color = '#87d068';
+						className = 'tc-right';
+					}
+					return (
+						<List.Item>
+							<Tag color={color} className={className}>{item.content}</Tag>
+						</List.Item>
+					);
+				}}
 			/>
 		);
 		return (
