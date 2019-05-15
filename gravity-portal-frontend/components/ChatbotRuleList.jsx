@@ -1,7 +1,7 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, Typography, Icon, Table, Tag } from 'antd';
+import { Breadcrumb, Typography, Icon, Table, Tag, Modal, message } from 'antd';
 import { withTimeZone, getLocalDate } from '../utils/date.js';
 import PortalContent from './PortalContent.jsx';
 const { Text } = Typography;
@@ -54,9 +54,44 @@ class ChatbotRuleList extends React.Component {
 			);
 		}
 		// Handle
-		const handleDelete = e => {
-			console.log(e);
-		};
+		const handleDelete = (e, record) => {
+			const action = e.target.textContent;
+			const deleteRecord = () => {
+				const newData = data.filter(item => (
+					record != item
+				));
+				this.setState({ data: newData }, () => {
+					message.success(i18n.msgDeleted);
+				});
+			};
+			Modal.confirm({
+				title: i18n.modalConfirmTitle,
+				content: this.props.intl.formatMessage(
+					{ id: 'modalConfirmBody' }, { action: action, target: record.name }
+				),
+				onOk: () => {
+					fetch(`/api/chatbot/rule/delete/${record._id}`, {
+						method: 'PUT'
+					}).then(res => (
+						res.ok ? deleteRecord() : Promise.reject(res)
+					)).catch(err => {
+						let warnMsg = err.statusText || err;
+						warnMsg = i18n[warnMsg]
+						if (warnMsg) {
+							Modal.warning({
+								title: i18n.modalWarningTitle,
+								content: warnMsg
+							});
+						} else {
+							Modal.error({
+								title: i18n.modalErrorTitle,
+								content: i18n.msgError
+							});
+						}
+					});
+				}
+			});
+		}
 		// Table
 		const colors = ['magenta', 'red', 'volcano', 'orange', 'gold', 'green', 'cyan', 'blue', 'geekblue', 'purple'];
 		const randomColor = () => (
@@ -70,7 +105,7 @@ class ChatbotRuleList extends React.Component {
 					<Link to={`/chatbot/rule/${record._id}`}><b>{text}</b></Link>
 					<div className="tc-table-actions">
 						<Link to={`/chatbot/rule/edit/${record._id}`}>{i18n.actionEdit}</Link>
-						<a onClick={handleDelete}>{i18n.actionDelete}</a>
+						<a onClick={e => handleDelete(e, record)}>{i18n.actionDelete}</a>
 					</div>
 				</React.Fragment>
 			)
