@@ -56,6 +56,7 @@ const zh_CN = {
 	chatbotTrain: '训练学习',
 	chatbotTrainAdd: '新建规则',
 	chatbotTrainUpdate: '更新规则',
+	chatbotTrainIgnore: '忽略',
 	chatbotTrainContent: '内容',
 	chatbotTrainFrom: '来自',
 	chatbotTrainChannel: '渠道',

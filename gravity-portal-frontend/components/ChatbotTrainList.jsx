@@ -64,6 +64,7 @@ class ChatbotTrainList extends React.Component {
 					<div className="tc-table-actions">
 						<a onClick={e => {console.log(e)}}>{i18n.chatbotTrainAdd}</a>
 						<a onClick={e => {console.log(e)}}>{i18n.chatbotTrainUpdate}</a>
+						<a onClick={e => {console.log(e)}}>{i18n.chatbotTrainIgnore}</a>
 					</div>
 				</React.Fragment>
 			)

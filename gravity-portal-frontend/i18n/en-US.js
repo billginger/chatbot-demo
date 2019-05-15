@@ -56,6 +56,7 @@ const en_US = {
 	chatbotTrain: 'Train',
 	chatbotTrainAdd: 'Add Rule',
 	chatbotTrainUpdate: 'Update Rule',
+	chatbotTrainIgnore: 'Ignore',
 	chatbotTrainContent: 'Content',
 	chatbotTrainFrom: 'From',
 	chatbotTrainChannel: 'Channel',

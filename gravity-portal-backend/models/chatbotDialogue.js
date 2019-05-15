@@ -4,10 +4,10 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 /*
 channel: 1 = WeChat; 2 = Facebook
 direction: 1 = in; 2 = out
-messageId: only direction of in has
-level: understanding level, only direction of in has. 0 = no, 1 = little, 2 = yes, 3 = complete
+message: only direction of in has
+level: understanding level, only direction of in has. 0 = no, 1 = half, 2 = yes, 3 = manual, 4 = trained, 5 = ignore
 waiting: waiting for manual processing, only direction of out has
-options: reset options, only direction of out has
+options: select options, only direction of out has
 manual: manual processing, only direction of out has
 */
 
