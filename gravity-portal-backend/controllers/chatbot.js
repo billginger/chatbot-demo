@@ -32,8 +32,8 @@ exports.chatbotRuleAdd = (req, res, next) => {
 	const brand = req.profile.brand;
 	const name = req.body.name && req.body.name.trim();
 	const keywords = req.body.keywords && req.body.keywords.split('\n');
-	let replyContent = false;
-	let replyOptions = false;
+	let replyContent = {};
+	let replyOptions = {};
 	try {
 		replyContent = req.body.replyContent && JSON.parse(req.body.replyContent);
 		replyOptions = req.body.replyOptions && JSON.parse(req.body.replyOptions);
@@ -74,8 +74,8 @@ exports.chatbotRuleEdit = (req, res, next) => {
 	const updatedBy = req.profile._id;
 	const name = req.body.name && req.body.name.trim();
 	const keywords = req.body.keywords && req.body.keywords.split('\n');
-	let replyContent = false;
-	let replyOptions = false;
+	let replyContent = {};
+	let replyOptions = {};
 	try {
 		replyContent = req.body.replyContent && JSON.parse(req.body.replyContent);
 		replyOptions = req.body.replyOptions && JSON.parse(req.body.replyOptions);
