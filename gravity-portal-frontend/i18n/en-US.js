@@ -64,8 +64,10 @@ const en_US = {
 	chatbotManualIntervene: 'Intervene',
 	chatbotManualClose: 'Close',
 	chatbotManualDialogue: 'Dialogue',
-	chatbotManualDialogueClosed: 'Dialogue has been closed!',
-	chatbotManualDialogueChatting: 'Chatting with customer'
+	chatbotManualDialogueChatting: 'Chatting with customer',
+	chatbotManualDialogueSend: 'Send',
+	chatbotManualDialogueClose: 'Close Service',
+	chatbotManualDialogueClosed: 'Dialogue has been closed!'
 };
 
 export default en_US;

@@ -1,8 +1,7 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, Typography, Icon, List, Tag, Modal } from 'antd';
-import { withTimeZone, getLocalDate } from '../utils/date.js';
+import { Breadcrumb, Typography, Icon, List, Tag, Input, Button, Modal } from 'antd';
 import PortalContent from './PortalContent.jsx';
 const { Text } = Typography;
 
@@ -74,7 +73,11 @@ class ChatbotManualIntervene extends React.Component {
 		};
 		// Page
 		const listFooter = (
-			<div>Footer</div>
+			<React.Fragment>
+				<Input.TextArea onChange={handleInputChange} autosize={{ minRows: 2, maxRows: 4 }} />
+				<Button type="primary">{i18n.chatbotManualDialogueSend}</Button>
+				<Button onClick={handleClose}>{i18n.chatbotManualDialogueClose}</Button>
+			</React.Fragment>
 		);
 		const content = (
 			<List
