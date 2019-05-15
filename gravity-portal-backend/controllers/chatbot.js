@@ -32,11 +32,11 @@ exports.chatbotRuleAdd = (req, res, next) => {
 	const brand = req.profile.brand;
 	const name = req.body.name && req.body.name.trim();
 	const keywords = req.body.keywords && req.body.keywords.split('\n');
-	let replyContent = {};
-	let replyOptions = {};
+	let replyContent = '';
+	let replyOptions = '';
 	try {
-		replyContent = req.body.replyContent && JSON.parse(req.body.replyContent);
-		replyOptions = req.body.replyOptions && JSON.parse(req.body.replyOptions);
+		replyContent = req.body.replyContent.length && JSON.parse(req.body.replyContent);
+		replyOptions = req.body.replyOptions.length && JSON.parse(req.body.replyOptions);
 	} catch (err) {
 		return next(err);
 	}
@@ -74,12 +74,12 @@ exports.chatbotRuleEdit = (req, res, next) => {
 	const updatedBy = req.profile._id;
 	const name = req.body.name && req.body.name.trim();
 	const keywords = req.body.keywords && req.body.keywords.split('\n');
-	let replyContent = {};
-	let replyOptions = {};
+	let replyContent = '';
+	let replyOptions = '';
 	try {
 		console.log(replyOptions);
-		replyContent = req.body.replyContent && JSON.parse(req.body.replyContent);
-		replyOptions = req.body.replyOptions && JSON.parse(req.body.replyOptions);
+		replyContent = req.body.replyContent.length && JSON.parse(req.body.replyContent);
+		replyOptions = req.body.replyOptions.length && JSON.parse(req.body.replyOptions);
 		console.log(replyOptions);
 	} catch (err) {
 		return next(err);
