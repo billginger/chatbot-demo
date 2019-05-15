@@ -12617,11 +12617,16 @@ textarea.ant-pagination-options-quick-jumper input {
   max-height: 300px;
   overflow: auto;
 }
-.tc-dialogue .tc-left {
-  max-width: 80%;
+.tc-dialogue .ant-list-item {
+  border: 0;
 }
-.tc-dialogue .tc-right {
+.tc-dialogue .ant-tag {
   max-width: 80%;
+  font-size: 14px;
+  background: #2db7f5;
+}
+.tc-dialogue .tc-dealogue-content-right {
   margin: 0 0 0 auto;
+  background: #87d068;
 }
 
