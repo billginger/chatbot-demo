@@ -54,6 +54,11 @@ const en_US = {
 	chatbotRuleAllowGuess: 'Allow similar matches and suggest',
 	chatbotRuleEnableWaiting: 'Trigger waiting for manual intervention status',
 	chatbotTrain: 'Train',
+	chatbotTrainAdd: 'Add Rule',
+	chatbotTrainUpdate: 'Update Rule',
+	chatbotTrainContent: 'Content',
+	chatbotTrainFrom: 'From',
+	chatbotTrainChannel: 'Channel',
 	chatbotManual: 'Manual'
 };
 
