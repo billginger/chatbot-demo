@@ -79,7 +79,6 @@ exports.chatbotRuleEdit = (req, res, next) => {
 	try {
 		replyContent = JSON.parse(replyContent);
 		console.log(replyOptions);
-		console.log(JSON.parse(replyOptions));
 		if (replyOptions) {
 			replyOptions = JSON.parse(replyOptions);
 		}
