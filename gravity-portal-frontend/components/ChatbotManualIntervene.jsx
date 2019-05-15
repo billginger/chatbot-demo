@@ -80,7 +80,27 @@ class ChatbotManualIntervene extends React.Component {
 		);
 		// Handle
 		const handleSubmit = e => {
-			const action = e.target.textContent;
+			e.preventDefault();
+			const id = this.props.match.params.id;
+			validateFields((err, values) => {
+				if (err) return;
+				this.setState({ buttonLoading: true });
+				fetch(`/api/chatbot/manual/${id}`, {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify(values)
+				}).then(res => (
+					res.ok ? res.json() : Promise.reject(res)
+				)).then(data => {
+					console.log(data);
+				}).catch(err => {
+					const alertMsg = err.statusText || err;
+					this.setState({
+						alertMsg,
+						buttonLoading: false
+					});
+				});
+			});
 		};
 		const handleClose = e => {
 			const action = e.target.textContent;
@@ -100,7 +120,7 @@ class ChatbotManualIntervene extends React.Component {
 				</Form.Item>
 				<Form.Item style={{margin:0}}>
 					{formAlert}
-					<Button type="primary" htmlType="submit" loading={buttonLoading}>
+					<Button type="primary" htmlType="submit" loading={true}>
 						{i18n.chatbotManualDialogueSend}
 					</Button>
 					<Button className="tc-dealogue-button" onClick={handleClose}>
