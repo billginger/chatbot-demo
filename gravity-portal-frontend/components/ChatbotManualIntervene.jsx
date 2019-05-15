@@ -16,6 +16,20 @@ class ChatbotManualIntervene extends React.Component {
 			buttonLoading: false
 		}
 	}
+	/* componentDidMount() {
+		const id = this.props.match.params.id;
+		fetch(`/api/chatbot/manual/${id}`).then(res => (
+			res.ok ? res.json() : Promise.reject(res)
+		)).then(data => {
+			this.setState({ data }, () => {
+				const ele = document.getElementsByClassName('ant-spin-container')[0];
+				ele.scrollTop = ele.scrollHeight;
+			});
+		}).catch(err => {
+			const errMsg = err.statusText || err;
+			this.setState({ errMsg });
+		});
+	} */
 	render() {
 		const i18n = this.props.intl.messages;
 		const { getFieldDecorator, validateFields } = this.props.form;
