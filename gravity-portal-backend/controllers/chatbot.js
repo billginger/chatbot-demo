@@ -74,12 +74,15 @@ exports.chatbotRuleEdit = (req, res, next) => {
 	const updatedBy = req.profile._id;
 	const name = req.body.name && req.body.name.trim();
 	const keywords = req.body.keywords && req.body.keywords.split('\n');
-	let replyContent = '';
-	let replyOptions = '';
+	let replyContent = req.body.replyContent;
+	let replyOptions = req.body.replyOptions;
 	try {
+		replyContent = JSON.parse(replyContent);
 		console.log(replyOptions);
-		replyContent = req.body.replyContent.length && JSON.parse(req.body.replyContent);
-		replyOptions = req.body.replyOptions.length && JSON.parse(req.body.replyOptions);
+		console.log(JSON.parse(replyOptions));
+		if (replyOptions) {
+			replyOptions = JSON.parse(replyOptions);
+		}
 		console.log(replyOptions);
 	} catch (err) {
 		return next(err);
