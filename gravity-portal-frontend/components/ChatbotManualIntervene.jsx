@@ -137,4 +137,4 @@ class ChatbotManualIntervene extends React.Component {
 	}
 }
 
-export default injectIntl(ChatbotManualIntervene);
+export default injectIntl(Form.create()(ChatbotManualIntervene));
