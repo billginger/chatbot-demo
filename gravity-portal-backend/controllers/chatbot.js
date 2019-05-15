@@ -35,8 +35,8 @@ exports.chatbotRuleAdd = (req, res, next) => {
 	let replyContent = '';
 	let replyOptions = '';
 	try {
-		replyContent = req.body.replyContent.length && JSON.parse(req.body.replyContent);
-		replyOptions = req.body.replyOptions.length && JSON.parse(req.body.replyOptions);
+		replyContent = req.body.replyContent && JSON.parse(req.body.replyContent);
+		replyOptions = req.body.replyOptions && JSON.parse(req.body.replyOptions);
 	} catch (err) {
 		return next(err);
 	}
