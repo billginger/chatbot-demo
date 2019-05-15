@@ -122,7 +122,7 @@ class ChatbotRuleEdit extends React.Component {
 				</Form.Item>
 				<Form.Item label={i18n.chatbotRuleReplyOption}>
 					{getFieldDecorator('replyOptions', {
-						initialValue: JSON.stringify(data.replyOptions)
+						initialValue: data.replyOptions && JSON.stringify(data.replyOptions)
 					})(
 						<TextArea placeholder={i18n.chatbotRuleReplyOption} onChange={handleInputChange} autosize={
 							{ minRows: 4, maxRows: 20 }

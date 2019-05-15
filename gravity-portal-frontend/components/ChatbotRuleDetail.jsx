@@ -130,7 +130,7 @@ class ChatbotRuleDetail extends React.Component {
 							{i18n.chatbotRuleReplyOption}
 						</Col>
 						<Col span={18}>
-							{JSON.stringify(data.replyOptions) || '-'}
+							{data.replyOptions ? JSON.stringify(data.replyOptions) : '-'}
 						</Col>
 					</Row>
 					<Row>
