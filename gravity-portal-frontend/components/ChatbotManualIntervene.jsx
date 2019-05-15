@@ -70,10 +70,17 @@ class ChatbotManualIntervene extends React.Component {
 			const action = e.target.textContent;
 		};
 		// Page
+		const listHeader = (
+			<div>Header</div>
+		);
+		const listFooter = (
+			<div>Footer</div>
+		);
 		const content = (
 			<List
-				header={<div>Header</div>}
-				footer={<div>Footer</div>}
+				bordered	
+				header={listHeader}
+				footer={listFooter}
 				dataSource={data}
 				renderItem={item => (
 					<List.Item>

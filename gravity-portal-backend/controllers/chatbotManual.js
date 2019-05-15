@@ -19,7 +19,7 @@ exports.chatbotManualIntervene = (req, res, next) => {
 		const from = dialogue.from;
 		const to = dialogue.from;
 		const fields = 'content direction from to createdAt';
-		ChatbotDialogue.find({ brand, $or: [{ from }, { to }] }, fields, { sort: '-_id' }, (err, dialogues) => {
+		ChatbotDialogue.find({ brand, $or: [{ from }, { to }] }, fields, { sort: '_id' }, (err, dialogues) => {
 			if (err) return next(err);
 			handleSuccess(req, res, `[chatbot] [manual] [intervene]`, dialogues);
 		});
