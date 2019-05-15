@@ -12,7 +12,8 @@ const {
 	chatbotRuleDetail,
 	chatbotRuleEdit,
 	chatbotRuleDelete
-} = require('../controllers/chatbot.js');
+} = require('../controllers/chatbotRule.js');
+const { chatbotTrainList } = require('../controllers/chatbotTrain.js');
 
 const router = express.Router();
 
@@ -33,6 +34,7 @@ router.post('/api/chatbot/rule/add', userCheck, chatbotRuleCheckName, chatbotRul
 router.get('/api/chatbot/rule/:id', userCheck, chatbotRuleDetail);
 router.post('/api/chatbot/rule/edit/:id', userCheck, chatbotRuleCheckName, chatbotRuleEdit);
 router.put('/api/chatbot/rule/delete/:id', userCheck, chatbotRuleDelete);
+router.get('/api/chatbot/train', userCheck, chatbotTrainList);
 
 // From WeChat Microservice
 router.post('/api/brand/wechat/bind/:id', ipCheck, brandWechatBind);
