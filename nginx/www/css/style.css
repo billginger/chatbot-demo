@@ -12614,13 +12614,14 @@ textarea.ant-pagination-options-quick-jumper input {
   margin: 0 0 10px;
 }
 .tc-dialogue .ant-spin-container {
-  max-height: 300px;
+  max-height: 320px;
   overflow: auto;
 }
 .tc-dialogue .ant-list-item {
   border: 0;
 }
 .tc-dialogue .ant-tag {
+  padding: 4px 8px;
   max-width: 80%;
   font-size: 14px;
 }

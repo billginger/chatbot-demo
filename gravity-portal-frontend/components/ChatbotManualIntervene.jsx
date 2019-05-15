@@ -73,9 +73,6 @@ class ChatbotManualIntervene extends React.Component {
 			const action = e.target.textContent;
 		};
 		// Page
-		const listHeader = (
-			<div>Header</div>
-		);
 		const listFooter = (
 			<div>Footer</div>
 		);
@@ -83,7 +80,7 @@ class ChatbotManualIntervene extends React.Component {
 			<List
 				className="tc-dialogue"
 				bordered
-				header={listHeader}
+				header={i18n.chatbotManualDialogueChatting}
 				footer={listFooter}
 				dataSource={data}
 				renderItem={item => {

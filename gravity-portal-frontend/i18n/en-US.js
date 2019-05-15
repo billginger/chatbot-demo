@@ -64,7 +64,8 @@ const en_US = {
 	chatbotManualIntervene: 'Intervene',
 	chatbotManualClose: 'Close',
 	chatbotManualDialogue: 'Dialogue',
-	chatbotManualDialogueClosed: 'Dialogue has been closed!'
+	chatbotManualDialogueClosed: 'Dialogue has been closed!',
+	chatbotManualDialogueChatting: 'Chatting with customer'
 };
 
 export default en_US;
