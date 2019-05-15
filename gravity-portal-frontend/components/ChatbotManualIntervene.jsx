@@ -16,7 +16,7 @@ class ChatbotManualIntervene extends React.Component {
 			buttonLoading: false
 		}
 	}
-	/* componentDidMount() {
+	componentDidMount() {
 		const id = this.props.match.params.id;
 		fetch(`/api/chatbot/manual/${id}`).then(res => (
 			res.ok ? res.json() : Promise.reject(res)
@@ -29,7 +29,7 @@ class ChatbotManualIntervene extends React.Component {
 			const errMsg = err.statusText || err;
 			this.setState({ errMsg });
 		});
-	} */
+	}
 	render() {
 		const i18n = this.props.intl.messages;
 		const { getFieldDecorator, validateFields } = this.props.form;
