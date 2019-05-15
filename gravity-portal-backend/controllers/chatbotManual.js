@@ -10,3 +10,18 @@ exports.chatbotManualList = (req, res, next) => {
 		handleSuccess(req, res, `[chatbot] [manual] [list]`, dialogues);
 	});
 };
+
+exports.chatbotManualIntervene = (req, res, next) => {
+	const id = req.params.id;
+	ChatbotDialogue.findById(id, (err, dialogue) => {
+		if (err) return next(err);
+		const brand = dialogue.brand;
+		const from = dialogue.from;
+		const to = dialogue.from;
+		const fields = 'content direction from to createdAt';
+		ChatbotDialogue.find({ brand, $or: [{ from }, { to }] }, fields, { sort: '-_id' }, (err, dialogues) => {
+			if (err) return next(err);
+			handleSuccess(req, res, `[chatbot] [manual] [intervene]`, dialogues);
+		});
+	});
+};

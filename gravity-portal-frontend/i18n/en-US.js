@@ -62,7 +62,9 @@ const en_US = {
 	chatbotTrainIgnore: 'Ignore',
 	chatbotManual: 'Manual',
 	chatbotManualIntervene: 'Intervene',
-	chatbotManualClose: 'Close'
+	chatbotManualClose: 'Close',
+	chatbotManualDialogue: 'Dialogue',
+	chatbotManualDialogueClosed: 'Dialogue has been closed!'
 };
 
 export default en_US;

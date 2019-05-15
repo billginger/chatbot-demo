@@ -62,7 +62,9 @@ const zh_CN = {
 	chatbotTrainIgnore: '忽略',
 	chatbotManual: '人工介入',
 	chatbotManualIntervene: '介入',
-	chatbotManualClose: '关闭'
+	chatbotManualClose: '关闭',
+	chatbotManualDialogue: '对话',
+	chatbotManualDialogueClosed: '对话已结束！'
 };
 
 export default zh_CN;

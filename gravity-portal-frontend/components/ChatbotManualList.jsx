@@ -62,7 +62,7 @@ class ChatbotManualList extends React.Component {
 				<React.Fragment>
 					{text}
 					<div className="tc-table-actions">
-						<a onClick={e => {console.log(e)}}>{i18n.chatbotManualIntervene}</a>
+						<Link to={`/chatbot/manual/${record._id}`}>{i18n.chatbotManualIntervene}</Link>
 						<a onClick={e => {console.log(e)}}>{i18n.chatbotManualClose}</a>
 					</div>
 				</React.Fragment>
