@@ -20,7 +20,10 @@ class ChatbotManualIntervene extends React.Component {
 		fetch(`/api/chatbot/manual/${id}`).then(res => (
 			res.ok ? res.json() : Promise.reject(res)
 		)).then(data => {
-			this.setState({ data });
+			this.setState({ data }, () => {
+				const ele = document.getElementsByClassName('ant-spin-container')[0];
+				ele.scrollTop = ele.scrollHeight;
+			});
 		}).catch(err => {
 			const errMsg = err.statusText || err;
 			this.setState({ errMsg });
@@ -83,11 +86,19 @@ class ChatbotManualIntervene extends React.Component {
 				header={listHeader}
 				footer={listFooter}
 				dataSource={data}
-				renderItem={item => (
-					<List.Item>
-						<Tag className={item.direction != 1 && 'tc-dealogue-content-right'}>{item.content}</Tag>
-					</List.Item>
-				)}
+				renderItem={item => {
+					let color = '#2db7f5';
+					let className = 'tc-dealogue-content-left';
+					if (item.direction != 1) {
+						color = '#87d068';
+						className = 'tc-dealogue-content-right';
+					}
+					return (
+						<List.Item>
+							<Tag color={color} className={className}>{item.content}</Tag>
+						</List.Item>
+					);
+				}}
 			/>
 		);
 		return (
