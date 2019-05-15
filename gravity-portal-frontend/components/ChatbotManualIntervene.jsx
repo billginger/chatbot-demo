@@ -1,7 +1,7 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, Typography, Icon, List, Tag, Input, Button, Modal } from 'antd';
+import { Breadcrumb, Typography, Icon, List, Tag, Form, Input, Button, Alert, Modal } from 'antd';
 import PortalContent from './PortalContent.jsx';
 const { Text } = Typography;
 
@@ -11,7 +11,9 @@ class ChatbotManualIntervene extends React.Component {
 		this.state = {
 			errMsg: '',
 			data: '',
-			isClosed: false
+			isClosed: false,
+			alertMsg: '',
+			buttonLoading: false
 		}
 	}
 	componentDidMount() {
@@ -30,7 +32,8 @@ class ChatbotManualIntervene extends React.Component {
 	}
 	render() {
 		const i18n = this.props.intl.messages;
-		const { errMsg, data, isClosed } = this.state;
+		const { getFieldDecorator, validateFields } = this.props.form;
+		const { errMsg, data, isClosed, alertMsg, buttonLoading } = this.state;
 		// Breadcrumb
 		const breadcrumb = (
 			<Breadcrumb>
@@ -67,7 +70,18 @@ class ChatbotManualIntervene extends React.Component {
 				<PortalContent breadcrumb={breadcrumb} content={loading} />
 			);
 		}
+		// Form Alert
+		let alertMessage;
+		if (alertMsg) {
+			alertMessage = i18n[alertMsg] || i18n.msgError;
+		}
+		const formAlert = (
+			alertMessage && <Alert className="tc-form-alert" message={alertMessage} type="error" />
+		);
 		// Handle
+		const handleSubmit = e => {
+			const action = e.target.textContent;
+		};
 		const handleClose = e => {
 			const action = e.target.textContent;
 		};
@@ -76,11 +90,24 @@ class ChatbotManualIntervene extends React.Component {
 		};
 		// Page
 		const listFooter = (
-			<React.Fragment>
-				<Input.TextArea onChange={handleInputChange} autosize={{ minRows: 2, maxRows: 4 }} />
-				<Button type="primary">{i18n.chatbotManualDialogueSend}</Button>
-				<Button onClick={handleClose}>{i18n.chatbotManualDialogueClose}</Button>
-			</React.Fragment>
+			<Form onSubmit={handleSubmit}>
+				<Form.Item>
+					{getFieldDecorator('content', {
+						rules: [{ required: true, message: i18n.msgNeedInput, whitespace: true }]
+					})(
+						<Input.TextArea onChange={handleInputChange} autosize={{ minRows: 2, maxRows: 4 }} />
+					)}
+				</Form.Item>
+				<Form.Item>
+					{formAlert}
+					<Button type="primary" htmlType="submit" loading={buttonLoading}>
+						{i18n.chatbotManualDialogueSend}
+					</Button>
+					<Button onClick={handleClose}>
+						{i18n.chatbotManualDialogueClose}
+					</Button>
+				</Form.Item>
+			</Form>
 		);
 		const content = (
 			<List
