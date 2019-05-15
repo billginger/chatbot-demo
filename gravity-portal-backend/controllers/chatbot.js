@@ -77,8 +77,10 @@ exports.chatbotRuleEdit = (req, res, next) => {
 	let replyContent = {};
 	let replyOptions = {};
 	try {
+		console.log(replyOptions);
 		replyContent = req.body.replyContent && JSON.parse(req.body.replyContent);
 		replyOptions = req.body.replyOptions && JSON.parse(req.body.replyOptions);
+		console.log(replyOptions);
 	} catch (err) {
 		return next(err);
 	}
