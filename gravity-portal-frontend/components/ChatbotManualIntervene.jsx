@@ -71,6 +71,9 @@ class ChatbotManualIntervene extends React.Component {
 		const handleClose = e => {
 			const action = e.target.textContent;
 		};
+		const handleInputChange = () => {
+			this.setState({ alertMsg: '' });
+		};
 		// Page
 		const listFooter = (
 			<React.Fragment>
