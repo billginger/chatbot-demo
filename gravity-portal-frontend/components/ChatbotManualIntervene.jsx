@@ -91,18 +91,20 @@ class ChatbotManualIntervene extends React.Component {
 		// Page
 		const listFooter = (
 			<Form onSubmit={handleSubmit}>
-				{getFieldDecorator('content', {
-					rules: [{ required: true, message: i18n.msgNeedInput, whitespace: true }]
-				})(
-					<Input.TextArea onChange={handleInputChange} autosize={{ minRows: 2, maxRows: 4 }} />
-				)}
-				{formAlert}
-				<Button type="primary" htmlType="submit" loading={buttonLoading}>
-					{i18n.chatbotManualDialogueSend}
-				</Button>
-				<Button onClick={handleClose}>
-					{i18n.chatbotManualDialogueClose}
-				</Button>
+				<Form.Item style={{margin:0}}>
+					{getFieldDecorator('content', {
+						rules: [{ required: true, message: i18n.msgNeedInput, whitespace: true }]
+					})(
+						<Input.TextArea onChange={handleInputChange} autosize={{ minRows: 2, maxRows: 4 }} />
+					)}
+					{formAlert}
+					<Button type="primary" htmlType="submit" loading={buttonLoading}>
+						{i18n.chatbotManualDialogueSend}
+					</Button>
+					<Button onClick={handleClose}>
+						{i18n.chatbotManualDialogueClose}
+					</Button>
+				</Form.Item>
 			</Form>
 		);
 		const content = (
