@@ -1,6 +1,7 @@
 const { handleSuccess, handleFail } = require('../libs/handle.js');
 const httpsRequest = require('../libs/httpsRequest.js');
 const ChatbotDialogue = require('../models/chatbotDialogue.js');
+const ChatbotCustomer = require('../models/ChatbotCustomer.js');
 
 const sendWechat = (req, res, next, id, touser, content) => {
 	const options = {
@@ -33,10 +34,18 @@ exports.chatbotManualIntervene = (req, res, next) => {
 		const brand = dialogue.brand;
 		const from = dialogue.from;
 		const to = dialogue.from;
-		const fields = 'content direction from to createdAt';
-		ChatbotDialogue.find({ brand, $or: [{ from }, { to }] }, fields, { sort: '_id' }, (err, dialogues) => {
+		const conditions = {
+			id: dialogue.from,
+			brand,
+			channel: dialogue.channel
+		};
+		ChatbotCustomer.updateOne(conditions, { scene: 'Manual' }, err => {
 			if (err) return next(err);
-			handleSuccess(req, res, `[chatbot] [manual] [intervene]`, dialogues);
+			const fields = 'content direction from to createdAt';
+			ChatbotDialogue.find({ brand, $or: [{ from }, { to }] }, fields, { sort: '_id' }, (err, dialogues) => {
+				if (err) return next(err);
+				handleSuccess(req, res, `[chatbot] [manual] [intervene]`, dialogues);
+			});
 		});
 	});
 };
@@ -49,9 +58,23 @@ exports.chatbotManualSend = (req, res, next) => {
 		const channel = dialogue.channel;
 		const brand = dialogue.brand.toString();;
 		const replyTo = dialogue.from;
-		// 待补充保存到 ChatbotDialogue，改写 chatbotCustomers 的 scene
-		if (channel == 1) {
-			sendWechat(req, res, next, brand, replyTo, content);
+		// Save to ChatbotDialogue
+		const data = {
+			brand: dialogue.brand,
+			channel,
+			direction: 2,
+			message: dialogue.message,
+			to: dialogue.from,
+			from: dialogue.to,
+			content,
+			manual: true
 		}
+		ChatbotDialogue.create(data, err => {
+			if (err) return next(err);
+			// Send
+			if (channel == 1) {
+				sendWechat(req, res, next, brand, replyTo, content);
+			}
+		});
 	});
 };
