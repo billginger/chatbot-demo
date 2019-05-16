@@ -74,3 +74,23 @@ exports.handleMessages = (req, res, next) => {
 		handleMessage(entry.messaging[0]);
 	});
 };
+
+exports.sendMessage = (req, res, next) => {
+	const id = req.body.recipient;
+	const text = req.body.text;
+	const options = {
+		hostname: 'graph.facebook.com',
+		path: '/v2.6/me/messages?access_token=' + access_token,
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' }
+	};
+	const postData = JSON.stringify({
+		recipient: { id },
+		message: { text }
+	});
+	httpsRequest(options, postData, (err, data) => {
+		if (err) return next(err);
+		res.send({ data });
+		log.info('Message has been sent!');
+	});
+};

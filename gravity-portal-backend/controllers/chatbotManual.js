@@ -19,6 +19,21 @@ const sendWechat = (req, res, next, id, touser, content) => {
 	});
 }
 
+const sendFacebook = (req, res, next, id, recipient, text) => {
+	const options = {
+		hostname: 'gravity.nodejs.top',
+		path: `/facebook/send/${id}`,
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' }
+	};
+	const postData = JSON.stringify({ recipient, text });
+	httpsRequest(options, postData, (err, data) => {
+		if (err) return next(err);
+		if (!data.message_id) return next(data);
+		handleSuccess(req, res, `[chatbot] [manual] [send] [brand:${id}]`, 'ok');
+	});
+}
+
 exports.chatbotManualList = (req, res, next) => {
 	const brand = req.profile.brand;
 	const fields = 'content from channel createdAt';
@@ -67,6 +82,8 @@ exports.chatbotManualSend = (req, res, next) => {
 			// Send
 			if (channel == 1) {
 				sendWechat(req, res, next, brand, replyTo, content);
+			} else {
+				sendFacebook(req, res, next, brand, replyTo, content);
 			}
 		});
 		// Asyn processing
