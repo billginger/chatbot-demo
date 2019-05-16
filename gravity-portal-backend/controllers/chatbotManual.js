@@ -99,16 +99,17 @@ exports.chatbotManualSend = (req, res, next) => {
 
 exports.chatbotManualClose = (req, res, next) => {
 	const id = req.params.id;
-	ChatbotDialogue.findByIdAndUpdate(id, { level: 3, waiting: false }, (err, dialogue) => {
+	ChatbotDialogue.findById(id, (err, dialogue) => {
 		if (err) return next(err);
-		const conditions = {
-			id: dialogue.from,
-			brand: dialogue.brand,
-			channel: dialogue.channel
-		};
-		ChatbotCustomer.updateOne(conditions, { scene: 'Normal' }, err => {
+		const from = dialogue.from;
+		const brand = dialogue.brand;
+		const channel = dialogue.channel;
+		ChatbotDialogue.updateMany({ from, brand, channel, waiting: true }, { waiting: false }, err => {
 			if (err) return next(err);
-			handleSuccess(req, res, `[chatbot] [manual] [close] [brand:${id}]`, 'ok');
+			ChatbotCustomer.updateOne({ id: from, brand, channel }, { scene: 'Normal' }, err => {
+				if (err) return next(err);
+				handleSuccess(req, res, `[chatbot] [manual] [close] [brand:${id}]`, 'ok');
+			});
 		});
 	});
 };
