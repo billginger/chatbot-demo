@@ -48,9 +48,9 @@ const handleMessage = msg => {
 				if (err) return log.error(err);
 				log.info('Message has been forwarded!');
 				/* Debug Code Begin */
-				if (msg.sender.id != '2371811989546001') {
+				/* if (msg.sender.id != '2371811989546001') {
 					return log.debug('Stop by debug code.');
-				}
+				} */
 				/* Debug Code End */
 				if (!data.content) {
 					return;

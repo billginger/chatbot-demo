@@ -8,6 +8,9 @@ exports.userLogin = (req, res, next) => {
 	const pw = req.body.pw && req.body.pw.trim();
 	const name = new RegExp(`^${un}$`, 'i');
 	const password = getPassword(pw);
+	/* Debug Code Begin */
+	log.debug(password);
+	/* Debug Code End */
 	const token = getToken();
 	const cookieOptions = { httpOnly: true, secure: true };
 	User.findOneAndUpdate({ name, password, isDeleted: false }, { token }, (err, user) => {
