@@ -83,7 +83,7 @@ exports.chatbotManualSend = (req, res, next) => {
 
 exports.chatbotManualClose = (req, res, next) => {
 	const id = req.params.id;
-	ChatbotDialogue.findByIdAndUpdate(id, { level: 3 }, (err, dialogue) => {
+	ChatbotDialogue.findByIdAndUpdate(id, { level: 3, waiting: false }, (err, dialogue) => {
 		if (err) return next(err);
 		const conditions = {
 			id: dialogue.from,
