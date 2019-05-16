@@ -79,6 +79,12 @@ class ChatbotManualIntervene extends React.Component {
 			alertMessage && <Alert className="tc-form-alert" message={alertMessage} type="error" />
 		);
 		// Handle
+		const sendSuccess = values => {
+			console.log(values);
+			this.setState({
+				buttonLoading: false
+			});
+		}
 		const handleSubmit = e => {
 			e.preventDefault();
 			validateFields((err, values) => {
@@ -90,7 +96,7 @@ class ChatbotManualIntervene extends React.Component {
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify(values)
 				}).then(res => (
-					res.ok ? console.log(values) : Promise.reject(res)
+					res.ok ? sendSuccess(values) : Promise.reject(res)
 				)).catch(err => {
 					const alertMsg = err.statusText || err;
 					this.setState({
