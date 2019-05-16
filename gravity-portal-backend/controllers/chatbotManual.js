@@ -29,7 +29,6 @@ const sendFacebook = (req, res, next, id, recipient, text) => {
 	const postData = JSON.stringify({ recipient, text });
 	httpsRequest(options, postData, (err, data) => {
 		if (err) return next(err);
-		if (!data.message_id) return next(data);
 		handleSuccess(req, res, `[chatbot] [manual] [send] [brand:${id}]`, 'ok');
 	});
 }
