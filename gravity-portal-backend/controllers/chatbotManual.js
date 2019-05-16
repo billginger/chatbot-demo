@@ -1,7 +1,7 @@
 const { handleSuccess, handleFail } = require('../libs/handle.js');
 const httpsRequest = require('../libs/httpsRequest.js');
 const ChatbotDialogue = require('../models/chatbotDialogue.js');
-const ChatbotCustomer = require('../models/ChatbotCustomer.js');
+const ChatbotCustomer = require('../models/chatbotCustomer.js');
 
 const sendWechat = (req, res, next, id, touser, content) => {
 	const options = {
