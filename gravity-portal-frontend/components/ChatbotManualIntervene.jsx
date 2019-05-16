@@ -98,7 +98,7 @@ class ChatbotManualIntervene extends React.Component {
 				if (err) return;
 				this.setState({ buttonLoading: true });
 				const id = this.props.match.params.id;
-				fetch(`/api/chatbot/manual/${id}`, {
+				fetch(`/api/chatbot/manual/send/${id}`, {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify(values)
@@ -113,8 +113,38 @@ class ChatbotManualIntervene extends React.Component {
 				});
 			});
 		};
+		const closeSuccess = () => {
+			this.timer && clearTimeout(this.timer);
+			this.setState({ isClosed: true });
+		}
 		const handleClose = e => {
 			const action = e.target.textContent;
+			Modal.confirm({
+				title: i18n.modalConfirmTitle,
+				content: this.props.intl.formatMessage({ id: 'modalConfirmBody' }, { action, target: '' }),
+				onOk: () => {
+					const id = this.props.match.params.id;
+					fetch(`/api/chatbot/manual/close/${id}`, {
+						method: 'PUT'
+					}).then(res => (
+						res.ok ? closeSuccess() : Promise.reject(res)
+					)).catch(err => {
+						let warnMsg = err.statusText || err;
+						warnMsg = i18n[warnMsg]
+						if (warnMsg) {
+							Modal.warning({
+								title: i18n.modalWarningTitle,
+								content: warnMsg
+							});
+						} else {
+							Modal.error({
+								title: i18n.modalErrorTitle,
+								content: i18n.msgError
+							});
+						}
+					});
+				}
+			});
 		};
 		const handleInputChange = () => {
 			this.setState({ alertMsg: '' });

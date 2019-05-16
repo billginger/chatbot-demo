@@ -1,4 +1,5 @@
-const { handleSuccess, handleFail } = require('../libs/handle.js');
+const { log } = require('../libs/log.js');
+const { handleSuccess } = require('../libs/handle.js');
 const httpsRequest = require('../libs/httpsRequest.js');
 const ChatbotDialogue = require('../models/chatbotDialogue.js');
 const ChatbotCustomer = require('../models/chatbotCustomer.js');
@@ -34,18 +35,10 @@ exports.chatbotManualIntervene = (req, res, next) => {
 		const brand = dialogue.brand;
 		const from = dialogue.from;
 		const to = dialogue.from;
-		const conditions = {
-			id: dialogue.from,
-			brand,
-			channel: dialogue.channel
-		};
-		ChatbotCustomer.updateOne(conditions, { scene: 'Manual' }, err => {
+		const fields = 'content direction from to createdAt';
+		ChatbotDialogue.find({ brand, $or: [{ from }, { to }] }, fields, { sort: '_id' }, (err, dialogues) => {
 			if (err) return next(err);
-			const fields = 'content direction from to createdAt';
-			ChatbotDialogue.find({ brand, $or: [{ from }, { to }] }, fields, { sort: '_id' }, (err, dialogues) => {
-				if (err) return next(err);
-				handleSuccess(req, res, `[chatbot] [manual] [intervene]`, dialogues);
-			});
+			handleSuccess(req, res, `[chatbot] [manual] [intervene]`, dialogues);
 		});
 	});
 };
@@ -75,6 +68,31 @@ exports.chatbotManualSend = (req, res, next) => {
 			if (channel == 1) {
 				sendWechat(req, res, next, brand, replyTo, content);
 			}
+		});
+		// Asyn processing
+		const conditions = {
+			id: dialogue.from,
+			brand: dialogue.brand,
+			channel
+		};
+		ChatbotCustomer.updateOne(conditions, { scene: 'Manual' }, err => {
+			if (err) log.error(err);
+		});
+	});
+};
+
+exports.chatbotManualClose = (req, res, next) => {
+	const id = req.params.id;
+	ChatbotDialogue.findByIdAndUpdate(id, { level: 3 }, (err, dialogue) => {
+		if (err) return next(err);
+		const conditions = {
+			id: dialogue.from,
+			brand: dialogue.brand,
+			channel: dialogue.channel
+		};
+		ChatbotCustomer.updateOne(conditions, { scene: 'Normal' }, err => {
+			if (err) return next(err);
+			handleSuccess(req, res, `[chatbot] [manual] [close] [brand:${id}]`, 'ok');
 		});
 	});
 };
