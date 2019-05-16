@@ -16,6 +16,20 @@ class ChatbotManualIntervene extends React.Component {
 			buttonLoading: false
 		}
 	}
+	refreshDialogues() {
+		const id = this.props.match.params.id;
+		fetch(`/api/chatbot/manual/${id}`).then(res => (
+			res.ok ? res.json() : Promise.reject(res)
+		)).then(data => {
+			this.setState({ data }, () => {
+				const ele = document.getElementsByClassName('ant-spin-container')[0];
+				ele.scrollTop = ele.scrollHeight;
+			});
+		}).catch(err => {
+			const errMsg = err.statusText || err;
+			this.setState({ errMsg });
+		});
+	}
 	componentDidMount() {
 		const id = this.props.match.params.id;
 		fetch(`/api/chatbot/manual/${id}`).then(res => (
@@ -32,7 +46,7 @@ class ChatbotManualIntervene extends React.Component {
 	}
 	render() {
 		const i18n = this.props.intl.messages;
-		const { getFieldDecorator, validateFields } = this.props.form;
+		const { getFieldDecorator, validateFields, resetFields } = this.props.form;
 		const { errMsg, data, isClosed, alertMsg, buttonLoading } = this.state;
 		// Breadcrumb
 		const breadcrumb = (
@@ -79,10 +93,10 @@ class ChatbotManualIntervene extends React.Component {
 			alertMessage && <Alert className="tc-form-alert" message={alertMessage} type="error" />
 		);
 		// Handle
-		const sendSuccess = values => {
-			console.log(values);
-			this.setState({
-				buttonLoading: false
+		const sendSuccess = () => {
+			resetFields();
+			this.setState({ buttonLoading: false }, () => {
+				this.refreshDialogues();
 			});
 		}
 		const handleSubmit = e => {
@@ -96,7 +110,7 @@ class ChatbotManualIntervene extends React.Component {
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify(values)
 				}).then(res => (
-					res.ok ? sendSuccess(values) : Promise.reject(res)
+					res.ok ? sendSuccess() : Promise.reject(res)
 				)).catch(err => {
 					const alertMsg = err.statusText || err;
 					this.setState({
