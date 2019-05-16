@@ -73,3 +73,28 @@ exports.handleMessage = (req, res, next) => {
 		});
 	});
 };
+
+exports.sendMessage = (req, res, next) => {
+	const brand = req.params.id;
+	const touser = req.body.touser;
+	const content = req.body.content;
+	Account.findOne({ brand }, (err, account) => {
+		if (err) return next(err);
+		const options = {
+			hostname: 'api.weixin.qq.com',
+			path: `/cgi-bin/message/custom/send?access_token=${account.accessToken}`,
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' }
+		};
+		const postData = JSON.stringify({
+			touser,
+			msgtype: 'text',
+			text: { content }
+		});
+		httpsRequest(options, postData, (err, data) => {
+			if (err) return next(err);
+			res.send({ data });
+			log.info('Message has been sent!');
+		});
+	});
+};

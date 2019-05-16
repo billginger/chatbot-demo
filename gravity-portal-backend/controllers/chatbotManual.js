@@ -12,7 +12,8 @@ const sendWechat = (req, res, next, id, touser, content) => {
 	const postData = JSON.stringify({ touser, content });
 	httpsRequest(options, postData, (err, data) => {
 		if (err) return next(err);
-		handleSuccess(req, res, `[chatbot] [manual] [send] [brand:${id}]`, data);
+		if (data.errcode) return next(data);
+		handleSuccess(req, res, `[chatbot] [manual] [send] [brand:${id}]`, 'ok');
 	});
 }
 

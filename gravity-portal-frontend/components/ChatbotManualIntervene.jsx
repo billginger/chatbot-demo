@@ -90,10 +90,8 @@ class ChatbotManualIntervene extends React.Component {
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify(values)
 				}).then(res => (
-					res.ok ? res.json() : Promise.reject(res)
-				)).then(data => {
-					console.log(data);
-				}).catch(err => {
+					res.ok ? console.log(values) : Promise.reject(res)
+				)).catch(err => {
 					const alertMsg = err.statusText || err;
 					this.setState({
 						alertMsg,
