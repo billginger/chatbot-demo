@@ -31,7 +31,11 @@ class ChatbotManualIntervene extends React.Component {
 		});
 	}
 	componentDidMount() {
-		setInterval(() => { this.refreshDialogues() }, 5000);
+		this.refreshDialogues();
+		this.timer = setInterval(() => { this.refreshDialogues() }, 5000);
+	}
+	componentWillUnmount() {
+		this.timer && clearTimeout(this.timer);
 	}
 	render() {
 		const i18n = this.props.intl.messages;
