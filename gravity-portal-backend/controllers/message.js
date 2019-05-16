@@ -137,8 +137,8 @@ const matchMessage = (req, res, next, dialogue, customer, content) => {
 const analyzeOptions = (req, res, next, dialogue, customer, options) => {
 	let content = dialogue.content;
 	if (content && content.length) {
-		content = content.toLowerCase();
-		content = content.replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\+|\=|\||\\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?]/g, ''); 
+		content = content.toLowerCase().trim();
+		content = content.replace(/[\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\+|\=|\||\\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?]/g, ''); 
 		content = content.replace(/[，|。|！|？|（|）|【|】|‘|’|“|”|：|；|《|》]/g, ''); 
 	}
 	if (options) {
