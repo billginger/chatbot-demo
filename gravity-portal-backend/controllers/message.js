@@ -135,13 +135,18 @@ const matchMessage = (req, res, next, dialogue, customer, content) => {
 }
 
 const analyzeOptions = (req, res, next, dialogue, customer, options) => {
-	let content = dialogue.content.toLowerCase().trim();
+	let content = dialogue.content;
+	if (content && content.length) {
+		content = content.toLowerCase();
+		content = content.replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\+|\=|\||\\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?]/g, ''); 
+		content = content.replace(/[，|。|！|？|（|）|【|】|‘|’|“|”|：|；|《|》]/g, ''); 
+	}
 	if (options) {
 		if (/^\d+$/.test(content)) {
 			content = options[content] || content;
-		} else if (understand(dialogue.content) == 'no') {
+		} else if (understand(content) == 'no') {
 			content = options.no || content;
-		} else if (understand(dialogue.content) == 'yes') {
+		} else if (understand(content) == 'yes') {
 			content = options.yes || content;
 		}
 	}
