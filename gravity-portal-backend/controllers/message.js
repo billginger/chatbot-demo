@@ -36,7 +36,7 @@ const noThanks = {
 };
 
 const understand = content => {
-	const yes = ['yes', 'ok', 'sure', 'please', 'right', '是', '是的', '好', '好的', '好吧', '对', '没错', '需要'];
+	const yes = ['yes', 'ok', 'sure', 'please', 'right', '是', '是的', '好', '好的', '好吧', '对', '对的', '没错', '需要'];
 	const no = ['no', 'nope', 'no need', '否', '不用', '不用了', '不需要'];
 	if (yes.indexOf(content) >= 0) {
 		return 'yes';
