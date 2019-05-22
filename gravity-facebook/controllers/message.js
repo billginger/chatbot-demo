@@ -38,7 +38,7 @@ const handleMessage = msg => {
 			if (err) return log.error(err);
 			const id = account.brand;
 			const options = {
-				hostname: 'gravity.nodejs.top',
+				hostname: 'chatbot.nodejs.top',
 				path: `/api/chatbot/message/${id}`,
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' }

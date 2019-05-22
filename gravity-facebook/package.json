@@ -1,7 +1,7 @@
 {
-	"name": "gravity-facebook",
+	"name": "chatbot-facebook",
 	"version": "0.0.1",
-	"description": "a microservice in gravity-prototype that handle facebook messages",
+	"description": "a microservice in chatbot-demo that handle facebook messages",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"

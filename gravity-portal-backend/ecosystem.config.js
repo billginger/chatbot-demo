@@ -1,7 +1,7 @@
 module.exports = {
 	apps: [{
-		name: 'gravity-portal',
+		name: 'chatbot-portal',
 		script: 'index.js',
-		log: '/logs/gravity_portal_all.log'
+		log: '/logs/chatbot_portal_all.log'
 	}]
 }

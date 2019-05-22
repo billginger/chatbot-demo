@@ -1,7 +1,7 @@
 {
-	"name": "gravity-portal-backend",
+	"name": "chatbot-portal-backend",
 	"version": "0.0.1",
-	"description": "a microservice in gravity-prototype that handle portal setting",
+	"description": "a microservice in chatbot-demo that handle portal setting",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"

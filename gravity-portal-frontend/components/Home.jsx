@@ -52,7 +52,7 @@ class Home extends React.Component {
 		}
 		// Page
 		const content = (
-			<p>Weclome to Gravity Prototype!</p>
+			<p>Weclome to Chatbot Demo!</p>
 		);
 		return (
 			<PortalContent breadcrumb={breadcrumb} content={content} />

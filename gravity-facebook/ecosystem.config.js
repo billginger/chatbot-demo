@@ -1,7 +1,7 @@
 module.exports = {
 	apps: [{
-		name: 'gravity-facebook',
+		name: 'chatbot-facebook',
 		script: 'index.js',
-		log: '/logs/gravity_facebook_all.log'
+		log: '/logs/chatbot_facebook_all.log'
 	}]
 }

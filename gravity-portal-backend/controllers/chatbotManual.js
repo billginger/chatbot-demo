@@ -6,7 +6,7 @@ const ChatbotCustomer = require('../models/chatbotCustomer.js');
 
 const sendWechat = (req, res, next, id, touser, content) => {
 	const options = {
-		hostname: 'gravity.nodejs.top',
+		hostname: 'chatbot.nodejs.top',
 		path: `/wechat/send/${id}`,
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' }
@@ -21,7 +21,7 @@ const sendWechat = (req, res, next, id, touser, content) => {
 
 const sendFacebook = (req, res, next, id, recipient, text) => {
 	const options = {
-		hostname: 'gravity.nodejs.top',
+		hostname: 'chatbot.nodejs.top',
 		path: `/facebook/send/${id}`,
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' }

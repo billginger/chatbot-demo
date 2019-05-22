@@ -84,7 +84,7 @@ exports.updatePortal = (req, res, next) => {
 	const id = req.params.id;
 	const wechat = req.authorizer_info.nick_name;
 	const postOptions = {
-		hostname: 'gravity.nodejs.top',
+		hostname: 'chatbot.nodejs.top',
 		path: `/api/brand/wechat/bind/${id}`,
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' }
@@ -92,7 +92,7 @@ exports.updatePortal = (req, res, next) => {
 	const postData = JSON.stringify({ wechat });
 	httpsRequest(postOptions, postData, (err, data) => {
 		if (err) return next(err);
-		const url = `https://gravity.nodejs.top/brand/${id}`;
+		const url = `https://chatbot.nodejs.top/brand/${id}`;
 		res.redirect(url);
 	});
 };

@@ -1,7 +1,7 @@
 {
-	"name": "gravity-wechat",
+	"name": "chatbot-wechat",
 	"version": "0.0.1",
-	"description": "a microservice in gravity-prototype that handle wechat messages",
+	"description": "a microservice in chatbot-demo that handle wechat messages",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"

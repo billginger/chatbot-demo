@@ -21,7 +21,7 @@ const en_US = {
 	actionSubmit: 'Submit',
 	actionEdit: 'Edit',
 	actionDelete: 'Delete',
-	loginTitle: 'Login to Gravity Prototype',
+	loginTitle: 'Login to Chatbot Demo',
 	loginUsername: 'Username',
 	loginPassword: 'Password',
 	loginRememberMe: 'Remember me',

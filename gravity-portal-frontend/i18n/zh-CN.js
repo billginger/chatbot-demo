@@ -21,7 +21,7 @@ const zh_CN = {
 	actionSubmit: '提交',
 	actionEdit: '编辑',
 	actionDelete: '删除',
-	loginTitle: '登录 Gravity Prototype',
+	loginTitle: '登录 Chatbot Demo',
 	loginUsername: '用户名',
 	loginPassword: '密码',
 	loginRememberMe: '记住我',

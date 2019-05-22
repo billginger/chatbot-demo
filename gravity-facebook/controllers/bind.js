@@ -2,7 +2,7 @@ const Account = require('../models/account.js');
 const { log } = require('../libs/log.js');
 
 const appid = '832604503740298';
-const facebook = 'Gravity Prototype';
+const facebook = 'Chatbot Demo';
 
 exports.handleBind = (req, res, next) => {
 	const brand = req.params.id;

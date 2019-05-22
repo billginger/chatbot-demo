@@ -1,4 +1,4 @@
-# Gravity Prototype
+# Chatbot Demo
 
 Build a multilingual chatbot to integrate with WeChat and Facebook
 
@@ -8,7 +8,7 @@ Build a multilingual chatbot to integrate with WeChat and Facebook
 
 ```
 cd /data
-git clone https://github.com/billginger/gravity-prototype.git gravity-prototype
+git clone https://github.com/billginger/chatbot-demo.git chatbot-demo
 ```
 
 ### Configuration
@@ -16,27 +16,27 @@ git clone https://github.com/billginger/gravity-prototype.git gravity-prototype
 * 将您的域名证书文件放到以下目录：
 
 ```
-/data/gravity-prototype/nginx/cert
+/data/chatbot-demo/nginx/cert
 ```
 
 * 修改以下配置文件以适用您的域名：
 
 ```
-/data/gravity-prototype/nginx/conf/server.conf
+/data/chatbot-demo/nginx/conf/server.conf
 ```
 
 * 可能需要将微信域名校验文件放到以下目录：
 
 ```
-/data/gravity-prototype/nginx/www
+/data/chatbot-demo/nginx/www
 ```
 
 * 根据以下文件在相同目录下创建 `config.js`：
 
 ```
-/data/gravity-prototype/gravity-portal-backend/config.example.js
-/data/gravity-prototype/gravity-wechat/config.example.js
-/data/gravity-prototype/gravity-facebook/config.example.js
+/data/chatbot-demo/chatbot-portal-backend/config.example.js
+/data/chatbot-demo/chatbot-wechat/config.example.js
+/data/chatbot-demo/chatbot-facebook/config.example.js
 ```
 
 ### Use Docker
@@ -52,7 +52,7 @@ docker pull nginx
 * 以挂载本地目录和配置文件的方式运行容器：
 
 ```
-docker run --name nginx -d --network host -v /data/gravity-prototype/nginx:/etc/nginx -v /data/gravity-prototype/logs:/logs nginx
+docker run --name nginx -d --network host -v /data/chatbot-demo/nginx:/etc/nginx -v /data/chatbot-demo/logs:/logs nginx
 ```
 
 > 请注意：这里 nginx 容器使用了宿主网络，不需要映射端口，访问其它容器暴露的端口也会比较方便。
@@ -91,7 +91,7 @@ docker pull mongo
 * 以挂载本地目录的方式运行容器：
 
 ```
-docker run --name mongo -d -p 27017:27017 -v /data/gravity-prototype/db:/data/db mongo --auth
+docker run --name mongo -d -p 27017:27017 -v /data/chatbot-demo/db:/data/db mongo --auth
 ```
 
 > 请注意：这里 mongo 容器使用了 --auth 这个参数来启动，以启用 MongoDB 的鉴权模式。
@@ -106,10 +106,10 @@ db.createUser({user:'<username>',pwd:'<password>',roles:[{role:'root',db:'admin'
 exit
 ```
 
-* 在 `config.js` 配置 db_url，以 gravity-facebook 为例：
+* 在 `config.js` 配置 db_url，以 chatbot-facebook 为例：
 
 ```
-mongodb://<username>:<password>@<host>:<port>/gravity-facebook?authSource=admin
+mongodb://<username>:<password>@<host>:<port>/chatbot-facebook?authSource=admin
 ```
 
 #### Run App
@@ -117,22 +117,22 @@ mongodb://<username>:<password>@<host>:<port>/gravity-facebook?authSource=admin
 * 使用 Dockerfile 构建镜像：
 
 ```
-cd /data/gravity-prototype/dockerfile/node-pm2
+cd /data/chatbot-demo/dockerfile/node-pm2
 docker build -t node-pm2 .
 ```
 
 * 以挂载本地目录的方式运行容器：
 
 ```
-docker run --name gravity-portal -d -p 3000:3000 -v /data/gravity-prototype/gravity-portal-backend:/app -v /data/gravity-prototype/logs:/logs node-pm2
-docker run --name gravity-wechat -d -p 3010:3000 -v /data/gravity-prototype/gravity-wechat:/app -v /data/gravity-prototype/logs:/logs node-pm2
-docker run --name gravity-facebook -d -p 3020:3000 -v /data/gravity-prototype/gravity-facebook:/app -v /data/gravity-prototype/logs:/logs node-pm2
+docker run --name chatbot-portal -d -p 3000:3000 -v /data/chatbot-demo/chatbot-portal-backend:/app -v /data/chatbot-demo/logs:/logs node-pm2
+docker run --name chatbot-wechat -d -p 3010:3000 -v /data/chatbot-demo/chatbot-wechat:/app -v /data/chatbot-demo/logs:/logs node-pm2
+docker run --name chatbot-facebook -d -p 3020:3000 -v /data/chatbot-demo/chatbot-facebook:/app -v /data/chatbot-demo/logs:/logs node-pm2
 ```
 
 * 进入容器：
 
 ```
-docker exec -it gravity-facebook sh
+docker exec -it chatbot-facebook sh
 ```
 
 * 第一次运行程序，需要安装依赖的模块：
@@ -152,8 +152,8 @@ pm2 start
 * 在容器外，先查看程序状态，再重启程序：
 
 ```
-docker exec gravity-facebook sh -c "pm2 list"
-docker exec gravity-facebook sh -c "pm2 restart all"
+docker exec chatbot-facebook sh -c "pm2 list"
+docker exec chatbot-facebook sh -c "pm2 restart all"
 ```
 
 ## Load Balancing
@@ -161,17 +161,17 @@ docker exec gravity-facebook sh -c "pm2 restart all"
 Nginx 配置文件中，默认为每个 Node.js 程序配置了 2 个节点，请参考以下文件：
 
 ```
-/data/gravity-prototype/nginx/conf/upstream.conf
+/data/chatbot-demo/nginx/conf/upstream.conf
 ```
 
-以 gravity-facebook 为例，按照 Nginx 的配置，应运行如下 2 个容器：
+以 chatbot-facebook 为例，按照 Nginx 的配置，应运行如下 2 个容器：
 
 ```
-docker run --name gravity-facebook-a -d -p 3020:3000 -v /data/gravity-prototype/gravity-facebook:/app -v /data/gravity-prototype/logs:/logs node-pm2
-docker run --name gravity-facebook-b -d -p 3021:3000 -v /data/gravity-prototype/gravity-facebook:/app -v /data/gravity-prototype/logs:/logs node-pm2
+docker run --name chatbot-facebook-a -d -p 3020:3000 -v /data/chatbot-demo/chatbot-facebook:/app -v /data/chatbot-demo/logs:/logs node-pm2
+docker run --name chatbot-facebook-b -d -p 3021:3000 -v /data/chatbot-demo/chatbot-facebook:/app -v /data/chatbot-demo/logs:/logs node-pm2
 ```
 
-假如只运行了一个容器，收到 gravity-facebook 的 http 请求时，会在 `nginx_error.log` 中产生 `connect() failed` 的日志，但请不要担心，请求仍会顺利的传递到正在运行的那一个容器。
+假如只运行了一个容器，收到 chatbot-facebook 的 http 请求时，会在 `nginx_error.log` 中产生 `connect() failed` 的日志，但请不要担心，请求仍会顺利的传递到正在运行的那一个容器。
 
 ## Multiple Processes
 
@@ -190,12 +190,12 @@ Nginx 日志使用 Nginx 默认格式，分为：
 * 进站日志：nginx_access.log
 * 错误日志：nginx_error.log
 
-Node.js 日志使用自定义格式，以 gravity-facebook 为例，分为：
+Node.js 日志使用自定义格式，以 chatbot-facebook 为例，分为：
 
-* 进站日志：gravity_facebook_access.log
-* 应用日志：gravity_facebook_app.log
-* 错误日志：gravity_facebook_error.log
-* 所有日志：gravity_facebook_all.log
+* 进站日志：chatbot_facebook_access.log
+* 应用日志：chatbot_facebook_app.log
+* 错误日志：chatbot_facebook_error.log
+* 所有日志：chatbot_facebook_all.log
 
 其中，进站日志格式为：
 ```r

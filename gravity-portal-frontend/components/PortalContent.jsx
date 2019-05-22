@@ -13,7 +13,7 @@ const PortalContent = ({ breadcrumb, content }) => (
 			</div>
 		</Content>
 		<Footer id="tc-portal-footer">
-			Gravity Prototype © 2019 Created by Bill
+			Chatbot Demo © 2019 Created by Bill
 		</Footer>
 	</Layout>
 );

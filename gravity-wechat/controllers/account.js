@@ -22,7 +22,7 @@ exports.accountAuth = (req, res, next) => {
 		if (err) return next(err);
 		if (!data.pre_auth_code) return res.send(`No pre_auth_code in:\n${data}`);
 		const url = `https://mp.weixin.qq.com/cgi-bin/componentloginpage?component_appid=${component_appid}
-			&pre_auth_code=${data.pre_auth_code}&redirect_uri=https://gravity.nodejs.top/wechat/bind/${id}`;
+			&pre_auth_code=${data.pre_auth_code}&redirect_uri=https://chatbot.nodejs.top/wechat/bind/${id}`;
 		res.send({ url });
 	});
 };

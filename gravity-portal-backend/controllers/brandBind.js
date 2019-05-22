@@ -5,7 +5,7 @@ const Brand = require('../models/brand.js');
 exports.brandWechatAuth = (req, res, next) => {
 	const id = req.params.id;
 	const options = {
-		hostname: 'gravity.nodejs.top',
+		hostname: 'chatbot.nodejs.top',
 		path: `/wechat/auth/${id}`,
 		method: 'PUT'
 	};
@@ -29,7 +29,7 @@ exports.brandWechatBind = (req, res, next) => {
 exports.brandFacebookBind = (req, res, next) => {
 	const id = req.params.id;
 	const options = {
-		hostname: 'gravity.nodejs.top',
+		hostname: 'chatbot.nodejs.top',
 		path: `/facebook/bind/${id}`,
 		method: 'PUT'
 	};

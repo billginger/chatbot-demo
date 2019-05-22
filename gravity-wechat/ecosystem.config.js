@@ -1,7 +1,7 @@
 module.exports = {
 	apps: [{
-		name: 'gravity-wechat',
+		name: 'chatbot-wechat',
 		script: 'index.js',
-		log: '/logs/gravity_wechat_all.log'
+		log: '/logs/chatbot_wechat_all.log'
 	}]
 }
